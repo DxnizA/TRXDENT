@@ -1,0 +1,325 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local XDENTBHM = Instance.new("ScreenGui")
+local TPPlayerBuild = Instance.new("Frame")
+local EPLRNAME = Instance.new("TextBox")
+local UICorner = Instance.new("UICorner")
+local UICorner_2 = Instance.new("UICorner")
+local TPPLButton = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+local BUILDNME = Instance.new("TextBox")
+local UICorner_4 = Instance.new("UICorner")
+local TPBLDButton = Instance.new("TextButton")
+local UICorner_5 = Instance.new("UICorner")
+local TPLIST = Instance.new("Frame")
+local UICorner_6 = Instance.new("UICorner")
+local ScrollingFrame = Instance.new("ScrollingFrame")
+local UIListLayout = Instance.new("UIListLayout")
+local AmmoBox = Instance.new("TextLabel")
+local Bandage = Instance.new("TextLabel")
+local CommandCenter = Instance.new("TextLabel")
+local VehicleSpawn = Instance.new("TextLabel")
+local Quarry = Instance.new("TextLabel")
+local Village = Instance.new("TextLabel")
+local RonogradCity = Instance.new("TextLabel")
+local CLRTREE = Instance.new("Frame")
+local UICorner_7 = Instance.new("UICorner")
+local CLRTRE = Instance.new("TextButton")
+local UICorner_8 = Instance.new("UICorner")
+
+--Properties:
+
+XDENTBHM.Name = "XDENTBHM"
+XDENTBHM.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+XDENTBHM.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+TPPlayerBuild.Name = "TPPlayerBuild"
+TPPlayerBuild.Parent = XDENTBHM
+TPPlayerBuild.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+TPPlayerBuild.BorderSizePixel = 0
+TPPlayerBuild.Position = UDim2.new(0.013020833, 0, 0.678540349, 0)
+TPPlayerBuild.Size = UDim2.new(0, 357, 0, 109)
+
+EPLRNAME.Name = "EPLRNAME"
+EPLRNAME.Parent = TPPlayerBuild
+EPLRNAME.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
+EPLRNAME.BorderSizePixel = 0
+EPLRNAME.Position = UDim2.new(0.0332839079, 0, 0.119266048, 0)
+EPLRNAME.Size = UDim2.new(0, 254, 0, 39)
+EPLRNAME.Font = Enum.Font.Roboto
+EPLRNAME.Text = "Player Name"
+EPLRNAME.TextColor3 = Color3.fromRGB(255, 255, 255)
+EPLRNAME.TextSize = 23.000
+
+UICorner.CornerRadius = UDim.new(1, 8)
+UICorner.Parent = EPLRNAME
+
+UICorner_2.CornerRadius = UDim.new(0.0500000007, 8)
+UICorner_2.Parent = TPPlayerBuild
+
+TPPLButton.Name = "TPPLButton"
+TPPLButton.Parent = TPPlayerBuild
+TPPLButton.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
+TPPLButton.Position = UDim2.new(0.778711498, 0, 0.119266056, 0)
+TPPLButton.Size = UDim2.new(0, 54, 0, 39)
+TPPLButton.Font = Enum.Font.GothamBold
+TPPLButton.Text = "TP"
+TPPLButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+TPPLButton.TextSize = 19.000
+
+UICorner_3.CornerRadius = UDim.new(1, 8)
+UICorner_3.Parent = TPPLButton
+
+BUILDNME.Name = "BUILDNME"
+BUILDNME.Parent = TPPlayerBuild
+BUILDNME.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
+BUILDNME.BorderSizePixel = 0
+BUILDNME.Position = UDim2.new(0.0332839079, 0, 0.532110095, 0)
+BUILDNME.Size = UDim2.new(0, 254, 0, 39)
+BUILDNME.Font = Enum.Font.Roboto
+BUILDNME.Text = "Building Name"
+BUILDNME.TextColor3 = Color3.fromRGB(255, 255, 255)
+BUILDNME.TextSize = 23.000
+
+UICorner_4.CornerRadius = UDim.new(1, 8)
+UICorner_4.Parent = BUILDNME
+
+TPBLDButton.Name = "TPBLDButton"
+TPBLDButton.Parent = TPPlayerBuild
+TPBLDButton.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
+TPBLDButton.Position = UDim2.new(0.778711498, 0, 0.532110095, 0)
+TPBLDButton.Size = UDim2.new(0, 54, 0, 39)
+TPBLDButton.Font = Enum.Font.GothamBold
+TPBLDButton.Text = "TP"
+TPBLDButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+TPBLDButton.TextSize = 19.000
+
+UICorner_5.CornerRadius = UDim.new(1, 8)
+UICorner_5.Parent = TPBLDButton
+
+TPLIST.Name = "TPLIST"
+TPLIST.Parent = XDENTBHM
+TPLIST.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+TPLIST.BorderSizePixel = 0
+TPLIST.Position = UDim2.new(0.013020833, 0, 0.381590456, 0)
+TPLIST.Size = UDim2.new(0, 357, 0, 313)
+
+UICorner_6.CornerRadius = UDim.new(0.0500000007, 8)
+UICorner_6.Parent = TPLIST
+
+ScrollingFrame.Parent = TPLIST
+ScrollingFrame.Active = true
+ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ScrollingFrame.BackgroundTransparency = 1.000
+ScrollingFrame.BorderSizePixel = 0
+ScrollingFrame.Size = UDim2.new(0, 357, 0, 313)
+
+UIListLayout.Parent = ScrollingFrame
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+AmmoBox.Name = "AmmoBox"
+AmmoBox.Parent = ScrollingFrame
+AmmoBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+AmmoBox.BackgroundTransparency = 1.000
+AmmoBox.Size = UDim2.new(0, 357, 0, 50)
+AmmoBox.Font = Enum.Font.SourceSans
+AmmoBox.Text = "AmmoBox"
+AmmoBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+AmmoBox.TextSize = 36.000
+
+Bandage.Name = "Bandage"
+Bandage.Parent = ScrollingFrame
+Bandage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Bandage.BackgroundTransparency = 1.000
+Bandage.Size = UDim2.new(0, 357, 0, 50)
+Bandage.Font = Enum.Font.SourceSans
+Bandage.Text = "Bandage"
+Bandage.TextColor3 = Color3.fromRGB(255, 255, 255)
+Bandage.TextSize = 36.000
+
+CommandCenter.Name = "CommandCenter"
+CommandCenter.Parent = ScrollingFrame
+CommandCenter.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CommandCenter.BackgroundTransparency = 1.000
+CommandCenter.Size = UDim2.new(0, 357, 0, 50)
+CommandCenter.Font = Enum.Font.SourceSans
+CommandCenter.Text = "CommandCenter"
+CommandCenter.TextColor3 = Color3.fromRGB(255, 255, 255)
+CommandCenter.TextSize = 36.000
+
+VehicleSpawn.Name = "VehicleSpawn"
+VehicleSpawn.Parent = ScrollingFrame
+VehicleSpawn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+VehicleSpawn.BackgroundTransparency = 1.000
+VehicleSpawn.Size = UDim2.new(0, 357, 0, 50)
+VehicleSpawn.Font = Enum.Font.SourceSans
+VehicleSpawn.Text = "VehicleSpawn"
+VehicleSpawn.TextColor3 = Color3.fromRGB(255, 255, 255)
+VehicleSpawn.TextSize = 36.000
+
+Quarry.Name = "Quarry"
+Quarry.Parent = ScrollingFrame
+Quarry.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Quarry.BackgroundTransparency = 1.000
+Quarry.Size = UDim2.new(0, 357, 0, 50)
+Quarry.Font = Enum.Font.SourceSans
+Quarry.Text = "Quarry"
+Quarry.TextColor3 = Color3.fromRGB(255, 255, 255)
+Quarry.TextSize = 36.000
+
+Village.Name = "Village"
+Village.Parent = ScrollingFrame
+Village.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Village.BackgroundTransparency = 1.000
+Village.Size = UDim2.new(0, 357, 0, 50)
+Village.Font = Enum.Font.SourceSans
+Village.Text = "Village"
+Village.TextColor3 = Color3.fromRGB(255, 255, 255)
+Village.TextSize = 36.000
+
+RonogradCity.Name = "RonogradCity"
+RonogradCity.Parent = ScrollingFrame
+RonogradCity.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+RonogradCity.BackgroundTransparency = 1.000
+RonogradCity.Size = UDim2.new(0, 357, 0, 50)
+RonogradCity.Font = Enum.Font.SourceSans
+RonogradCity.Text = "RonogradCity"
+RonogradCity.TextColor3 = Color3.fromRGB(255, 255, 255)
+RonogradCity.TextSize = 36.000
+
+--CLRTREE.Name = "CLRTREE"
+--CLRTREE.Parent = XDENTBHM
+--CLRTREE.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+--CLRTREE.Position = UDim2.new(0.013020833, 0, 0.309803933, 0)
+--CLRTREE.Size = UDim2.new(0, 357, 0, 64)
+
+--UICorner_7.CornerRadius = UDim.new(0.0500000007, 8)
+--UICorner_7.Parent = CLRTREE
+
+--CLRTRE.Name = "CLRTRE"
+--CLRTRE.Parent = CLRTREE
+--CLRTRE.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+--CLRTRE.BorderSizePixel = 0
+--CLRTRE.Position = UDim2.new(0.0332839079, 0, 0.239890099, 0)
+--CLRTRE.Size = UDim2.new(0, 331, 0, 32)
+--CLRTRE.Font = Enum.Font.GothamMedium
+--CLRTRE.Text = "Clear Tree's"
+--CLRTRE.TextColor3 = Color3.fromRGB(255, 255, 255)
+--CLRTRE.TextSize = 20.000
+
+--UICorner_8.CornerRadius = UDim.new(1, 8)
+--UICorner_8.Parent = CLRTRE
+
+-- Scripts:
+--local function MQCLR_fake_script() -- UICorner_3.Script 
+	--local script = Instance.new('Script', CLRTRE)
+
+	--script.Parent.MouseButton1Click:Connect(function()
+		--local treepath = game:GetService("Workspace").Dynamic
+
+		--function clearTree()
+			--if treepath:FindFirstChild("Tree1") then
+				--print("Cleared Tree1")
+				--treepath.Tree1:Destroy()
+			--elseif treepath:FindFirstChild("Tree7") then
+				--print("Cleared Tree7")
+				--treepath.Tree7:Destroy()
+			--else
+				--print("Tree Not Found, Waiting For Tree")
+				--wait(10)
+			--end
+		--end
+
+		--while wait(0.1) do
+			--clearTree()
+		--end
+	--end)
+--end
+--coroutine.wrap(MQCLR_fake_script)()
+local function MGZSFJJ_fake_script() -- UICorner_3.Script 
+	local script = Instance.new('Script', TPPLButton)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		local plrname = script.Parent.Parent.EPLRNAME.Text
+		local tplist = script.Parent.Parent.Parent.TPLIST.ScrollingFrame
+		
+		for i, v in pairs(characters:GetChildren()) do
+			if v.Name == plrname then
+				local pcframe = v.Head
+				print(pcframe.CFrame)
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pcframe.CFrame
+			else
+				plrname = "Player Not Found"
+				wait(5)
+				plrname = "Player Name"
+			end
+		end
+	end)
+end
+coroutine.wrap(MGZSFJJ_fake_script)()
+local function AUTV_fake_script() -- TPBLDButton.Script 
+	local script = Instance.new('Script', TPBLDButton)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		local builbname = script.Parent.Parent.BUILDNME.Text
+		
+		-- Functions
+		
+		function tpbandage()
+			local currentzframe = game.Players.LocalPlayer.Character.Head.CFrame
+			local bandage = game:GetService("Workspace").Terrain.Bandages
+			
+			if bandage:FindFirstChild("Gui") then
+				bandage.Gui:Destroy()
+			end
+			
+			for i, v in pairs(bandage:GetChildren()) do
+				print(v)
+	
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = bandage.CFrame
+				wait(5)
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = currentzframe
+			end
+		end
+		
+		function tpammobox()
+			local currentcframe = game.Players.LocalPlayer.Character.Head.CFrame
+			local Ammo = game:GetService("Workspace").Terrain.Ammo
+	
+			if Ammo:FindFirstChild("Gui") then
+				Ammo.Gui:Destroy()
+			end	
+			for i, v in pairs(Ammo:GetChildren()) do
+				print(v)
+	
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Ammo.CFrame
+				wait(5)
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = currentcframe
+			end
+		end
+		
+		
+		-- Script
+	
+		if builbname == "CommandCenter" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3962.88, 65.9617, 809.02)
+		elseif builbname == "Village" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(639.649, 119.075, -242.65)
+		elseif builbname == "VehicleSpawn" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3558.44, 63.392, 700.352)
+		elseif builbname == "Quarry" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(521.946, 25.3536, 2187.49)
+		elseif builbname == "RonogradCity" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3887.47, 178.031, -265.441)
+		elseif builbname == "AmmoBox" then
+			tpammobox()
+		elseif builbname == "Bandage" then
+			tpbandage()
+			else builbname = "Build Not Found"
+		end
+	end)
+end
+coroutine.wrap(AUTV_fake_script)()
