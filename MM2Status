@@ -94,3 +94,10 @@ local function DMAQMZ_fake_script() -- DestroyButton.LocalScript
 	end)
 end
 coroutine.wrap(DMAQMZ_fake_script)()
+
+
+while true do
+	Sherrif.Text = "Sherrif : "..Stats.Sherrif
+	Murder.Text = "Murder : "..Stats.Murder
+	Map.Text = "Map : "..Stats.Map
+end
