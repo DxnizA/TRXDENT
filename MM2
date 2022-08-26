@@ -52,6 +52,26 @@ local maps = {"Mansion2","Office3","Bank2","PoliceStation","BioLab","Hotel","Mil
 
 ------------------------------------- Function
 
+function AutoFRM()
+	spawn(function()
+		while getgenv().Settings.Autofarm == true do
+			for i, v in pairs(maps) do
+				local g = game:GetService("Workspace"):FindFirstChild(v)
+				if g then
+					Stats.Map = g
+					local coin = g.CoinContainer
+					for a, b in pairs(coin:GetChildren()) do
+						if b.Name == "Coin_Server" then
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(b.Position)
+						wait(1.5)
+					end
+				end
+			end
+		end
+	end
+end)
+end
+
 function checkRole()
 	spawn(function()
 		while getgenv().Settings.AutoCheckRole == true do
@@ -89,6 +109,7 @@ function AutoMSG()
 	end)
 end
 
+AutoFRM()
 AutoMSG()
 checkRole()
 
@@ -103,11 +124,13 @@ local UI = GUI:CreateWindow("XDENTHUB","made by | Dxniz#5321")
 
 local Home = UI:addPage("MM2",1,true,6)
 
-Home:addButton("Show Status (Opens GUI)",function()
+Home:addButton("Show Status (Needs Auto Check Role)",function()
     game.StarterGui:SetCore("SendNotification",{
         Title = "XDENT Status";
         Text = "Opening Gui";
     })
+    wait(5)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/DxnizA/XDENTLoader/main/MM2Status"))()
 end)
 
 Home:addToggle("Autofarm (Risky)",function(value)
