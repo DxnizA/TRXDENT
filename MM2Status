@@ -13,6 +13,8 @@ local Map = Instance.new("TextLabel")
 --Properties:
 
 MM2Status.Name = "MM2Status"
+MM2Status.Draggable = true
+MM2Status.Selectable = true
 MM2Status.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 MM2Status.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
