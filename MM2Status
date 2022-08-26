@@ -20,6 +20,7 @@ local Camera = game.Workspace:WaitForChild("Camera")
 MM2Status.Name = "MM2Status"
 MM2Status.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 MM2Status.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+MM2Status.ResetOnSpawn = false
 
 Main.Name = "Main"
 Main.Parent = MM2Status
