@@ -1,0 +1,96 @@
+-- Instances:
+
+local MM2Status = Instance.new("ScreenGui")
+local Main = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local DestroyButton = Instance.new("TextButton")
+local UICorner_2 = Instance.new("UICorner")
+local Stats = Instance.new("TextLabel")
+local Murder = Instance.new("TextLabel")
+local Sherrif = Instance.new("TextLabel")
+local Map = Instance.new("TextLabel")
+
+--Properties:
+
+MM2Status.Name = "MM2Status"
+MM2Status.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+MM2Status.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Main.Name = "Main"
+Main.Parent = MM2Status
+Main.BackgroundColor3 = Color3.fromRGB(16, 16, 16)
+Main.Position = UDim2.new(0.00625324249, 0, 0.407784998, 0)
+Main.Size = UDim2.new(0, 211, 0, 100)
+
+UICorner.Parent = Main
+
+DestroyButton.Name = "DestroyButton"
+DestroyButton.Parent = Main
+DestroyButton.BackgroundColor3 = Color3.fromRGB(27, 27, 27)
+DestroyButton.BorderSizePixel = 0
+DestroyButton.Position = UDim2.new(0.297544152, 0, 0.810000002, 0)
+DestroyButton.Size = UDim2.new(0, 84, 0, 16)
+DestroyButton.Font = Enum.Font.SourceSans
+DestroyButton.Text = "Destroy"
+DestroyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+DestroyButton.TextSize = 14.000
+
+UICorner_2.CornerRadius = UDim.new(0, 5)
+UICorner_2.Parent = DestroyButton
+
+Stats.Name = "Stats"
+Stats.Parent = Main
+Stats.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Stats.BackgroundTransparency = 1.000
+Stats.Size = UDim2.new(0, 211, 0, 18)
+Stats.Font = Enum.Font.SourceSansBold
+Stats.Text = "Status"
+Stats.TextColor3 = Color3.fromRGB(255, 255, 255)
+Stats.TextSize = 15.000
+
+Murder.Name = "Murder"
+Murder.Parent = Stats
+Murder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Murder.BackgroundTransparency = 1.000
+Murder.Position = UDim2.new(0.0353295915, 0, 1, 0)
+Murder.Size = UDim2.new(0, 203, 0, 18)
+Murder.Font = Enum.Font.SourceSans
+Murder.Text = "Murder :"
+Murder.TextColor3 = Color3.fromRGB(255, 255, 255)
+Murder.TextSize = 14.000
+Murder.TextXAlignment = Enum.TextXAlignment.Left
+
+Sherrif.Name = "Sherrif"
+Sherrif.Parent = Stats
+Sherrif.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Sherrif.BackgroundTransparency = 1.000
+Sherrif.Position = UDim2.new(0.0353295915, 0, 2, 0)
+Sherrif.Size = UDim2.new(0, 203, 0, 18)
+Sherrif.Font = Enum.Font.SourceSans
+Sherrif.Text = "Sherrif :"
+Sherrif.TextColor3 = Color3.fromRGB(255, 255, 255)
+Sherrif.TextSize = 14.000
+Sherrif.TextXAlignment = Enum.TextXAlignment.Left
+
+Map.Name = "Map"
+Map.Parent = Stats
+Map.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Map.BackgroundTransparency = 1.000
+Map.Position = UDim2.new(0.0353295915, 0, 2.99999976, 0)
+Map.Size = UDim2.new(0, 203, 0, 18)
+Map.Font = Enum.Font.SourceSans
+Map.Text = "Map :"
+Map.TextColor3 = Color3.fromRGB(255, 255, 255)
+Map.TextSize = 14.000
+Map.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Scripts:
+
+local function DMAQMZ_fake_script() -- DestroyButton.LocalScript 
+	local script = Instance.new('LocalScript', DestroyButton)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		script.Parent.Parent.Parent:Destroy()
+	end)
+end
+coroutine.wrap(DMAQMZ_fake_script)()
