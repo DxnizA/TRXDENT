@@ -1,1 +1,176 @@
 
+------------------------------------- Settings
+
+getgenv().Settings = {
+	Autofarm = false;
+	AutoPickupGun = true;
+	Automessage = false;
+	Automessagecooldown = 5;
+	AutoCheckRole = true;
+};
+
+getgenv().Stats = {
+	Murder = "";
+	Sherrif = "";
+	Map = "";
+	GunDropped = "";
+};
+
+
+local filename = "XDENT_Settings.lua"
+
+function loadSettings()
+	print("Bilgileriniz Yükleniyor...")
+	local HttpService = game:GetService("HttpService");
+	if (readfile and isfile and isfile(filename)) then
+		getgenv().Settings = HttpService:JSONDecode(readfile(filename));
+		print("Valueler: ")
+		for i, v in pairs(getgenv().Settings) do
+			print(i, v)
+		end
+	else
+		print("File Not Found")	
+	end
+end
+
+function saveSettings()
+	local Logsz;
+	local HttpService = game:GetService("HttpService");
+	if (writefile) then
+		Logsz = HttpService:JSONEncode(getgenv().Settings);
+		writefile(filename, Logsz)
+	else
+		print("You Are Using Not Supported Executor")
+	end
+end
+
+loadSettings()
+
+local maps = {"Mansion2","Office3","Bank2","PoliceStation","BioLab","Hotel","MilBase","House2","Hospital3","Factory","",""}
+
+-------------------------------------  Settings
+
+------------------------------------- Function
+
+function checkRole()
+	spawn(function()
+		while getgenv().Settings.AutoCheckRole == true do
+			local fcheck = game:GetService("Players")
+			wait(3)
+			for a, b in pairs(fcheck:GetChildren()) do
+				local Knife = b.Backpack:FindFirstChild("Knife")
+				local Gun = b.Backpack:FindFirstChild("Gun")
+				if Knife then
+					Stats.Murder = b.Name
+				else
+					Stats.Murder = "Murder Not Found"
+				end
+				if Gun then
+					Stats.Sherrif = b.Name
+				else
+					Stats.Sherrif = "Sherrif Not Found"
+				end
+			end
+		end	
+	end)
+end
+
+function AutoMSG()
+	spawn(function()
+		while getgenv().Settings.Automessage == true do
+		local args = {
+			[1] = "Murder: "..Stats.Murder.."  Sherrif: "..Stats.Sherrif,
+			[2] = "normalchat"
+		}
+
+		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+		wait(Settings.Automessagecooldown)
+		end	
+	end)
+end
+
+AutoMSG()
+checkRole()
+
+------------------------------------- Function
+
+
+-- GUI
+
+local GUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/aaaa"))()
+
+local UI = GUI:CreateWindow("XDENTHUB","made by | Dxniz#5321")
+
+local Home = UI:addPage("MM2",1,true,6)
+
+Home:addButton("Show Status (Opens GUI)",function()
+    game.StarterGui:SetCore("SendNotification",{
+        Title = "XDENT Status";
+        Text = "Opening Gui";
+    })
+end)
+
+Home:addToggle("Autofarm (Risky)",function(value)
+    if value == false then
+    	Settings.Autofarm = value 
+        game.StarterGui:SetCore("SendNotification",{
+            Title = "Autofarm";
+            Text = "Disabled";
+        })
+    else
+		Settings.Autofarm = value
+        game.StarterGui:SetCore("SendNotification",{
+            Title = "Autofarm";
+            Text = "Enabled";
+        })
+    end
+end)
+Home:addToggle("Auto Pickup Gun",function(value)
+    if value == false then
+    	Settings.AutoPickupGun = value 
+        game.StarterGui:SetCore("SendNotification",{
+            Title = "Auto Pickup Gun";
+            Text = "Disabled";
+        })
+    else
+		Settings.AutoPickupGun = value
+        game.StarterGui:SetCore("SendNotification",{
+            Title = "Auto Pickup Gun";
+            Text = "Enabled";
+        })
+    end
+end)
+Home:addToggle("Auto Check Role",function(value)
+    if value == false then
+    	Settings.AutoCheckRole = value
+        game.StarterGui:SetCore("SendNotification",{
+            Title = "Auto Check Role";
+            Text = "Disabled";
+        })
+    else
+		Settings.AutoCheckRole = value
+        game.StarterGui:SetCore("SendNotification",{
+            Title = "Auto Check Role";
+            Text = "Enabled";
+        })
+    end
+end)
+Home:addToggle("Auto Type Role",function(value)
+    if value == false then
+    	Settings.Automessage = value 
+        game.StarterGui:SetCore("SendNotification",{
+            Title = "Auto Type Role";
+            Text = "Disabled";
+        })
+    else
+		Settings.Automessage = value
+        game.StarterGui:SetCore("SendNotification",{
+            Title = "Auto Type Role";
+            Text = "Enabled";
+        })
+    end
+end)
+
+Home:addSlider("Auto Type Role Cooldown",5,250,function(value)
+    Settings.Automessagecooldown = value
+end)
