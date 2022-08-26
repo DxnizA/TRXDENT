@@ -122,7 +122,7 @@ local function PFFPJ_fake_script() -- DestroyButton.LocalScript
 end
 coroutine.wrap(PFFPJ_fake_script)()
 
-while true do
+while wait(3) do
 	Sherrif.Text = "Sherrif : "..Stats.Sherrif
 	Murder.Text = "Murder : "..Stats.Murder
 	Map.Text = "Map : "..Stats.Map
