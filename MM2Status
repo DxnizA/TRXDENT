@@ -128,11 +128,11 @@ local gUUi = game.Players.LocalPlayer.PlayerGui:WaitForChild("MM2Status").Main.S
 function updateStatus()
 	spawn(function()
 		while wait(1) do
-			gUUi.Sherrif.Text = "Sherrif : "..Stats.Sherrif
+			gUUi.Sherrifz.Text = "Sherrif : "..Stats.Sherrif
 			print(Stats.Sherrif)
-			gUUi.Murder.Text = "Murder : "..Stats.Murder
+			gUUi.Murderz.Text = "Murder : "..Stats.Murder
 			print(Stats.Murder)
-			gUUi.Map.Text = "Map : "..Stats.Map
+			gUUi.Mapz.Text = "Map : "..Stats.Map
 		end
 	end)
 end
