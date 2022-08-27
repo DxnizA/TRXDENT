@@ -2,11 +2,13 @@
 ------------------------------------- Settings
 
 getgenv().Settings = {
+	PlayerName = "";
 	Autofarm = false;
 	AutoPickupGun = true;
 	Automessage = false;
 	Automessagecooldown = 5;
-	AutoCheckRole = true;
+	Autokill = false;
+	Autokillmurder = false;
 };
 
 getgenv().Stats = {
@@ -37,19 +39,39 @@ function saveSettings()
 	local Logsz;
 	local HttpService = game:GetService("HttpService");
 	if (writefile) then
-		Logsz = HttpService:JSONEncode(getgenv().Settings);
+		Logsz = HttpService:JSONEncode(Settings);
 		writefile(filename, Logsz)
 	else
 		print("You Are Using Not Supported Executor")
 	end
 end
 
-local maps = {"Mansion2","Office3","Bank2","PoliceStation","BioLab","Hotel","MilBase","House2","Hospital3","Factory","",""}
+local maps = {"Mansion2","Office3","Bank2","PoliceStation","BioLab","Hotel","MilBase","House2","Hospital3","Factory","Workplace","ResearchFacility","nSOffice"}
 
 -------------------------------------  Settings
 
 ------------------------------------- Function
 
+function AutoKwll()
+	spawn(function()
+		while Autokill == true do
+			for i, plr in pairs(game:GetService("Players"):GetChild()) do
+				local findknife = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
+				if findknife then
+					local chawacter = game.Players.LocalPlayer.Character
+					chawacter.Humanoid:EquipTool(findknife)
+				end
+			end
+		end
+	end)
+end
+
+function getNAME()
+	spawn(function()
+		Settings.PlayerName = game.Players.LocalPlayer.Name
+	end)
+end
+	
 function GetMAP()
 	spawn(function()
 		while wait(3) do
@@ -62,18 +84,18 @@ function GetMAP()
 		end
 	end)
 end
-	
+
+local plrHEAD = game.Players.LocalPlayer.Character.Head
 function AutoFRM()
 	spawn(function()
-		while getgenv().Settings.Autofarm == true do
-				local g = game:GetService("Workspace"):FindFirstChild(Stats.Map)
-				if g then
-					Stats.Map = g
-					local coin = g.CoinContainer
-					for a, b in pairs(coin:GetChildren()) do
-						if b.Name == "Coin_Server" then
-						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(b.Position)
-						wait(1.5)
+		while Settings.Autofarm == true do
+			local g = game:GetService("Workspace"):FindFirstChild(maps)
+			if g then
+				wait(2)
+				local coin = g.CoinContainer
+				for a, b in pairs(coin:GetChildren()) do
+					if b.Name == "Coin_Server" then
+						game.Players.LocalPlayer.HumanoidRootPart.CFrame = CFrame.new(b.CFrame)
 					end
 				end
 			end
@@ -83,9 +105,9 @@ end
 
 function checkRole()
 	spawn(function()
-		while getgenv().Settings.AutoCheckRole == true do
+		while wait(0.1) do
 			local fcheck = game:GetService("Players")
-			wait(3)
+			wait(0.1)
 			for a, b in pairs(fcheck:GetChildren()) do
 				local Knife = b.Backpack:FindFirstChild("Knife")
 				local Gun = b.Backpack:FindFirstChild("Gun")
@@ -102,7 +124,7 @@ end
 
 function AutoMSG()
 	spawn(function()
-		while getgenv().Settings.Automessage == true do
+		while Settings.Automessage == true do
 		local args = {
 			[1] = "Murder: "..Stats.Murder.."  Sherrif: "..Stats.Sherrif,
 			[2] = "normalchat"
@@ -124,6 +146,7 @@ function saveValues()
 	end)
 end
 
+getNAME()
 saveValues()
 GetMAP()
 AutoFRM()
@@ -141,7 +164,7 @@ local UI = GUI:CreateWindow("XDENTHUB","made by | Dxniz#5321")
 
 local Home = UI:addPage("MM2",1,true,6)
 
-Home:addButton("Show Status (Needs Auto Check Role)",function()
+Home:addButton("Show Status (Working)",function()
     game.StarterGui:SetCore("SendNotification",{
         Title = "XDENT Status";
         Text = "Opening Gui";
@@ -150,7 +173,7 @@ Home:addButton("Show Status (Needs Auto Check Role)",function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/DxnizA/XDENTLoader/main/MM2Status"))()
 end)
 
-Home:addToggle("Autofarm (Risky)",function(value)
+Home:addToggle("Autofarm (In Maintenance)",function(value)
     if value == false then
     	Settings.Autofarm = value 
         game.StarterGui:SetCore("SendNotification",{
@@ -165,7 +188,37 @@ Home:addToggle("Autofarm (Risky)",function(value)
         })
     end
 end)
-Home:addToggle("Auto Pickup Gun",function(value)
+Home:addToggle("Auto Kill All When Murder (In Maintenance)",function(value)
+    if value == false then
+    	Settings.Autokill = value 
+        game.StarterGui:SetCore("SendNotification",{
+            Title = "Auto Kill";
+            Text = "Disabled";
+        })
+    else
+		Settings.Autokill = value
+        game.StarterGui:SetCore("SendNotification",{
+            Title = "Auto Kill";
+            Text = "Enabled";
+        })
+    end
+end)
+Home:addToggle("Auto Kill Murder When Sherrif (In Maintenance)",function(value)
+    if value == false then
+    	Settings.Autokillmurder = value 
+        game.StarterGui:SetCore("SendNotification",{
+            Title = "Auto Kill Sherrif";
+            Text = "Disabled";
+        })
+    else
+		Settings.Autokillmurder = value
+        game.StarterGui:SetCore("SendNotification",{
+            Title = "Auto Kill Sherrif";
+            Text = "Enabled";
+        })
+    end
+end)
+Home:addToggle("Auto Pickup Gun (In Maintenance)",function(value)
     if value == false then
     	Settings.AutoPickupGun = value 
         game.StarterGui:SetCore("SendNotification",{
@@ -180,22 +233,7 @@ Home:addToggle("Auto Pickup Gun",function(value)
         })
     end
 end)
-Home:addToggle("Auto Check Role",function(value)
-    if value == false then
-    	Settings.AutoCheckRole = value
-        game.StarterGui:SetCore("SendNotification",{
-            Title = "Auto Check Role";
-            Text = "Disabled";
-        })
-    else
-		Settings.AutoCheckRole = value
-        game.StarterGui:SetCore("SendNotification",{
-            Title = "Auto Check Role";
-            Text = "Enabled";
-        })
-    end
-end)
-Home:addToggle("Auto Type Role (Needs Auto Check Role)",function(value)
+Home:addToggle("Auto Type Role (In Maintenance)",function(value)
     if value == false then
     	Settings.Automessage = value 
         game.StarterGui:SetCore("SendNotification",{
@@ -211,6 +249,6 @@ Home:addToggle("Auto Type Role (Needs Auto Check Role)",function(value)
     end
 end)
 
-Home:addSlider("Auto Type Role Cooldown",5,100,function(value)
+Home:addSlider("Auto Type Role Cooldown (In Maintenance)",5,100,function(value)
     Settings.Automessagecooldown = value
 end)
