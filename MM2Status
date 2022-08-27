@@ -44,7 +44,7 @@ DestroyButton.TextSize = 14.000
 UICorner_2.CornerRadius = UDim.new(0, 5)
 UICorner_2.Parent = DestroyButton
 
-Statsz.Name = "Stats"
+Statsz.Name = "Statsz"
 Statsz.Parent = Main
 Statsz.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Statsz.BackgroundTransparency = 1.000
@@ -123,7 +123,7 @@ local function PFFPJ_fake_script() -- DestroyButton.LocalScript
 end
 coroutine.wrap(PFFPJ_fake_script)()
 
-local gUUi = game.Players.LocalPlayer.PlayerGui:WaitForChild("MM2Status").Main.Stats
+local gUUi = game.Players.LocalPlayer.PlayerGui:WaitForChild("MM2Status").Main.Statsz
 
 function updateStatus()
 	spawn(function()
