@@ -52,11 +52,25 @@ local maps = {"Mansion2","Office3","Bank2","PoliceStation","BioLab","Hotel","Mil
 
 ------------------------------------- Function
 
+function GetMAP()
+	spawn(function()
+		while wait(3) do
+			for i, map in pairs(maps) do
+				local findmap = game:GetService("Workspace"):FindFirstChild(map)
+				if findmap then
+					Stats.Map = findmap.Name
+				else
+					Stats.Map = "Map Not Found";
+				end
+			end
+		end
+	end)
+end
+	
 function AutoFRM()
 	spawn(function()
 		while getgenv().Settings.Autofarm == true do
-			for i, v in pairs(maps) do
-				local g = game:GetService("Workspace"):FindFirstChild(v)
+				local g = game:GetService("Workspace"):FindFirstChild(Stats.Map)
 				if g then
 					Stats.Map = g
 					local coin = g.CoinContainer
@@ -68,8 +82,7 @@ function AutoFRM()
 				end
 			end
 		end
-	end
-end)
+	end)
 end
 
 function checkRole()
@@ -83,12 +96,12 @@ function checkRole()
 				if Knife then
 					Stats.Murder = b.Name
 				else
-					Stats.Murder = "Murder Not Found"
+					Stats.Murder = "Murder Not Found";
 				end
 				if Gun then
 					Stats.Sherrif = b.Name
 				else
-					Stats.Sherrif = "Sherrif Not Found"
+					Stats.Sherrif = "Sherrif Not Found";
 				end
 			end
 		end	
@@ -109,6 +122,7 @@ function AutoMSG()
 	end)
 end
 
+GetMAP()
 AutoFRM()
 AutoMSG()
 checkRole()
@@ -178,7 +192,7 @@ Home:addToggle("Auto Check Role",function(value)
         })
     end
 end)
-Home:addToggle("Auto Type Role",function(value)
+Home:addToggle("Auto Type Role (Needs Auto Check Role)",function(value)
     if value == false then
     	Settings.Automessage = value 
         game.StarterGui:SetCore("SendNotification",{
@@ -194,6 +208,6 @@ Home:addToggle("Auto Type Role",function(value)
     end
 end)
 
-Home:addSlider("Auto Type Role Cooldown",5,250,function(value)
+Home:addSlider("Auto Type Role Cooldown",5,100,function(value)
     Settings.Automessagecooldown = value
 end)
