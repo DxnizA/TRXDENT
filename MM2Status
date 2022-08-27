@@ -121,21 +121,19 @@ local function PFFPJ_fake_script() -- DestroyButton.LocalScript
 		script.Parent.Parent.Parent:Destroy()
 	end)
 end
-coroutine.wrap(PFFPJ_fake_script)()
+PFFPJ_fake_script()
 
 local gUUi = game.Players.LocalPlayer.PlayerGui:WaitForChild("MM2Status").Main.Statsz
 
 function updateStatus()
 	spawn(function()
 		while wait(1) do
-			gUUi.Sherrifz.Text = "Sherrif : "..Stats.Sherrif
+			gUUi.Sherrif.Text = "Sherrif : "..Stats.Sherrif
 			print(Stats.Sherrif)
-			gUUi.Murderz.Text = "Murder : "..Stats.Murder
+			gUUi.Murder.Text = "Murder : "..Stats.Murder
 			print(Stats.Murder)
-			gUUi.Mapz.Text = "Map : "..Stats.Map
+			gUUi.Map.Text = "Map : "..Stats.Map
 		end
 	end)
 end
-
-setMAP()
 updateStatus()
