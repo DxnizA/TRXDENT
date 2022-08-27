@@ -122,6 +122,17 @@ function AutoMSG()
 	end)
 end
 
+function saveValues()
+	spawn(function()
+		while wait(10) do
+			saveSettings()
+			wait(2)
+			loadSettings()
+		end
+	end)
+end
+
+saveValues()
 GetMAP()
 AutoFRM()
 AutoMSG()
