@@ -7,9 +7,9 @@ local UICorner = Instance.new("UICorner")
 local DestroyButton = Instance.new("TextButton")
 local UICorner_2 = Instance.new("UICorner")
 local Statsz = Instance.new("TextLabel")
-local Murder = Instance.new("TextLabel")
-local Sherrif = Instance.new("TextLabel")
-local Map = Instance.new("TextLabel")
+local Murderz = Instance.new("TextLabel")
+local Sherrifz = Instance.new("TextLabel")
+local Mapz = Instance.new("TextLabel")
 local DragMousePosition
 local FramePosition
 local Draggable = false
@@ -55,41 +55,41 @@ Statsz.Text = "Status"
 Statsz.TextColor3 = Color3.fromRGB(255, 255, 255)
 Statsz.TextSize = 20.000
 
-Murder.Name = "Murder"
-Murder.Parent = Statsz
-Murder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Murder.BackgroundTransparency = 1.000
-Murder.Position = UDim2.new(-0.201637238, 0, 1.33333337, 0)
-Murder.Size = UDim2.new(0, 298, 0, 18)
-Murder.Font = Enum.Font.SourceSans
-Murder.Text = "Murder :"
-Murder.TextColor3 = Color3.fromRGB(255, 255, 255)
-Murder.TextSize = 19.000
-Murder.TextXAlignment = Enum.TextXAlignment.Left
+Murderz.Name = "Murder"
+Murderz.Parent = Statsz
+Murderz.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Murderz.BackgroundTransparency = 1.000
+Murderz.Position = UDim2.new(-0.201637238, 0, 1.33333337, 0)
+Murderz.Size = UDim2.new(0, 298, 0, 18)
+Murderz.Font = Enum.Font.SourceSans
+Murderz.Text = "Murder :"
+Murderz.TextColor3 = Color3.fromRGB(255, 255, 255)
+Murderz.TextSize = 19.000
+Murderz.TextXAlignment = Enum.TextXAlignment.Left
 
-Sherrif.Name = "Sherrif"
-Sherrif.Parent = Statsz
-Sherrif.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Sherrif.BackgroundTransparency = 1.000
-Sherrif.Position = UDim2.new(-0.196897894, 0, 2.5, 0)
-Sherrif.Size = UDim2.new(0, 297, 0, 18)
-Sherrif.Font = Enum.Font.SourceSans
-Sherrif.Text = "Sherrif :"
-Sherrif.TextColor3 = Color3.fromRGB(255, 255, 255)
-Sherrif.TextSize = 19.000
-Sherrif.TextXAlignment = Enum.TextXAlignment.Left
+Sherrifz.Name = "Sherrif"
+Sherrifz.Parent = Statsz
+Sherrifz.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Sherrifz.BackgroundTransparency = 1.000
+Sherrifz.Position = UDim2.new(-0.196897894, 0, 2.5, 0)
+Sherrifz.Size = UDim2.new(0, 297, 0, 18)
+Sherrifz.Font = Enum.Font.SourceSans
+Sherrifz.Text = "Sherrif :"
+Sherrifz.TextColor3 = Color3.fromRGB(255, 255, 255)
+Sherrifz.TextSize = 19.000
+Sherrifz.TextXAlignment = Enum.TextXAlignment.Left
 
-Map.Name = "Map"
-Map.Parent = Statsz
-Map.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Map.BackgroundTransparency = 1.000
-Map.Position = UDim2.new(-0.201637238, 0, 3.44444418, 0)
-Map.Size = UDim2.new(0, 298, 0, 18)
-Map.Font = Enum.Font.SourceSans
-Map.Text = "Map :"
-Map.TextColor3 = Color3.fromRGB(255, 255, 255)
-Map.TextSize = 19.000
-Map.TextXAlignment = Enum.TextXAlignment.Left
+Mapz.Name = "Map"
+Mapz.Parent = Statsz
+Mapz.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Mapz.BackgroundTransparency = 1.000
+Mapz.Position = UDim2.new(-0.201637238, 0, 3.44444418, 0)
+Mapz.Size = UDim2.new(0, 298, 0, 18)
+Mapz.Font = Enum.Font.SourceSans
+Mapz.Text = "Map :"
+Mapz.TextColor3 = Color3.fromRGB(255, 255, 255)
+Mapz.TextSize = 19.000
+Mapz.TextXAlignment = Enum.TextXAlignment.Left
 
 -- Scripts:
 
@@ -122,9 +122,20 @@ local function PFFPJ_fake_script() -- DestroyButton.LocalScript
 	end)
 end
 coroutine.wrap(PFFPJ_fake_script)()
-wait(10)
-while wait(1) do
-	Sherrif.Text = "Sherrif : "..Stats.Sherrif
-	Murder.Text = "Murder : "..Stats.Murder
-	Map.Text = "Map : "..Stats.Map
+
+local gUUi = game.Players.LocalPlayer.PlayerGui:WaitForChild("MM2Status").Main.Stats
+
+function updateStatus()
+	spawn(function()
+		while wait(1) do
+			gUUi.Sherrif.Text = "Sherrif : "..Stats.Sherrif
+			print(Stats.Sherrif)
+			gUUi.Murder.Text = "Murder : "..Stats.Murder
+			print(Stats.Murder)
+			gUUi.Map.Text = "Map : "..Stats.Map
+		end
+	end)
 end
+
+setMAP()
+updateStatus()
