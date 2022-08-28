@@ -1,0 +1,531 @@
+getgenv().Stats = {
+	playername = "";
+	level = 0;
+	team = "";
+	nickname = "";
+	kagunequinque = "";
+	kagunequinqueslot2 = "";
+	kagunequinqueslot3 = "";
+	primarycolor = "";
+	secondarycolor = "";
+	mask = "";
+	yen = 0;
+	rc = 0;
+	reputation = 0;
+	clan = "";
+	nishiki = 0;
+	amon = 0;
+	yoshimura = 0;
+	gyasac = 0;
+};
+
+
+local UserInputServices = game:GetService("UserInputService")
+local DragMousePosition
+local FramePosition
+local Draggable = false
+local Camera = game.Workspace:WaitForChild("Camera")
+local LookPLR = Instance.new("ScreenGui")
+local Main = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local label = Instance.new("TextLabel")
+local PlrName = Instance.new("TextBox")
+local PlayerNME = Instance.new("TextLabel")
+local GhoCCG = Instance.new("TextLabel")
+local KagQui = Instance.new("TextLabel")
+local KagQuiSlot2 = Instance.new("TextLabel")
+local KagQuiSlot3 = Instance.new("TextLabel")
+local Level = Instance.new("TextLabel")
+local Nicknamee = Instance.new("TextLabel")
+local PrimaryColoor = Instance.new("TextLabel")
+local Secondarycolor = Instance.new("TextLabel")
+local Mask = Instance.new("TextLabel")
+local Yen = Instance.new("TextLabel")
+local RC = Instance.new("TextLabel")
+local Reputation = Instance.new("TextLabel")
+local NishikiNishio = Instance.new("TextLabel")
+local KotarouAmon = Instance.new("TextLabel")
+local EtoYoshimura = Instance.new("TextLabel")
+local Clan = Instance.new("TextLabel")
+local gyasacs = Instance.new("TextLabel")
+local alliedplrs = Instance.new("TextLabel")
+local tmplt = Instance.new("Folder")
+local alliedlist = Instance.new("TextLabel")
+local UIGridLayout = Instance.new("UIGridLayout")
+local test = Instance.new("TextLabel")
+local test_2 = Instance.new("TextLabel")
+local bosskill = Instance.new("TextLabel")
+local close = Instance.new("TextButton")
+
+--Properties:
+
+LookPLR.Name = "LookPLR"
+LookPLR.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+LookPLR.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+LookPLR.ResetOnSpawn = false
+
+Main.Name = "Main"
+Main.Parent = LookPLR
+Main.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
+Main.BorderSizePixel = 0
+Main.Position = UDim2.new(0.0182386823, 0, 0.0176088978, 0)
+Main.Size = UDim2.new(0, 272, 0, 622)
+
+UICorner.CornerRadius = UDim.new(0, 15)
+UICorner.Parent = Main
+
+label.Name = "label"
+label.Parent = Main
+label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+label.BackgroundTransparency = 1.000
+label.Size = UDim2.new(0, 272, 0, 23)
+label.Font = Enum.Font.SourceSansBold
+label.Text = "XDENTSTATUS - Ro-Ghoul"
+label.TextColor3 = Color3.fromRGB(255, 255, 255)
+label.TextScaled = true
+label.TextSize = 20.000
+label.TextWrapped = true
+
+PlrName.Name = "PlrName"
+PlrName.Parent = Main
+PlrName.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
+PlrName.BorderColor3 = Color3.fromRGB(255, 255, 255)
+PlrName.BorderSizePixel = 2
+PlrName.Position = UDim2.new(0.0535568893, 0, 0.0503081903, 0)
+PlrName.Size = UDim2.new(0, 245, 0, 19)
+PlrName.Font = Enum.Font.SourceSans
+PlrName.Text = "Player Name"
+PlrName.TextColor3 = Color3.fromRGB(255, 255, 255)
+PlrName.TextSize = 14.000
+
+PlayerNME.Name = "PlayerNME"
+PlayerNME.Parent = Main
+PlayerNME.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+PlayerNME.BackgroundTransparency = 1.000
+PlayerNME.Position = UDim2.new(0.0538263321, 0, 0.103302352, 0)
+PlayerNME.Size = UDim2.new(0, 236, 0, 17)
+PlayerNME.Font = Enum.Font.SourceSansSemibold
+PlayerNME.Text = "Player : "
+PlayerNME.TextColor3 = Color3.fromRGB(255, 255, 255)
+PlayerNME.TextScaled = true
+PlayerNME.TextSize = 14.000
+PlayerNME.TextWrapped = true
+PlayerNME.TextXAlignment = Enum.TextXAlignment.Left
+
+GhoCCG.Name = "GhoCCG"
+GhoCCG.Parent = Main
+GhoCCG.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GhoCCG.BackgroundTransparency = 1.000
+GhoCCG.Position = UDim2.new(0.0501498654, 0, 0.167142391, 0)
+GhoCCG.Size = UDim2.new(0, 236, 0, 17)
+GhoCCG.Font = Enum.Font.SourceSansSemibold
+GhoCCG.Text = "Team : "
+GhoCCG.TextColor3 = Color3.fromRGB(255, 255, 255)
+GhoCCG.TextScaled = true
+GhoCCG.TextSize = 14.000
+GhoCCG.TextWrapped = true
+GhoCCG.TextXAlignment = Enum.TextXAlignment.Left
+
+KagQui.Name = "KagQui"
+KagQui.Parent = Main
+KagQui.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+KagQui.BackgroundTransparency = 1.000
+KagQui.Position = UDim2.new(0.0509913415, 0, 0.295005023, 0)
+KagQui.Size = UDim2.new(0, 236, 0, 17)
+KagQui.Font = Enum.Font.SourceSansSemibold
+KagQui.Text = "KagQui :"
+KagQui.TextColor3 = Color3.fromRGB(255, 255, 255)
+KagQui.TextScaled = true
+KagQui.TextSize = 14.000
+KagQui.TextWrapped = true
+KagQui.TextXAlignment = Enum.TextXAlignment.Left
+
+KagQuiSlot2.Name = "KagQuiSlot2"
+KagQuiSlot2.Parent = Main
+KagQuiSlot2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+KagQuiSlot2.BackgroundTransparency = 1.000
+KagQuiSlot2.Position = UDim2.new(0.0505704954, 0, 0.327447772, 0)
+KagQuiSlot2.Size = UDim2.new(0, 236, 0, 17)
+KagQuiSlot2.Font = Enum.Font.SourceSansSemibold
+KagQuiSlot2.Text = "KagQui Slot2 :"
+KagQuiSlot2.TextColor3 = Color3.fromRGB(255, 255, 255)
+KagQuiSlot2.TextScaled = true
+KagQuiSlot2.TextSize = 14.000
+KagQuiSlot2.TextWrapped = true
+KagQuiSlot2.TextXAlignment = Enum.TextXAlignment.Left
+
+KagQuiSlot3.Name = "KagQuiSlot3"
+KagQuiSlot3.Parent = Main
+KagQuiSlot3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+KagQuiSlot3.BackgroundTransparency = 1.000
+KagQuiSlot3.Position = UDim2.new(0.0473148674, 0, 0.359890521, 0)
+KagQuiSlot3.Size = UDim2.new(0, 236, 0, 17)
+KagQuiSlot3.Font = Enum.Font.SourceSansSemibold
+KagQuiSlot3.Text = "KagQui Slot3 :"
+KagQuiSlot3.TextColor3 = Color3.fromRGB(255, 255, 255)
+KagQuiSlot3.TextScaled = true
+KagQuiSlot3.TextSize = 14.000
+KagQuiSlot3.TextWrapped = true
+KagQuiSlot3.TextXAlignment = Enum.TextXAlignment.Left
+
+Level.Name = "Level"
+Level.Parent = Main
+Level.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Level.BackgroundTransparency = 1.000
+Level.Position = UDim2.new(0.0468940213, 0, 0.232027888, 0)
+Level.Size = UDim2.new(0, 236, 0, 17)
+Level.Font = Enum.Font.SourceSansSemibold
+Level.Text = "Level :  "
+Level.TextColor3 = Color3.fromRGB(255, 255, 255)
+Level.TextScaled = true
+Level.TextSize = 14.000
+Level.TextWrapped = true
+Level.TextXAlignment = Enum.TextXAlignment.Left
+
+Nicknamee.Name = "Nicknamee"
+Nicknamee.Parent = Main
+Nicknamee.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Nicknamee.BackgroundTransparency = 1.000
+Nicknamee.Position = UDim2.new(0.05340565, 0, 0.135745093, 0)
+Nicknamee.Size = UDim2.new(0, 236, 0, 17)
+Nicknamee.Font = Enum.Font.SourceSansSemibold
+Nicknamee.Text = "Nickname : "
+Nicknamee.TextColor3 = Color3.fromRGB(255, 255, 255)
+Nicknamee.TextScaled = true
+Nicknamee.TextSize = 14.000
+Nicknamee.TextWrapped = true
+Nicknamee.TextXAlignment = Enum.TextXAlignment.Left
+
+PrimaryColoor.Name = "PrimaryColoor"
+PrimaryColoor.Parent = Main
+PrimaryColoor.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+PrimaryColoor.BackgroundTransparency = 1.000
+PrimaryColoor.Position = UDim2.new(0.0473148674, 0, 0.392333269, 0)
+PrimaryColoor.Size = UDim2.new(0, 236, 0, 17)
+PrimaryColoor.Font = Enum.Font.SourceSansSemibold
+PrimaryColoor.Text = "Primary Color :"
+PrimaryColoor.TextColor3 = Color3.fromRGB(255, 255, 255)
+PrimaryColoor.TextScaled = true
+PrimaryColoor.TextSize = 14.000
+PrimaryColoor.TextWrapped = true
+PrimaryColoor.TextXAlignment = Enum.TextXAlignment.Left
+
+Secondarycolor.Name = "Secondarycolor"
+Secondarycolor.Parent = Main
+Secondarycolor.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Secondarycolor.BackgroundTransparency = 1.000
+Secondarycolor.Position = UDim2.new(0.0468940213, 0, 0.424776018, 0)
+Secondarycolor.Size = UDim2.new(0, 236, 0, 17)
+Secondarycolor.Font = Enum.Font.SourceSansSemibold
+Secondarycolor.Text = "Secondary Color :"
+Secondarycolor.TextColor3 = Color3.fromRGB(255, 255, 255)
+Secondarycolor.TextScaled = true
+Secondarycolor.TextSize = 14.000
+Secondarycolor.TextWrapped = true
+Secondarycolor.TextXAlignment = Enum.TextXAlignment.Left
+
+Mask.Name = "Mask"
+Mask.Parent = Main
+Mask.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Mask.BackgroundTransparency = 1.000
+Mask.Position = UDim2.new(0.0538263321, 0, 0.19958514, 0)
+Mask.Size = UDim2.new(0, 236, 0, 17)
+Mask.Font = Enum.Font.SourceSansSemibold
+Mask.Text = "Mask : "
+Mask.TextColor3 = Color3.fromRGB(255, 255, 255)
+Mask.TextScaled = true
+Mask.TextSize = 14.000
+Mask.TextWrapped = true
+Mask.TextXAlignment = Enum.TextXAlignment.Left
+
+Yen.Name = "Yen"
+Yen.Parent = Main
+Yen.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Yen.BackgroundTransparency = 1.000
+Yen.Position = UDim2.new(0.0468940176, 0, 0.457218796, 0)
+Yen.Size = UDim2.new(0, 236, 0, 17)
+Yen.Font = Enum.Font.SourceSansSemibold
+Yen.Text = "Yen :"
+Yen.TextColor3 = Color3.fromRGB(255, 255, 255)
+Yen.TextScaled = true
+Yen.TextSize = 14.000
+Yen.TextWrapped = true
+Yen.TextXAlignment = Enum.TextXAlignment.Left
+
+RC.Name = "RC"
+RC.Parent = Main
+RC.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+RC.BackgroundTransparency = 1.000
+RC.Position = UDim2.new(0.0468940176, 0, 0.489661545, 0)
+RC.Size = UDim2.new(0, 236, 0, 17)
+RC.Font = Enum.Font.SourceSansSemibold
+RC.Text = "RC :"
+RC.TextColor3 = Color3.fromRGB(255, 255, 255)
+RC.TextScaled = true
+RC.TextSize = 14.000
+RC.TextWrapped = true
+RC.TextXAlignment = Enum.TextXAlignment.Left
+
+Reputation.Name = "Reputation"
+Reputation.Parent = Main
+Reputation.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Reputation.BackgroundTransparency = 1.000
+Reputation.Position = UDim2.new(0.0468940251, 0, 0.522104263, 0)
+Reputation.Size = UDim2.new(0, 236, 0, 17)
+Reputation.Font = Enum.Font.SourceSansSemibold
+Reputation.Text = "Reputation :"
+Reputation.TextColor3 = Color3.fromRGB(255, 255, 255)
+Reputation.TextScaled = true
+Reputation.TextSize = 14.000
+Reputation.TextWrapped = true
+Reputation.TextXAlignment = Enum.TextXAlignment.Left
+
+NishikiNishio.Name = "NishikiNishio"
+NishikiNishio.Parent = Main
+NishikiNishio.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+NishikiNishio.BackgroundTransparency = 1.000
+NishikiNishio.Position = UDim2.new(0.0542469621, 0, 0.619432509, 0)
+NishikiNishio.Size = UDim2.new(0, 236, 0, 17)
+NishikiNishio.Font = Enum.Font.SourceSansSemibold
+NishikiNishio.Text = " Nishiki Nishio :"
+NishikiNishio.TextColor3 = Color3.fromRGB(255, 255, 255)
+NishikiNishio.TextScaled = true
+NishikiNishio.TextSize = 14.000
+NishikiNishio.TextWrapped = true
+NishikiNishio.TextXAlignment = Enum.TextXAlignment.Left
+
+KotarouAmon.Name = "KotarouAmon"
+KotarouAmon.Parent = Main
+KotarouAmon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+KotarouAmon.BackgroundTransparency = 1.000
+KotarouAmon.Position = UDim2.new(0.0542469583, 0, 0.651875257, 0)
+KotarouAmon.Size = UDim2.new(0, 236, 0, 17)
+KotarouAmon.Font = Enum.Font.SourceSansSemibold
+KotarouAmon.Text = "Kotarou Amon :"
+KotarouAmon.TextColor3 = Color3.fromRGB(255, 255, 255)
+KotarouAmon.TextScaled = true
+KotarouAmon.TextSize = 14.000
+KotarouAmon.TextWrapped = true
+KotarouAmon.TextXAlignment = Enum.TextXAlignment.Left
+
+EtoYoshimura.Name = "EtoYoshimura"
+EtoYoshimura.Parent = Main
+EtoYoshimura.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+EtoYoshimura.BackgroundTransparency = 1.000
+EtoYoshimura.Position = UDim2.new(0.0542469583, 0, 0.684318006, 0)
+EtoYoshimura.Size = UDim2.new(0, 236, 0, 17)
+EtoYoshimura.Font = Enum.Font.SourceSansSemibold
+EtoYoshimura.Text = "Eto Yoshimura :"
+EtoYoshimura.TextColor3 = Color3.fromRGB(255, 255, 255)
+EtoYoshimura.TextScaled = true
+EtoYoshimura.TextSize = 14.000
+EtoYoshimura.TextWrapped = true
+EtoYoshimura.TextXAlignment = Enum.TextXAlignment.Left
+
+Clan.Name = "Clan"
+Clan.Parent = Main
+Clan.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Clan.BackgroundTransparency = 1.000
+Clan.Position = UDim2.new(0.0468940176, 0, 0.262562275, 0)
+Clan.Size = UDim2.new(0, 236, 0, 17)
+Clan.Font = Enum.Font.SourceSansSemibold
+Clan.Text = "Clan :"
+Clan.TextColor3 = Color3.fromRGB(255, 255, 255)
+Clan.TextScaled = true
+Clan.TextSize = 14.000
+Clan.TextWrapped = true
+Clan.TextXAlignment = Enum.TextXAlignment.Left
+
+gyasacs.Name = "gyasacs"
+gyasacs.Parent = Main
+gyasacs.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+gyasacs.BackgroundTransparency = 1.000
+gyasacs.Position = UDim2.new(0.0432175472, 0, 0.554547012, 0)
+gyasacs.Size = UDim2.new(0, 236, 0, 17)
+gyasacs.Font = Enum.Font.SourceSansSemibold
+gyasacs.Text = "Gya Sac's :"
+gyasacs.TextColor3 = Color3.fromRGB(255, 255, 255)
+gyasacs.TextScaled = true
+gyasacs.TextSize = 14.000
+gyasacs.TextWrapped = true
+gyasacs.TextXAlignment = Enum.TextXAlignment.Left
+
+alliedplrs.Name = "alliedplrs"
+alliedplrs.Parent = Main
+alliedplrs.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+alliedplrs.BackgroundTransparency = 1.000
+alliedplrs.Position = UDim2.new(0, 0, 0.71564889, 0)
+alliedplrs.Size = UDim2.new(0, 272, 0, 19)
+alliedplrs.Font = Enum.Font.SourceSansBold
+alliedplrs.Text = "ALLIED PLAYERS"
+alliedplrs.TextColor3 = Color3.fromRGB(255, 255, 255)
+alliedplrs.TextScaled = true
+alliedplrs.TextSize = 20.000
+alliedplrs.TextWrapped = true
+
+tmplt.Name = "tmplt"
+tmplt.Parent = alliedplrs
+
+alliedlist.Name = "alliedlist"
+alliedlist.Parent = tmplt
+alliedlist.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+alliedlist.BackgroundTransparency = 1.000
+alliedlist.Size = UDim2.new(0, 272, 0, 18)
+alliedlist.Visible = false
+alliedlist.Font = Enum.Font.SourceSansSemibold
+alliedlist.Text = "Player's Name"
+alliedlist.TextColor3 = Color3.fromRGB(255, 255, 255)
+alliedlist.TextScaled = true
+alliedlist.TextSize = 14.000
+alliedlist.TextWrapped = true
+
+UIGridLayout.Parent = alliedplrs
+UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIGridLayout.CellPadding = UDim2.new(0, 5, 0, 0)
+UIGridLayout.CellSize = UDim2.new(0, 272, 0, 12)
+
+test.Name = "test"
+test.Parent = alliedplrs
+test.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+test.BackgroundTransparency = 1.000
+test.Size = UDim2.new(0, 272, 0, 18)
+test.Font = Enum.Font.SourceSansSemibold
+test.Text = ""
+test.TextColor3 = Color3.fromRGB(255, 255, 255)
+test.TextScaled = true
+test.TextSize = 14.000
+test.TextWrapped = true
+
+test_2.Name = "test"
+test_2.Parent = alliedplrs
+test_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+test_2.BackgroundTransparency = 1.000
+test_2.Position = UDim2.new(0, 0, 0.631578922, 0)
+test_2.Size = UDim2.new(0, 272, 0, 17)
+test_2.Font = Enum.Font.SourceSansSemibold
+test_2.Text = ""
+test_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+test_2.TextScaled = true
+test_2.TextSize = 14.000
+test_2.TextWrapped = true
+
+bosskill.Name = "bosskill"
+bosskill.Parent = Main
+bosskill.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+bosskill.BackgroundTransparency = 1.000
+bosskill.Position = UDim2.new(0, 0, 0.585877895, 0)
+bosskill.Size = UDim2.new(0, 272, 0, 18)
+bosskill.Font = Enum.Font.SourceSansBold
+bosskill.Text = "BOSS KILL COUNTER"
+bosskill.TextColor3 = Color3.fromRGB(255, 255, 255)
+bosskill.TextScaled = true
+bosskill.TextSize = 20.000
+bosskill.TextWrapped = true
+
+close.Name = "close"
+close.Parent = Main
+close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+close.BackgroundTransparency = 1.000
+close.Position = UDim2.new(0.910864532, 0, 0, 0)
+close.Size = UDim2.new(0, 24, 0, 23)
+close.Font = Enum.Font.SourceSansSemibold
+close.Text = "X"
+close.TextColor3 = Color3.fromRGB(255, 255, 255)
+close.TextSize = 23.000
+close.TextWrapped = true
+
+-- Scripts:
+
+Main.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		Draggable = true
+		DragMousePosition = Vector2.new(input.Position.X, input.Position.Y)
+		FramePosition = Vector2.new(Main.Position.X.Scale, Main.Position.Y.Scale)
+	end
+end)
+
+Main.InputEnded:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		Draggable = false
+	end
+end)
+
+UserInputServices.InputChanged:Connect(function(input)
+	if Draggable == true then
+		local NewPosition = FramePosition + ((Vector2.new(input.Position.X, input.Position.Y) - DragMousePosition) / Camera.ViewportSize)
+		Main.Position = UDim2.new(NewPosition.X, 0, NewPosition.Y, 0)
+	end
+end)
+
+local function NPGHB_fake_script() -- close.LocalScript 
+	local script = Instance.new('LocalScript', close)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		script.Parent.Parent.Parent:Destroy()
+	end)
+end
+NPGHB_fake_script()
+
+function getvaluE()
+	spawn(function()
+		while wait(0.1) do
+			local Search = PlrName.Text
+			local findplayer = game:GetService("Players"):FindFirstChild(Search)
+			if findplayer then
+				Stats.playername = findplayer.Name
+				local plrfolder = findplayer.PlayerFolder
+				Stats.yen = plrfolder.Stats.Yen.Value
+				Stats.rc = plrfolder.Stats.RC.Value
+				Stats.reputation = plrfolder.Stats.Reputation.Value
+				Stats.kagunequinque = plrfolder.Customization.Weapon.Value
+				Stats.primarycolor = plrfolder.Customization.WeaponPrimaryColor.Value
+				Stats.secondarycolor = plrfolder.Customization.WeaponSecondaryColor.Value
+				Stats.team = plrfolder.Customization.Team.Value
+				Stats.clan = plrfolder.Settings.Faction.Value
+				Stats.nickname = plrfolder.Customization.Nickname.Value
+				Stats.level = plrfolder.Stats.Level.Value
+				Stats.kagunequinqueslot2 = plrfolder.WepSlots.WepSlot1.Value
+				Stats.kagunequinqueslot3 = plrfolder.WepSlots.WepSlot2.Value
+				Stats.mask = plrfolder.Customization.Mask.Value
+				Stats.nishiki = plrfolder.BossKills["Nishiki Nishio"].Value
+				Stats.amon = plrfolder.BossKills["Koutarou Amon"].Value
+				Stats.yoshimura = plrfolder.BossKills["Eto Yoshimura"].Value
+				Stats.gyasac = plrfolder.Inventory.GyaSacs.Value
+			end
+		end
+	end)
+end
+
+function updateAll()
+	spawn(function()
+		while wait(0.1) do
+			PlayerNME.Text = "Player Name : "..Stats.playername
+			Nicknamee.Text = "Nickname : "..Stats.nickname
+			Yen.Text = "Yen : "..Stats.yen
+			RC.Text = "RC : "..Stats.rc
+			gyasacs.Text = "Gya Sac's : "..Stats.gyasac
+			Reputation.Text = "Reputation : "..Stats.reputation
+			Clan.Text = "Clan : "..Stats.clan
+			GhoCCG.Text = "Tean : "..Stats.team
+			NishikiNishio.Text = "Nishiki Nishio : "..Stats.nishiki
+			KotarouAmon.Text = "Kotarou Amon : "..Stats.amon
+			EtoYoshimura.Text = "Eto Yoshimura : "..Stats.yoshimura
+			Level.Text = "Level : "..Stats.level
+			Mask.Text = "Mask : "..Stats.mask
+			PrimaryColoor.Text = "Primary Color : "..Stats.primarycolor
+			Secondarycolor.Text = "Secondary Color : "..Stats.secondarycolor
+			if Stats.team == "Ghoul" then
+				KagQui.Text = "Kagune : "..Stats.kagunequinque
+				KagQuiSlot2.Text = "Kagune Slot 2 : "..Stats.kagunequinqueslot2
+				KagQuiSlot3.Text = "Kagune Slot 3 : "..Stats.kagunequinqueslot3
+			else
+				KagQui.Text = "Quinque : "..Stats.kagunequinque
+				KagQuiSlot2.Text = "Quinque Slot 2 : "..Stats.kagunequinqueslot2
+				KagQuiSlot3.Text = "Quinque Slot 3 : "..Stats.kagunequinqueslot3
+			end
+		end
+	end)
+end
+
+getvaluE()
+updateAll()
