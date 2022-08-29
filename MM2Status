@@ -2,7 +2,7 @@ getgenv().Stats = {
 	Murder = "";
 	Sherrif = "";
 	Map = "";
-	GunDropped = false;
+	GunDropped = "notdropped";
 };
 
 -- Instances:
@@ -111,7 +111,7 @@ GunDrop.BackgroundTransparency = 1.000
 GunDrop.Position = UDim2.new(-0.000272824982, 0, 0.758530021, 0)
 GunDrop.Size = UDim2.new(0, 282, 0, 19)
 GunDrop.Font = Enum.Font.SourceSansBold
-GunDrop.Text = "Gundrop Not Found"
+GunDrop.Text = "Gun Drop Not Found"
 GunDrop.TextColor3 = Color3.fromRGB(255, 255, 255)
 GunDrop.TextScaled = true
 GunDrop.TextSize = 20.000
@@ -193,7 +193,7 @@ function updateStatus()
 			print(Stats.Murder)
 			gUUi.Map.Text = "Map : "..Stats.Map
 			print(Stats.Map)
-			if Stats.GunDropped == true then
+			if Stats.GunDropped == "dropped" then
 				gUUi.GunDrop.Text = "Gun Dropped!"
 			else
 				gUUi.GunDrop.Text = "Gun Drop Not Found"
@@ -207,7 +207,7 @@ function gundrpXD()
 		while wait(1) do
 			local gundrp = game:GetService("Workspace"):FindFirstChild("GunDrop")
 			if gundrp then
-				Stats.GunDropped = true;
+				Stats.GunDropped = "dropped";
 			end
 		end
 	end)
