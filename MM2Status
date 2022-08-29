@@ -2,7 +2,7 @@ getgenv().Stats = {
 	Murder = "";
 	Sherrif = "";
 	Map = "";
-	GunDropped = "";
+	GunDropped = false;
 };
 
 -- Instances:
