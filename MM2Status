@@ -8,96 +8,114 @@ getgenv().Stats = {
 -- Instances:
 
 local UserInputServices = game:GetService("UserInputService")
-local MM2Status = Instance.new("ScreenGui")
-local Main = Instance.new("Frame")
-local UICorner = Instance.new("UICorner")
-local DestroyButton = Instance.new("TextButton")
-local UICorner_2 = Instance.new("UICorner")
-local Statsz = Instance.new("TextLabel")
-local Murderz = Instance.new("TextLabel")
-local Sherrifz = Instance.new("TextLabel")
-local Mapz = Instance.new("TextLabel")
 local DragMousePosition
 local FramePosition
 local Draggable = false
 local Camera = game.Workspace:WaitForChild("Camera")
+local MM2Status = Instance.new("ScreenGui")
+local Main = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local close = Instance.new("TextButton")
+local label = Instance.new("TextLabel")
+local Murder = Instance.new("TextLabel")
+local Sherrif = Instance.new("TextLabel")
+local Map = Instance.new("TextLabel")
+local GunDrop = Instance.new("TextLabel")
 
 --Properties:
 
 MM2Status.Name = "MM2Status"
 MM2Status.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 MM2Status.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-MM2Status.ResetOnSpawn = false
 
 Main.Name = "Main"
 Main.Parent = MM2Status
-Main.BackgroundColor3 = Color3.fromRGB(16, 16, 16)
-Main.Position = UDim2.new(0.00729545066, 0, 0.354587555, 0)
-Main.Size = UDim2.new(0, 316, 0, 109)
+Main.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
+Main.Position = UDim2.new(0.100609586, 0, 0.678833187, 0)
+Main.Size = UDim2.new(0, 283, 0, 119)
 
+UICorner.CornerRadius = UDim.new(0, 15)
 UICorner.Parent = Main
 
-DestroyButton.Name = "DestroyButton"
-DestroyButton.Parent = Main
-DestroyButton.BackgroundColor3 = Color3.fromRGB(27, 27, 27)
-DestroyButton.BorderSizePixel = 0
-DestroyButton.Position = UDim2.new(0.336899728, 0, 0.789906919, 0)
-DestroyButton.Size = UDim2.new(0, 101, 0, 16)
-DestroyButton.Font = Enum.Font.SourceSans
-DestroyButton.Text = "Destroy"
-DestroyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-DestroyButton.TextSize = 14.000
+close.Name = "close"
+close.Parent = Main
+close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+close.BackgroundTransparency = 1.000
+close.Position = UDim2.new(0.914541006, 0, 0, 0)
+close.Size = UDim2.new(0, 24, 0, 23)
+close.Font = Enum.Font.SourceSansSemibold
+close.Text = "X"
+close.TextColor3 = Color3.fromRGB(255, 255, 255)
+close.TextSize = 23.000
+close.TextWrapped = true
 
-UICorner_2.CornerRadius = UDim.new(0, 5)
-UICorner_2.Parent = DestroyButton
+label.Name = "label"
+label.Parent = Main
+label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+label.BackgroundTransparency = 1.000
+label.Position = UDim2.new(0.0315292962, 0, 0, 0)
+label.Size = UDim2.new(0, 249, 0, 23)
+label.Font = Enum.Font.SourceSansBold
+label.Text = "XDENTSTATS - Murder Mystery 2"
+label.TextColor3 = Color3.fromRGB(255, 255, 255)
+label.TextScaled = true
+label.TextSize = 20.000
+label.TextWrapped = true
 
-Statsz.Name = "Statsz"
-Statsz.Parent = Main
-Statsz.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Statsz.BackgroundTransparency = 1.000
-Statsz.Position = UDim2.new(0.161392406, 0, 0, 0)
-Statsz.Size = UDim2.new(0, 211, 0, 18)
-Statsz.Font = Enum.Font.SourceSansBold
-Statsz.Text = "XDENTSTATS - Murder Mystery 2"
-Statsz.TextColor3 = Color3.fromRGB(255, 255, 255)
-Statsz.TextSize = 20.000
-Statsz.TextScaled = true
+Murder.Name = "Murder"
+Murder.Parent = Main
+Murder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Murder.BackgroundTransparency = 1.000
+Murder.Position = UDim2.new(0.0315292962, 0, 0.187571064, 0)
+Murder.Size = UDim2.new(0, 267, 0, 23)
+Murder.Font = Enum.Font.SourceSansBold
+Murder.Text = "Murder : "
+Murder.TextColor3 = Color3.fromRGB(255, 255, 255)
+Murder.TextScaled = true
+Murder.TextSize = 20.000
+Murder.TextWrapped = true
+Murder.TextXAlignment = Enum.TextXAlignment.Left
 
-Murderz.Name = "Murder"
-Murderz.Parent = Statsz
-Murderz.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Murderz.BackgroundTransparency = 1.000
-Murderz.Position = UDim2.new(-0.201637238, 0, 1.33333337, 0)
-Murderz.Size = UDim2.new(0, 298, 0, 18)
-Murderz.Font = Enum.Font.SourceSans
-Murderz.Text = "Murder :"
-Murderz.TextColor3 = Color3.fromRGB(255, 255, 255)
-Murderz.TextSize = 19.000
-Murderz.TextXAlignment = Enum.TextXAlignment.Left
+Sherrif.Name = "Sherrif"
+Sherrif.Parent = Main
+Sherrif.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Sherrif.BackgroundTransparency = 1.000
+Sherrif.Position = UDim2.new(0.0315292962, 0, 0.376629204, 0)
+Sherrif.Size = UDim2.new(0, 267, 0, 23)
+Sherrif.Font = Enum.Font.SourceSansBold
+Sherrif.Text = "Sherrif : "
+Sherrif.TextColor3 = Color3.fromRGB(255, 255, 255)
+Sherrif.TextScaled = true
+Sherrif.TextSize = 20.000
+Sherrif.TextWrapped = true
+Sherrif.TextXAlignment = Enum.TextXAlignment.Left
 
-Sherrifz.Name = "Sherrif"
-Sherrifz.Parent = Statsz
-Sherrifz.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Sherrifz.BackgroundTransparency = 1.000
-Sherrifz.Position = UDim2.new(-0.196897894, 0, 2.5, 0)
-Sherrifz.Size = UDim2.new(0, 297, 0, 18)
-Sherrifz.Font = Enum.Font.SourceSans
-Sherrifz.Text = "Sherrif :"
-Sherrifz.TextColor3 = Color3.fromRGB(255, 255, 255)
-Sherrifz.TextSize = 19.000
-Sherrifz.TextXAlignment = Enum.TextXAlignment.Left
+Map.Name = "Map"
+Map.Parent = Main
+Map.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Map.BackgroundTransparency = 1.000
+Map.Position = UDim2.new(0.0315292962, 0, 0.565687358, 0)
+Map.Size = UDim2.new(0, 267, 0, 23)
+Map.Font = Enum.Font.SourceSansBold
+Map.Text = "Map : "
+Map.TextColor3 = Color3.fromRGB(255, 255, 255)
+Map.TextScaled = true
+Map.TextSize = 20.000
+Map.TextWrapped = true
+Map.TextXAlignment = Enum.TextXAlignment.Left
 
-Mapz.Name = "Map"
-Mapz.Parent = Statsz
-Mapz.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Mapz.BackgroundTransparency = 1.000
-Mapz.Position = UDim2.new(-0.201637238, 0, 3.44444418, 0)
-Mapz.Size = UDim2.new(0, 298, 0, 18)
-Mapz.Font = Enum.Font.SourceSans
-Mapz.Text = "Map :"
-Mapz.TextColor3 = Color3.fromRGB(255, 255, 255)
-Mapz.TextSize = 19.000
-Mapz.TextXAlignment = Enum.TextXAlignment.Left
+GunDrop.Name = "GunDrop"
+GunDrop.Parent = Main
+GunDrop.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GunDrop.BackgroundTransparency = 1.000
+GunDrop.Position = UDim2.new(-0.000272824982, 0, 0.758530021, 0)
+GunDrop.Size = UDim2.new(0, 282, 0, 19)
+GunDrop.Font = Enum.Font.SourceSansBold
+GunDrop.Text = "Gundrop Not Found"
+GunDrop.TextColor3 = Color3.fromRGB(255, 255, 255)
+GunDrop.TextScaled = true
+GunDrop.TextSize = 20.000
+GunDrop.TextWrapped = true
 
 -- Scripts:
 
@@ -123,7 +141,7 @@ UserInputServices.InputChanged:Connect(function(input)
 end)
 
 local function PFFPJ_fake_script() -- DestroyButton.LocalScript 
-	local script = Instance.new('LocalScript', DestroyButton)
+	local script = Instance.new('LocalScript', close)
 
 	script.Parent.MouseButton1Click:Connect(function()
 		script.Parent.Parent.Parent:Destroy()
