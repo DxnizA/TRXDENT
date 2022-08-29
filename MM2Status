@@ -192,9 +192,28 @@ function updateStatus()
 			gUUi.Murder.Text = "Murder : "..Stats.Murder
 			print(Stats.Murder)
 			gUUi.Map.Text = "Map : "..Stats.Map
+			print(Stats.Map)
+			if Stats.GunDropped == true then
+				gUUi.GunDrop.Text = "Gun Dropped!"
+			else
+				gUUi.GunDrop.Text = "Gun Drop Not Found"
+			end
 		end
 	end)
 end
+
+function gundrpXD()
+	spawn(function()
+		while wait(1) do
+			local gundrp = game:GetService("Workspace"):FindFirstChild("GunDrop")
+			if gundrp then
+				Stats.GunDropped = true;
+			end
+		end
+	end)
+end
+
+gundrpXD()
 checkRole()
 GetMAP()
 updateStatus()
