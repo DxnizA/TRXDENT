@@ -4,7 +4,7 @@ getgenv().Stats = {
 	Map = "";
 	GunDropped = "";
 };
-local maps = {"Mansion2","Office3","Bank2","PoliceStation","BioLab","Hotel","MilBase","House2","Hospital3","Factory","Workplace","ResearchFacility","nSOffice"}
+
 -- Instances:
 
 local UserInputServices = game:GetService("UserInputService")
@@ -155,6 +155,7 @@ end
 function GetMAP()
 	spawn(function()
 		while wait(3) do
+			local maps = {"Mansion2","Office3","Bank2","PoliceStation","BioLab","Hotel","MilBase","House2","Hospital3","Factory","Workplace","ResearchFacility","nSOffice"}
 			for i, map in pairs(maps) do
 				local findmap = game:GetService("Workspace"):FindFirstChild(map)
 				if findmap then
