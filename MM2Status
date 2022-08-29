@@ -1,3 +1,10 @@
+getgenv().Stats = {
+	Murder = "";
+	Sherrif = "";
+	Map = "";
+	GunDropped = "";
+};
+
 -- Instances:
 
 local UserInputServices = game:GetService("UserInputService")
@@ -125,6 +132,38 @@ PFFPJ_fake_script()
 
 local gUUi = game.Players.LocalPlayer.PlayerGui:WaitForChild("MM2Status").Main.Statsz
 
+function checkRole()
+	spawn(function()
+		while wait(0.1) do
+			local fcheck = game:GetService("Players")
+			wait(0.1)
+			for a, b in pairs(fcheck:GetChildren()) do
+				local Knife = b.Backpack:FindFirstChild("Knife")
+				local Gun = b.Backpack:FindFirstChild("Gun")
+				if Knife then
+					Stats.Murder = b.Name
+				end
+				if Gun then
+					Stats.Sherrif = b.Name
+				end
+			end
+		end	
+	end)
+end
+
+function GetMAP()
+	spawn(function()
+		while wait(3) do
+			for i, map in pairs(maps) do
+				local findmap = game:GetService("Workspace"):FindFirstChild(map)
+				if findmap then
+					Stats.Map = findmap.Name
+				end
+			end
+		end
+	end)
+end
+
 function updateStatus()
 	spawn(function()
 		while wait(1) do
@@ -136,4 +175,6 @@ function updateStatus()
 		end
 	end)
 end
+checkRole()
+GetMAP()
 updateStatus()
