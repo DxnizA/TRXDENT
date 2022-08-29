@@ -149,7 +149,7 @@ local function PFFPJ_fake_script() -- DestroyButton.LocalScript
 end
 PFFPJ_fake_script()
 
-local gUUi = game.Players.LocalPlayer.PlayerGui:WaitForChild("MM2Status").Main.Statsz
+local gUUi = game.Players.LocalPlayer.PlayerGui:WaitForChild("MM2Status").Main
 
 function checkRole()
 	spawn(function()
