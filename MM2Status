@@ -4,7 +4,7 @@ getgenv().Stats = {
 	Map = "";
 	GunDropped = "";
 };
-
+local maps = {"Mansion2","Office3","Bank2","PoliceStation","BioLab","Hotel","MilBase","House2","Hospital3","Factory","Workplace","ResearchFacility","nSOffice"}
 -- Instances:
 
 local UserInputServices = game:GetService("UserInputService")
