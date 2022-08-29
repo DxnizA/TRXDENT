@@ -58,9 +58,10 @@ Statsz.BackgroundTransparency = 1.000
 Statsz.Position = UDim2.new(0.161392406, 0, 0, 0)
 Statsz.Size = UDim2.new(0, 211, 0, 18)
 Statsz.Font = Enum.Font.SourceSansBold
-Statsz.Text = "XDENTSTATS - MM2"
+Statsz.Text = "XDENTSTATS - Murder Mystery 2"
 Statsz.TextColor3 = Color3.fromRGB(255, 255, 255)
 Statsz.TextSize = 20.000
+Statsz.TextScaled = true
 
 Murderz.Name = "Murder"
 Murderz.Parent = Statsz
