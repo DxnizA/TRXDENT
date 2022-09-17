@@ -1,0 +1,30 @@
+local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
+
+local win = DiscordLib:Window("XDENT")
+
+local serv = win:Server("XDENT Loader", "")
+
+local mm2 = serv:Channel("Murder Mystery 2")
+local roghoul = serv:Channel("Ro-Ghoul")
+
+-- Murder Mystery 2
+mm2:Button("XDENT MM2 Status", function()
+	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/XDENTLoader/main/MM2Status")))()
+end)
+
+mm2:Seperator()
+
+mm2:Button("XDENT MM2 Autofarm", function()
+	DiscordLib:Notification("Notification", "Coming Soon!", "Close")
+end)
+
+-- Ro Ghoul
+roghoul:Button("XDENT Ro-Ghoul Look Player's Stats", function()
+	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/XDENTLoader/main/Ro-Ghoul-Look")))()
+end)
+
+roghoul:Button("XDENT Ro-Ghoul Autofarm", function()
+	DiscordLib:Notification("Notification", "Coming Soon!", "Close")
+end)
