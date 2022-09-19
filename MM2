@@ -160,13 +160,13 @@ checkRole()
 
 local GUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/aaaa"))()
 
-local UI = GUI:CreateWindow("XDENTHUB","made by | Dxniz#5321")
+local UI = GUI:CreateWindow("TRXDENTHUB","made by | Dxniz#5321")
 
 local Home = UI:addPage("MM2",1,true,6)
 
 Home:addButton("Show Status (Working)",function()
     game.StarterGui:SetCore("SendNotification",{
-        Title = "XDENT Status";
+        Title = "TRXDENT Status";
         Text = "Opening Gui";
     })
     wait(5)
