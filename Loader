@@ -11,7 +11,7 @@ local other = serv:Channel("Other Scripts")
 -- Murder Mystery 2
 mm2:Button("TRXDENT MM2 Status", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
-	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/XDENTLoader/main/MM2Status")))()
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/MM2Status")))()
 end)
 
 mm2:Seperator()
@@ -23,19 +23,19 @@ end)
 -- Ro Ghoul
 roghoul:Button("TRXDENT Ro-Ghoul Look Player's Stats", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
-	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/XDENTLoader/main/Ro-Ghoul-Look")))()
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/Ro-Ghoul-Look")))()
 end)
 
 roghoul:Seperator()
 
 roghoul:Button("TRXDENT Ro-Ghoul Autofarm", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
-	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/XDENTLoader/main/Ro-Ghoul-Autofarm")))()
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/Ro-Ghoul-Autofarm")))()
 end)
 
 -- Other Scripts
 
 other:Button("TRXDENT Aimlock (RMB To Activate)", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
-	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/XDENTLoader/main/TRXDENT%20Aimlock")))()
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/TRXDENT%20Aimlock")))()
 end)
