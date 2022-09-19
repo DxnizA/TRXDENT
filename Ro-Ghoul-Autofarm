@@ -1,0 +1,386 @@
+getgenv().sett1ngs = {
+    mobnme = "";
+    stage = "One";
+    autofarm = true;
+    autoe = false;
+    autor = false;
+    autof = false;
+    autoc = false;
+}
+
+getgenv().Webhook = {
+    cooldown = 120;
+    weblink = "Put Your Webhook Link Here!";
+}
+
+getgenv().selmobs = {
+    LowRank = false;
+    MidRank = false;
+    HighRank = false;
+    KoutarouAmon = false;
+    NishikiNishio = false;
+    EtoYoshimura = false;
+}
+
+local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
+
+local win = DiscordLib:Window("XDENT")
+
+local serv = win:Server("XDENT Ro-Ghoul", "")
+
+local get = setmetatable({}, {
+    __index = function(a, b)
+        return game:GetService(b) or game[b]
+    end
+})
+
+local findobj, findobjofclass, waitforobj, fire, invoke = get.FindFirstChild, get.FindFirstChildOfClass, get.WaitForChild, Instance.new("RemoteEvent").FireServer, Instance.new("RemoteFunction").InvokeServer
+local player = get.Players.LocalPlayer
+local HttpService = game:GetService("HttpService")
+local weebhook = Webhook.weblink
+local autofarm = serv:Channel("Autofarm")
+local webhook = serv:Channel("Webhook (In Maintenance)")
+local settings = serv:Channel("Settings")
+local player = game.Players.LocalPlayer
+local cor = {"Low Rank Aogiri Member Corse","Mid Rank Aogiri Member Corpse","High Rank Aogiri Member Corpse","Nishiki Nishio Corpse","Koutarou Amon Corpse"}
+
+-- Function
+
+local function useSKL()
+    spawn(function()
+        while wait(0.3) do
+            local remt =game.Players.LocalPlayer.Character:FindFirstChild("Remotes")
+            repeat
+                wait(0.3)
+            until remt
+            local keyev = remt:FindFirstChild("KeyEvent")
+            repeat
+                wait(0.2)
+            until keyev
+            if sett1ngs.autoe == true then
+                local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
+                local A_2 = "E"
+                local A_3 = "Down"
+                local Event = game:GetService("Workspace").FearlessBreaker.Remotes.KeyEvent
+                Event:FireServer(A_1, A_2, A_3)
+                wait(0.05)
+            end
+            if sett1ngs.autor == true then
+                local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
+                local A_2 = "R"
+                local A_3 = "Down"
+                local Event = game:GetService("Workspace").FearlessBreaker.Remotes.KeyEvent
+                Event:FireServer(A_1, A_2, A_3)
+                wait(0.05)
+            end
+            if sett1ngs.autof == true then
+                local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
+                local A_2 = "F"
+                local A_3 = "Down"
+                local Event = game:GetService("Workspace").FearlessBreaker.Remotes.KeyEvent
+                Event:FireServer(A_1, A_2, A_3)
+                wait(0.05)
+            end
+            if sett1ngs.autoc == true then
+                local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
+                local A_2 = "C"
+                local A_3 = "Down"
+                local Event = game:GetService("Workspace").FearlessBreaker.Remotes.KeyEvent
+                Event:FireServer(A_1, A_2, A_3)
+                wait(0.05)
+            end
+        end
+    end)
+end
+useSKL()
+
+local function wbSend()
+    local url = Webhook.weblink
+    local data = {
+		["type"] = "TEST",
+		["content"] = "TEST",
+		["tts"] = false,
+		["embed"] = {
+			["title"] = "Hello",
+			["description"] = "Hi"
+		}
+	}
+	local newdata = HttpServ:JSONEncode(data)
+	
+	HttpServ:PostAsync(url, newdata)
+end
+
+-- Events
+
+
+-- Autofarm
+
+autofarm:Label("Aogiri Members")
+
+autofarm:Seperator()
+
+autofarm:Toggle("Low Rank Aogiri Member (0+)",selmobs.LowRank, function(bool)
+    if bool == false then
+        print("Disabled")
+        selmobs.LowRank = false
+    end
+    if bool == true then
+        print("Enabled")
+        selmobs.LowRank = true
+    end
+end)
+
+autofarm:Toggle("Mid Rank Aogiri Member (0+)",selmobs.MidRank, function(bool)
+    if bool == false then
+        print("Disabled")
+        selmobs.MidRank = false
+    end
+    if bool == true then
+        print("Enabled")
+        selmobs.MidRank = true
+    end
+end)
+
+autofarm:Toggle("High Rank Aogiri Member (0+)",selmobs.HighRank, function(bool)
+    if bool == false then
+        print("Disabled")
+        selmobs.HighRank = false
+    end
+    if bool == true then
+        print("Enabled")
+        selmobs.HighRank = true
+    end
+end)
+
+autofarm:Seperator()
+
+autofarm:Label("Bosses")
+
+autofarm:Seperator()
+
+autofarm:Toggle("Nishiki Nishio Level (250+)",selmobs.NishikiNishio, function(bool)
+    if bool == false then
+        print("Disabled")
+        selmobs.NishikiNishio = false
+    end
+    if bool == true then
+        print("Enabled")
+        selmobs.NishikiNishio = true
+    end
+end)
+
+autofarm:Toggle("Koutarou Amon Level (750+)",selmobs.KoutarouAmon, function(bool)
+    if bool == false then
+        print("Disabled")
+        selmobs.KoutarouAmon = false
+    end
+    if bool == true then
+        print("Enabled")
+        selmobs.KoutarouAmon = true
+    end
+end)
+
+autofarm:Toggle("Eto Yoshimura Level (1250+)",selmobs.EtoYoshimura, function(bool)
+    if bool == false then
+        print("Disabled")
+        selmobs.EtoYoshimura = false
+    end
+    if bool == true then
+        print("Enabled")
+        selmobs.EtoYoshimura = true
+    end
+end)
+
+-- Webhook
+
+local sldr = webhook:Slider("Cooldown", 300, 1500, 300, function(cldwn)
+    Webhook.cooldown = cldwn
+end)
+
+webhook:Textbox("Webhook", Webhook.weblink, true, function(lnk)
+    Webhook.weblink = lnk
+end)
+
+webhook:Seperator()
+
+webhook:Button("Test Webhook", function()
+    wbSend()
+    DiscordLib:Notification("Notification", "Webhook Message Sended!", "Okay!")
+end)
+
+-- Settings
+
+local drop = settings:Dropdown("Select Stage",{"One","Two","Three","Four","Five","Six"}, function(bool)
+    print("Selected Stage: "..bool)
+    sett1ngs.stage = bool
+end)
+
+settings:Seperator()
+
+settings:Toggle("Auto Use E Skill", sett1ngs.autoe, function(bool)
+    if bool == false then
+        print("Disabled")
+        sett1ngs.autoe = false
+    end
+    if bool == true then
+        print("Enabled")
+        sett1ngs.autoe = true
+    end
+end)
+
+settings:Toggle("Auto Use R Skill", sett1ngs.autor, function(bool)
+    if bool == false then
+        print("Disabled")
+        sett1ngs.autor = false
+    end
+    if bool == true then
+        print("Enabled")
+        sett1ngs.autor = true
+    end
+end)
+
+settings:Toggle("Auto Use F Skill", sett1ngs.autof, function(bool)
+    if bool == false then
+        print("Disabled")
+        sett1ngs.autof = false
+    end
+    if bool == true then
+        print("Enabled")
+        sett1ngs.autof = true
+    end
+end)
+
+settings:Toggle("Auto Use C Skill", sett1ngs.autoc, function(bool)
+    if bool == false then
+        print("Disabled")
+        sett1ngs.autoc = false
+    end
+    if bool == true then
+        print("Enabled")
+        sett1ngs.autoc = true
+    end
+end)
+
+local lp = game.Players.LocalPlayer
+local function getNPC()
+    local dist, thing = math.huge
+    for i,v in pairs(game:GetService("Workspace").NPCSpawns:GetDescendants()) do
+
+        if v.Name == "Nishiki Nishio" then
+            if selmobs.NishikiNishio == true then
+                local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
+                if mag < dist then 
+                    dist = mag 
+                    thing = v 
+                    sett1ngs.mobnme = v.Name
+                end
+            end
+        end
+        if v.Name == "Koutarou Amon" then
+            if selmobs.KoutarouAmon == true then
+                local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
+                if mag < dist then 
+                    dist = mag 
+                    thing = v 
+                    sett1ngs.mobnme = v.Name
+                end
+            end
+        end
+        if v.Name == "Eto Yoshimura" then
+            if selmobs.EtoYoshimura == true then
+                local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
+                if mag < dist then 
+                    dist = mag 
+                    thing = v 
+                    sett1ngs.mobnme = v.Name
+                end
+            end
+        end
+        if v.Name == "Low Rank Aogiri Member" then
+            if selmobs.LowRank == true then
+                local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
+                if mag < dist then 
+                    dist = mag 
+                    thing = v 
+                    sett1ngs.mobnme = v.Name
+                end
+            end
+        end
+        if v.Name == "Mid Rank Aogiri Member" then
+            if selmobs.MidRank == true then
+                local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
+                if mag < dist then 
+                    dist = mag 
+                    thing = v 
+                    sett1ngs.mobnme = v.Name
+                end
+            end
+        end
+        if v.Name == "High Rank Aogiri Member" then
+            if selmobs.HighRank == true then
+                local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
+                if mag < dist then 
+                    dist = mag 
+                    thing = v 
+                    sett1ngs.mobnme = v.Name
+                end
+            end
+        end
+    end
+    return thing
+end
+
+local function AuOp()
+    spawn(function()
+        while player.Character.Humanoid.Health > 0 and sett1ngs.autofarm and wait(2) do
+            local kag = player.Character:FindFirstChild("Kagune")
+            local qui = player.Character:FindFirstChild("Quinque")
+            if not kag and not qui then
+                local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
+                 local A_2 = sett1ngs.stage
+                local A_3 = "Down"
+                local Event = game:GetService("Workspace").FearlessBreaker.Remotes.KeyEvent
+                Event:FireServer(A_1, A_2, A_3)
+                if kag or qui then return end
+            end
+        end
+    end)
+end
+
+AuOp()
+
+local TweenService  = game:GetService("TweenService")
+local noclipE       = false
+local antifall      = false
+
+local function noclip()
+    for i, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+        if v:IsA("BasePart") and v.CanCollide == true then
+            v.CanCollide = false
+            game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
+        end
+    end
+end
+
+local function moveto(obj, speed)
+    local info = TweenInfo.new(((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - obj.Position).Magnitude)/ speed,Enum.EasingStyle.Linear)
+    local tween = TweenService:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, info, {CFrame = obj})
+
+    if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
+        antifall = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
+        antifall.Velocity = Vector3.new(0,0,0)
+        noclipE = game:GetService("RunService").Stepped:Connect(noclip)
+        tween:Play()
+    end
+        
+    tween.Completed:Connect(function()
+        antifall:Destroy()
+        noclipE:Disconnect()
+    end)
+end
+
+while sett1ngs.autofarm == true do wait()
+    pcall(function()
+        moveto(getNPC().HumanoidRootPart.CFrame + Vector3.new(0,0,0), 100)
+    end)
+end
