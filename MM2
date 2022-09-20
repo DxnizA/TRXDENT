@@ -21,7 +21,7 @@ local player = game.Players.LocalPlayer
 local filename = "TRXDENT_MM2Autofarm.lua"
 
 function loadSettings()
-	print("Bilgileriniz Yükleniyor...")
+	print("Loading Settings")
 	local HttpService = game:GetService("HttpService");
 	if (readfile and isfile and isfile(filename)) then
 		getgenv().Settings = HttpService:JSONDecode(readfile(filename));
@@ -96,7 +96,7 @@ local function aufrm()
 		return
 	end
 	if humn then
-		while Settings.Autofarm == true and wait() and player.Character.Humanoid.Health ~= 0 do
+		while Settings.Autofarm == true and wait() and humn.Parent.Humanoid ~= 0 do
 			for i, v in pairs(maps) do
 				local g = game:GetService("Workspace"):FindFirstChild(v)
 				if g then
