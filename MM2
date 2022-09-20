@@ -1,35 +1,30 @@
-
-------------------------------------- Settings
-
 getgenv().Settings = {
-	PlayerName = "";
 	Autofarm = false;
-	AutoPickupGun = true;
+	AutofarmCooldown = 2;
+	AutoPickupGun = false;
 	Automessage = false;
-	Automessagecooldown = 5;
-	Autokill = false;
-	Autokillmurder = false;
-};
+}
 
-getgenv().Stats = {
-	Murder = "";
-	Sherrif = "";
-	Map = "";
-	GunDropped = "";
-};
+local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
 
+local win = DiscordLib:Window("TRXDENT")
 
-local filename = "XDENT_Settings.lua"
+local serv = win:Server("TRXDENT MM2", "")
+
+local autofarm = serv:Channel("Autofarm")
+
+local maps = {"Mansion2","Office3","Bank2","PoliceStation","BioLab","Hotel","MilBase","House2","Hospital3",""}
+local player = game.Players.LocalPlayer
+
+-- Save System
+
+local filename = "TRXDENT_MM2Autofarm.lua"
 
 function loadSettings()
 	print("Bilgileriniz Yükleniyor...")
 	local HttpService = game:GetService("HttpService");
 	if (readfile and isfile and isfile(filename)) then
 		getgenv().Settings = HttpService:JSONDecode(readfile(filename));
-		print("Valueler: ")
-		for i, v in pairs(getgenv().Settings) do
-			print(i, v)
-		end
 	else
 		print("File Not Found")	
 	end
@@ -42,213 +37,109 @@ function saveSettings()
 		Logsz = HttpService:JSONEncode(Settings);
 		writefile(filename, Logsz)
 	else
-		print("You Are Using Not Supported Executor")
+		print("Windows Rejected Save Request")
 	end
 end
 
-local maps = {"Mansion2","Office3","Bank2","PoliceStation","BioLab","Hotel","MilBase","House2","Hospital3","Factory","Workplace","ResearchFacility","nSOffice"}
+loadSettings()
 
--------------------------------------  Settings
+-- Autofarm
 
-------------------------------------- Function
+autofarm:Toggle("Autofarm",Settings.Autofarm, function(bool)
+    if bool == false then
+        print("Disabled")
+        Settings.Autofarm = false
+    end
+    if bool == true then
+        print("Enabled")
+        Settings.Autofarm = true
+    end
+end)
 
-function AutoKwll()
-	spawn(function()
-		while Autokill == true do
-			for i, plr in pairs(game:GetService("Players"):GetChild()) do
-				local findknife = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
-				if findknife then
-					local chawacter = game.Players.LocalPlayer.Character
-					chawacter.Humanoid:EquipTool(findknife)
-				end
-			end
-		end
-	end)
-end
+autofarm:Toggle("Auto Pickup Gun",Settings.AutoPickupGun, function(bool)
+    if bool == false then
+        print("Disabled")
+        Settings.AutoPickupGun = false
+    end
+    if bool == true then
+        print("Enabled")
+        Settings.AutoPickupGun = true
+    end
+end)
 
-function getNAME()
-	spawn(function()
-		Settings.PlayerName = game.Players.LocalPlayer.Name
-	end)
-end
-	
-function GetMAP()
-	spawn(function()
-		while wait(3) do
-			for i, map in pairs(maps) do
-				local findmap = game:GetService("Workspace"):FindFirstChild(map)
-				if findmap then
-					Stats.Map = findmap.Name
-				end
-			end
-		end
-	end)
-end
+autofarm:Seperator()
 
-local plrHEAD = game.Players.LocalPlayer.Character.Head
-function AutoFRM()
-	spawn(function()
-		while Settings.Autofarm == true do
-			local g = game:GetService("Workspace"):FindFirstChild(maps)
-			if g then
-				wait(2)
-				local coin = g.CoinContainer
-				for a, b in pairs(coin:GetChildren()) do
-					if b.Name == "Coin_Server" then
-						game.Players.LocalPlayer.HumanoidRootPart.CFrame = CFrame.new(b.CFrame)
-					end
-				end
-			end
-		end
-	end)
-end
+autofarm:Slider("Autofarm Speed", 2, 20, Settings.AutofarmCooldown, function(t)
+	Settings.AutofarmCooldown = t
+end)
 
-function checkRole()
-	spawn(function()
-		while wait(0.1) do
-			local fcheck = game:GetService("Players")
-			wait(0.1)
-			for a, b in pairs(fcheck:GetChildren()) do
-				local Knife = b.Backpack:FindFirstChild("Knife")
-				local Gun = b.Backpack:FindFirstChild("Gun")
-				if Knife then
-					Stats.Murder = b.Name
-				end
-				if Gun then
-					Stats.Sherrif = b.Name
-				end
-			end
-		end	
-	end)
-end
-
-function AutoMSG()
-	spawn(function()
-		while Settings.Automessage == true do
-		local args = {
-			[1] = "Murder: "..Stats.Murder.."  Sherrif: "..Stats.Sherrif,
-			[2] = "normalchat"
-		}
-
-		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
-		wait(Settings.Automessagecooldown)
-		end	
-	end)
-end
+-- Functions
 
 function saveValues()
 	spawn(function()
-		while wait(10) do
+		while wait(20) do
 			saveSettings()
-			wait(2)
+			wait(1)
 			loadSettings()
 		end
 	end)
 end
 
-getNAME()
 saveValues()
-GetMAP()
-AutoFRM()
-AutoMSG()
-checkRole()
 
-------------------------------------- Function
+local function aufrm()
+	local humn = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+	if not Settings.Autofarm then
+		repeat
+			wait(0.1)
+		until Settings.Autofarm
+		return
+	end
+	if humn then
+		while Settings.Autofarm == true and wait() and player.Character.Humanoid.Health ~= 0 do
+			for i, v in pairs(maps) do
+				local g = game:GetService("Workspace"):FindFirstChild(v)
+				if g then
+					local coin = g.CoinContainer
+					for a, b in pairs(coin:GetChildren()) do
+						if b.Name == "Coin_Server" then
+							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(b.Position)
+							wait(Settings.AutofarmCooldown)
+							if not Settings.Autofarm then return end
+							if not humn then return end
+						end
+					end
+				end
+			end
+		end
+	elseif not humn then
+		repeat
+			wait(0.1)
+		until humn
+		if humn then return end
+	end
+end
 
-
--- GUI
-
-local GUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/aaaa"))()
-
-local UI = GUI:CreateWindow("TRXDENTHUB","made by | Dxniz#5321")
-
-local Home = UI:addPage("MM2",1,true,6)
-
-Home:addButton("Show Status (Working)",function()
-    game.StarterGui:SetCore("SendNotification",{
-        Title = "TRXDENT Status";
-        Text = "Opening Gui";
-    })
-    wait(5)
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/DxnizA/XDENTLoader/main/MM2Status"))()
-end)
-
-Home:addToggle("Autofarm (In Maintenance)",function(value)
-    if value == false then
-    	Settings.Autofarm = value 
-        game.StarterGui:SetCore("SendNotification",{
-            Title = "Autofarm";
-            Text = "Disabled";
-        })
-    else
-		Settings.Autofarm = value
-        game.StarterGui:SetCore("SendNotification",{
-            Title = "Autofarm";
-            Text = "Enabled";
-        })
+local function AutopickGun()
+    local checkdrop = game:GetService("Workspace"):FindFirstChild("GunDrop")
+    if checkdrop then
+		local charpos = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+        local gundrop = game:GetService("Workspace").GunDrop.Position
+		wait(0.2)
+        repeat
+			wait(0)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(gundrop)
+		until not checkdrop
+		wait(0.2)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(charpos)
     end
-end)
-Home:addToggle("Auto Kill All When Murder (In Maintenance)",function(value)
-    if value == false then
-    	Settings.Autokill = value 
-        game.StarterGui:SetCore("SendNotification",{
-            Title = "Auto Kill";
-            Text = "Disabled";
-        })
-    else
-		Settings.Autokill = value
-        game.StarterGui:SetCore("SendNotification",{
-            Title = "Auto Kill";
-            Text = "Enabled";
-        })
-    end
-end)
-Home:addToggle("Auto Kill Murder When Sherrif (In Maintenance)",function(value)
-    if value == false then
-    	Settings.Autokillmurder = value 
-        game.StarterGui:SetCore("SendNotification",{
-            Title = "Auto Kill Sherrif";
-            Text = "Disabled";
-        })
-    else
-		Settings.Autokillmurder = value
-        game.StarterGui:SetCore("SendNotification",{
-            Title = "Auto Kill Sherrif";
-            Text = "Enabled";
-        })
-    end
-end)
-Home:addToggle("Auto Pickup Gun (In Maintenance)",function(value)
-    if value == false then
-    	Settings.AutoPickupGun = value 
-        game.StarterGui:SetCore("SendNotification",{
-            Title = "Auto Pickup Gun";
-            Text = "Disabled";
-        })
-    else
-		Settings.AutoPickupGun = value
-        game.StarterGui:SetCore("SendNotification",{
-            Title = "Auto Pickup Gun";
-            Text = "Enabled";
-        })
-    end
-end)
-Home:addToggle("Auto Type Role (In Maintenance)",function(value)
-    if value == false then
-    	Settings.Automessage = value 
-        game.StarterGui:SetCore("SendNotification",{
-            Title = "Auto Type Role";
-            Text = "Disabled";
-        })
-    else
-		Settings.Automessage = value
-        game.StarterGui:SetCore("SendNotification",{
-            Title = "Auto Type Role";
-            Text = "Enabled";
-        })
-    end
-end)
+end
 
-Home:addSlider("Auto Type Role Cooldown (In Maintenance)",5,100,function(value)
-    Settings.Automessagecooldown = value
-end)
+while Settings.AutoPickupGun == true do
+    AutopickGun()
+	if not Settings.AutoPickupGun then return end
+end
+
+while true and wait(0.5) do
+	aufrm()
+end
