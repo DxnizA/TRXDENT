@@ -37,7 +37,7 @@ end)
 
 -- Dragon Ball Final Remastered
 
-roghoul:Button("TRXDENT DBFR Autofarm", function()
+DragonBallFinalRemastered:Button("TRXDENT DBFR Autofarm", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
 	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/DragonBallFinalRemastered")))()
 end)
