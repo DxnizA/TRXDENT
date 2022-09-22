@@ -6,6 +6,7 @@ local serv = win:Server("TRXDENT Loader", "")
 
 local mm2 = serv:Channel("Murder Mystery 2")
 local roghoul = serv:Channel("Ro-Ghoul")
+local DragonBallFinalRemastered = serv:Channel("DBFR")
 local other = serv:Channel("Other Scripts")
 
 -- Murder Mystery 2
@@ -33,6 +34,15 @@ roghoul:Button("TRXDENT Ro-Ghoul Autofarm", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
 	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/XDENTLoader/main/Ro-Ghoul-Autofarm")))()
 end)
+
+-- Dragon Ball Final Remastered
+
+roghoul:Button("TRXDENT DBFR Autofarm", function()
+	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/DragonBallFinalRemastered")))()
+end)
+
+
 
 -- Other Scripts
 
