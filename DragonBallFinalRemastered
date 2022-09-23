@@ -1,9 +1,14 @@
 getgenv().Settings = {
+    BallStar = "";
+    AutoFruit = "";
+    AutoEat = false;
     AutoDragonBall = false;
     Automilk = false;
     Autofarm = false;
     AutoQuest = false;
     mob = "Training Dummy";
+    boss = "";
+    HowManyF = 1;
 }
 
 --- GUI --------------------------------------
@@ -27,10 +32,24 @@ function destBAN()
     end
 end
 
-function ShopEvent(ItemName)
+function MainEvent(ItemName)
     local A_1 = ItemName
     local Event = game:GetService("ReplicatedStorage").Remotes.NPCStuff
-    Event:FireServer(A_1)    
+    Event:FireServer(A_1)
+end
+
+function FruitEvent(ItemName,quantity)
+    local c = 0
+    if c == quantity then
+    else
+        repeat
+            wait()
+            local A_1 = ItemName
+            local Event = game:GetService("ReplicatedStorage").Remotes.NPCStuff
+            Event:FireServer(A_1)
+            c = c + 1
+        until c == quantity
+    end
 end
 
 -- Buttons
@@ -43,17 +62,6 @@ autofarm:Toggle("Autofarm (Use With AutoClicker)",Settings.Autofarm, function(bo
     if bool == true then
         print("Enabled")
         Settings.Autofarm = true
-    end
-end)
-
-autofarm:Toggle("Auto Quest (Semi-Work)",Settings.AutoQuest, function(bool)
-    if bool == false then
-        print("Disabled")
-        Settings.AutoQuest = false
-    end
-    if bool == true then
-        print("Enabled")
-        Settings.AutoQuest = true
     end
 end)
 
@@ -83,71 +91,174 @@ end)
 
 autofarm:Seperator()
 
-local drop = autofarm:Dropdown("Select Mob (Semi-Works)",{"","Training Dummy","Saibaman","Thug","Elite Frieza Soldier","Red Ribbon Robot","Red Ribbon Soldier","Flying Gorilla","Bio-men","Cyborg","Evil Saiyan"}, function(bool)
+local drop = autofarm:Dropdown("Select Mob",{"","Training Dummy","Thug","Elite Frieza Soldier","Red Ribbon Soldier","Flying Gorilla","Bio-men","Cyborg"}, function(bool)
     print(bool)
     Settings.mob = bool
+end)
+
+local drop = autofarm:Dropdown("Select Boss",{"","Training Dummy"}, function(bool)
+    print(bool)
+    Settings.boss = bool
+end)
+
+autofarm:Seperator()
+
+autofarm:Toggle("Auto Eat",Settings.AutoEat, function(bool)
+    if bool == false then
+        print("Disabled")
+        Settings.AutoEat = false
+    end
+    if bool == true then
+        print("Enabled")
+        Settings.AutoEat = true
+    end
+end)
+
+autofarm:Dropdown("Auto Eat Selected",{"Apple","Banana","Delicious Rice And Sushi","Grilled Vegetable Curry","Avocado Prosciutto","Super Tofu"}, function(bool)
+    print(bool)
+    Settings.AutoFruit = bool
 end)
 
 buybul:Dropdown("Buy Vehicle",{"Blue N318 ($1000)","Red N319 ($2000)","Green N321 ($3000)","Vehicle N345 ($5000)","Dual Car ($15000)"}, function(bool)
     print(bool)
     if bool == "Blue N318 ($1000)" then
-        ShopEvent("BlueN318")
+        MainEvent("BlueN318")
         DiscordLib:Notification("Notification", "Succesfuly Bought "..bool, "Thank You")
     end
     if bool == "Red N319 ($2000)" then
-        ShopEvent("RedN319")
+        MainEvent("RedN319")
         DiscordLib:Notification("Notification", "Succesfuly Bought "..bool, "Thank You")
     end
     if bool == "Green N321 ($3000)" then
-        ShopEvent("GreeN321")
+        MainEvent("GreeN321")
         DiscordLib:Notification("Notification", "Succesfuly Bought "..bool, "Thank You")
     end
     if bool == "Vehicle N345 ($5000)" then
-        ShopEvent("VehicleN345")
+        MainEvent("VehicleN345")
         DiscordLib:Notification("Notification", "Succesfuly Bought "..bool, "Thank You")
     end
     if bool == "Dual Car ($15000)" then
-        ShopEvent("DualCar")
+        MainEvent("DualCar")
         DiscordLib:Notification("Notification", "Succesfuly Bought "..bool, "Thank You")
     end
 end)
 
 buybul:Seperator()
 
-buybul:Dropdown("Buy Food",{"Apple ($50)","Banana ($100)","Bland Rice ($500)","Sushi ($1250)","Lemon ($1000)","Avocado ($1000)","Tofu ($750)","Curry Mix ($1200)"}, function(bool)
+buybul:Dropdown("Buy Food",{"Apple ($50)","Banana ($100)","Delicious Rice And Sushi ($7500)","Grilled Vegetable Curry ($7000)","Avocado Prosciutto ($6000)","Super Tofu ($10000)"}, function(bool)
     print(bool)
     if bool == "Apple ($50)" then
-        ShopEvent("ApplesBought")
-        DiscordLib:Notification("Notification", "Succesfuly Bought "..bool, "Thank You")
+        FruitEvent("ApplesBought", Settings.HowManyF)
+        DiscordLib:Notification("Notification", "Succesfuly Bought "..Settings.HowManyF.." "..bool, "Thank You")
     end
     if bool == "Banana ($100)" then
-        ShopEvent("BananasBought")
-        DiscordLib:Notification("Notification", "Succesfuly Bought "..bool, "Thank You")
+        FruitEvent("BananasBought", Settings.HowManyF)
+        DiscordLib:Notification("Notification", "Succesfuly Bought "..Settings.HowManyF.." "..bool, "Thank You")
     end
-    if bool == "Bland Rice ($500)" then
-        ShopEvent("RicePurchase")
-        DiscordLib:Notification("Notification", "Succesfuly Bought "..bool, "Thank You")
+    if bool == "Delicious Rice And Sushi ($7500)" then
+        local howm = 0
+        local needMoney = 7500*Settings.HowManyF
+        local money = player.Data.Moneys.Value
+        if money > needMoney then
+            if howm == HowManyF then
+            else
+                repeat
+                    wait()
+                    FruitEvent("RicePurchase", 10)
+                    FruitEvent("SushiPurchase", 2)
+                    wait(0.1)
+                    MainEvent("CraftedSushiRiceBowl")
+                    howm = howm + 1
+                    if howm == Settings.HowManyF then
+                        DiscordLib:Notification("Notification", "Succesfuly Crafted "..Settings.HowManyF.." "..bool, "Thank You")
+                        return    
+                    end
+                until howm == Settings.HowManyF
+            end
+        else
+            local ndaa = needMoney - money
+            DiscordLib:Notification("Notification", "You need "..ndaa.." Zeni", "Thank You")
+        end
     end
-    if bool == "Sushi ($1250)" then
-        ShopEvent("SushiPurchase")
-        DiscordLib:Notification("Notification", "Succesfuly Bought "..bool, "Thank You")
+    if bool == "Grilled Vegetable Curry ($7000)" then
+        local howm = 0
+        local needMoney = 7000*Settings.HowManyF
+        local money = player.Data.Moneys.Value
+        if money > needMoney then
+            if howm == HowManyF then
+            else
+                repeat
+                    wait()
+                    FruitEvent("CurryMixPurchase", 5)
+                    FruitEvent("RicePurchase", 2)
+                    wait(0.1)
+                    MainEvent("CraftedCurry")
+                    howm = howm + 1
+                    if howm == Settings.HowManyF then
+                        DiscordLib:Notification("Notification", "Succesfuly Crafted "..Settings.HowManyF.." "..bool, "Thank You")
+                        return    
+                    end
+                until howm == Settings.HowManyF
+            end
+        else
+            local ndaa = needMoney - money
+            DiscordLib:Notification("Notification", "You need "..ndaa.." Zeni", "Thank You")
+        end
     end
-    if bool == "Lemon ($1000)" then
-        ShopEvent("LemonPurchase")
-        DiscordLib:Notification("Notification", "Succesfuly Bought "..bool, "Thank You")
+    if bool == "Avocado Prosciutto ($6000)" then
+        local howm = 0
+        local needMoney = 6000*Settings.HowManyF
+        local money = player.Data.Moneys.Value
+        if money > needMoney then
+            if howm == HowManyF then
+            else
+                repeat
+                    wait()
+                    FruitEvent("AvocadoPurchase", 4)
+                    FruitEvent("LemonPurchase", 2)
+                    wait(0.1)
+                    MainEvent("CraftedProsciutto")
+                    howm = howm + 1
+                    if howm == Settings.HowManyF then
+                        DiscordLib:Notification("Notification", "Succesfuly Crafted "..Settings.HowManyF.." "..bool, "Thank You")
+                        return    
+                    end
+                until howm == Settings.HowManyF
+            end
+        else
+            local ndaa = needMoney - money
+            DiscordLib:Notification("Notification", "You need "..ndaa.." Zeni", "Thank You")
+        end
     end
-    if bool == "Avocado ($1000)" then
-        ShopEvent("AvocadoPurchase")
-        DiscordLib:Notification("Notification", "Succesfuly Bought "..bool, "Thank You")
+    if bool == "Super Tofu ($10000)" then
+        local howm = 0
+        local needMoney = 10000*Settings.HowManyF
+        local money = player.Data.Moneys.Value
+        if money > needMoney then
+            if howm == HowManyF then
+            else
+                repeat
+                    wait()
+                    FruitEvent("TofuPurchase", 10)
+                    FruitEvent("RicePurchase", 5)
+                    wait(0.1)
+                    MainEvent("CraftedSUPERTOFU")
+                    howm = howm + 1
+                    if howm == Settings.HowManyF then
+                        DiscordLib:Notification("Notification", "Succesfuly Crafted "..Settings.HowManyF.." "..bool, "Thank You")
+                        return    
+                    end
+                until howm == Settings.HowManyF
+            end
+        else
+            local ndaa = needMoney - money
+            DiscordLib:Notification("Notification", "You need "..ndaa.." Zeni", "Thank You")
+        end
     end
-    if bool == "Tofu ($750)" then
-        ShopEvent("TofuPurchase")
-        DiscordLib:Notification("Notification", "Succesfuly Bought "..bool, "Thank You")
-    end
-    if bool == "Curry Mix ($1200)" then
-        ShopEvent("CurryMixPurchase")
-        DiscordLib:Notification("Notification", "Succesfuly Bought "..bool, "Thank You")
-    end
+end)
+
+buybul:Slider("How Many Food You Want To Buy", 1, 250, 1, function(t)
+    Settings.HowManyF = t
 end)
 
 buybul:Label("Other Items")
@@ -155,7 +266,7 @@ buybul:Label("Other Items")
 buybul:Seperator()
 
 buybul:Button("Buy Radar ($15000)", function()
-    ShopEvent("BuyRadar")
+    MainEvent("BuyRadar")
     DiscordLib:Notification("Notification", "Succesfuly Bought Radar", "Thank You")
 end)
 
@@ -163,31 +274,91 @@ local reginald = game:GetService("Workspace").Quests.Reginald
 
 -- Function Down
 
+function ItemEAT()
+    if Settings.AutoEat then
+        local humanoid = player.Character:FindFirstChild("Humanoid")
+        if humanoid then
+            if humanoid.Health ~= humanoid.MaxHealth then
+                if Settings.AutoFruit == "Apple" then
+                    MainEvent("DecidedToEatanApple")
+                    wait(0.2)
+                end
+                if Settings.AutoFruit == "Banana" then
+                    MainEvent("DecidedToEatanBanana")
+                    wait(0.2)
+                end
+                if Settings.AutoFruit == "Delicious Rice And Sushi" then
+                    MainEvent("EatingRiceBowl")
+                    wait(0.2)
+                end
+                if Settings.AutoFruit == "Grilled Vegetable Curry" then
+                    MainEvent("EatingCurry")
+                    wait(0.2)
+                end
+                if Settings.AutoFruit == "Avocado Prosciutto" then
+                    MainEvent("EatingAvocadoProsciutto")
+                    wait(0.2)
+                end
+                if Settings.AutoFruit == "Super Tofu" then
+                    MainEvent("EatingSuperTofu")
+                    wait(0.2)
+                end
+            end
+        else
+            repeat
+                wait()
+                if not Settings.AutoEat then return end
+            until humanoid
+        end
+    end
+end
+
 function AutoDBL()
     if Settings.AutoDragonBall then
         for i, db in pairs(DballNameS) do
             local dragonballz = DBlocation:FindFirstChild(db)
             if dragonballz then
-                local dragonballstar = dragonballz:FindFirstChild("Stars")
-                if dragonballstar then
-                    repeat
-                        wait(60)
-                        player.Character.HumanoidRootPart.CFrame = CFrame.new(dragonballstar.Position)
-                        if not Settings.AutoDragonBall then return end
-                    until not dragonballz
+                if dragonballz.Name == "One Star Ball" then
+                    Settings.BallStar = "OneStar"
                 end
+                if dragonballz.Name == "Two Star Ball" then
+                    Settings.BallStar = "TwoStar"
+                end
+                if dragonballz.Name == "Three Star Ball" then
+                    Settings.BallStar = "ThreeStar"
+                end
+                if dragonballz.Name == "Four Star Ball" then
+                    Settings.BallStar = "FourStar"
+                end
+                if dragonballz.Name == "Five Star Ball" then
+                    Settings.BallStar = "FiveStar"
+                end
+                if dragonballz.Name == "Six Star Ball" then
+                    Settings.BallStar = "SixStar"
+                end
+                if dragonballz.Name == "Seven Star Ball" then
+                    Settings.BallStar = "SevenStar"
+                end
+                local fStr = player.Data:FindFirstChild(Settings.BallStar)
+                if fStr then
+                    if fStr.Value == false then
+                        local dragonballstar = dragonballz:FindFirstChild("Stars")
+                        if dragonballstar then
+                            player.Character.HumanoidRootPart.CFrame = CFrame.new(dragonballstar.Position)
+                            repeat
+                                wait(20)
+                                player.Character.HumanoidRootPart.CFrame = CFrame.new(dragonballstar.Position)
+                                fireproximityprompt(dragonballz, 1)
+                                if not Settings.AutoDragonBall then return end
+                            until not dragonballz
+                        end
+                    else
+                        Settings.BallStar = 0
+                    end
+                end
+            else
+                Settings.BallStar = 0
             end
-        end
-    end
-end
-
-function AutoQu()
-    if Settings.AutoQuest then
-        wait(1)
-        if Settings.mob == "Training Dummy" then
-            local A_1 = "Quest4Start"
-            local Event = game:GetService("ReplicatedStorage").Remotes.NPCStuff
-            Event:FireServer(A_1)
         end
     end
 end
@@ -233,26 +404,48 @@ local function getNPC()
     local dist, thing = math.huge
     for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
         if v.Name == Settings.mob then
-            local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
-            if mag < dist then 
-                dist = mag 
-                thing = v 
+            local findHumanoid = v:FindFirstChild("HumanoidRootPart")
+            if findHumanoid then
+                local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
+                if mag < dist then 
+                    dist = mag 
+                    thing = v 
+                end
+            else
+                repeat
+                    wait()
+                until findHumanoid
             end
+            
         end
     end
     return thing
 end
 
 while true and wait() do
+    ItemEAT()
     destBAN()
     AutoDBL()
-    AutoQu()
     milkfarm()
     if Settings.Autofarm then
-        repeat
-            wait(0.1)
-            player.Character.HumanoidRootPart.CFrame = CFrame.new(getNPC().HumanoidRootPart.Position)
-            if not Settings.Autofarm then return end
-        until  getNPC().Humanoid.Health == 0   
+        local plhuman = player.Character:FindFirstChild("HumanoidRootPart")
+        local getHumanoid = getNPC():FindFirstChild("HumanoidRootPart")
+        if plhuman then
+            if getHumanoid then
+                repeat
+                    wait(0.1)
+                    player.Character.HumanoidRootPart.CFrame = CFrame.new(getNPC().HumanoidRootPart.Position)
+                    if not Settings.Autofarm then return end
+                until  getNPC().Humanoid.Health == 0  
+            else
+                repeat
+                    wait()
+                until getHumanoid
+            end
+        else
+            repeat
+                wait()
+            until plhuman
+        end
     end
 end
