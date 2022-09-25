@@ -42,9 +42,12 @@ DragonBallFinalRemastered:Button("TRXDENT DBFR Autofarm", function()
 	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/DragonBallFinalRemastered")))()
 end)
 
-
-
 -- Other Scripts
+
+other:Button("TRXDENT RemoteSpy (Remake of R2S)", function()
+	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/RemoteSpy")))()
+end)
 
 other:Button("TRXDENT Aimlock (RMB To Activate)", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
