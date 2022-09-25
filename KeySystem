@@ -1,0 +1,53 @@
+getgenv().nedKM = "niga ass"
+
+local filename = "TRXDENTKey.lua"
+
+function loadSettings()
+	print("Loading Settings")
+	local HttpService = game:GetService("HttpService");
+	if (readfile and isfile and isfile(filename)) then
+		getgenv().Settings = HttpService:JSONDecode(readfile(filename));
+	else
+		print("File Not Found")	
+	end
+end
+
+function saveSettings()
+	local Logsz;
+	local HttpService = game:GetService("HttpService");
+	if (writefile) then
+		Logsz = HttpService:JSONEncode(keyuwu);
+		writefile(filename, Logsz)
+	else
+		print("Windows Rejected Save Request")
+	end
+end
+
+loadSettings()
+
+local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
+local win = DiscordLib:Window("TRXDENT")
+local serv = win:Server("TRXDENT Key System", "")
+local ky = serv:Channel("Key System")
+
+ky:Textbox("Enter Key", keyuwu, true, function(t)
+		keyuwu = t
+end)
+
+ky:Button("Get Key", function()
+	setclipboard("https://pnd.one/vG9SLM")
+	DiscordLib:Notification("Notification", "Link Copied!", "Okay!")
+end)
+
+function keycorr()
+	if keyuwu == nedKM then
+		print("Key Correct!")
+		loadstring(game:HttpGet"https://raw.githubusercontent.com/DxnizA/TRXDENT/main/Loader")()
+    saveSettings()
+		nedKM = "357u3424whyhbb hnju"
+	end
+end
+
+while true and wait(0.3) do
+	keycorr()
+end
