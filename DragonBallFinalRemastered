@@ -1,4 +1,9 @@
+repeat
+    wait()
+until game:IsLoaded()
+
 getgenv().Settings = {
+    world = "";
     BallStar = "";
     AutoFruit = "";
     AutoEat = false;
@@ -17,8 +22,10 @@ local win = DiscordLib:Window("TRXDENT")
 local serv = win:Server("TRXDENT DBFR", "")
 local autofarm = serv:Channel("Autofarm")
 local buybul = serv:Channel("Buy Item")
+local visual = serv:Channel("Visual")
 ----------------------------------------------
 local findban = game:GetService("ReplicatedStorage"):FindFirstChild("BanRemote")
+local findlive = game:GetService("ReplicatedStorage"):FindFirstChild("LivesRemote")
 
 local DBlocation = game:GetService("Workspace").DragonBallLocatioionsa
 local DballNameS = {"One Star Ball","Two Star Ball","Three Star Ball","Four Star Ball","Five Star Ball","Six Star Ball","Seven Star Ball"}
@@ -26,9 +33,30 @@ local player = game.Players.LocalPlayer
 
 -- Functions Up
 
+function infstam()
+    player.Data.Stamina.Value = player.Data.MaxStamina.Value
+end
+
+function auQ()
+    if Settings.mob == "Training Dummy" then
+
+    end
+end
+
+function setWorld()
+    if DBlocation then
+        Settings.world = "World"
+    else
+        Settings.world = "OtherWorld"
+    end
+end
+
 function destBAN()
     if findban then
         findban:Destroy()
+    end
+    if findlive then
+        findlive:Destroy()
     end
 end
 
@@ -65,6 +93,17 @@ autofarm:Toggle("Autofarm (Use With AutoClicker)",Settings.Autofarm, function(bo
     end
 end)
 
+autofarm:Toggle("AutoQuest",Settings.AutoQuest, function(bool)
+    if bool == false then
+        print("Disabled")
+        Settings.AutoQuest = false
+    end
+    if bool == true then
+        print("Enabled")
+        Settings.AutoQuest = true
+    end
+end)
+
 autofarm:Seperator()
 
 autofarm:Toggle("Autofarm Zeni",Settings.Automilk, function(bool)
@@ -89,6 +128,10 @@ autofarm:Toggle("Auto Teleport Dragon Balls",Settings.AutoDragonBall, function(b
     end
 end)
 
+local drop2 = autofarm:Dropdown("Select Auto Quest",{"","Training Dummy"}, function(bool)
+    
+end)
+
 autofarm:Seperator()
 
 local drop = autofarm:Dropdown("Select Mob",{"","Training Dummy","Thug","Elite Frieza Soldier","Red Ribbon Soldier","Flying Gorilla","Bio-men","Cyborg"}, function(bool)
@@ -96,7 +139,7 @@ local drop = autofarm:Dropdown("Select Mob",{"","Training Dummy","Thug","Elite F
     Settings.mob = bool
 end)
 
-local drop = autofarm:Dropdown("Select Boss",{"","Training Dummy"}, function(bool)
+local drop = autofarm:Dropdown("Select Boss",{"","Evil Saiyan"}, function(bool)
     print(bool)
     Settings.boss = bool
 end)
@@ -266,8 +309,55 @@ buybul:Label("Other Items")
 buybul:Seperator()
 
 buybul:Button("Buy Radar ($15000)", function()
-    MainEvent("BuyRadar")
-    DiscordLib:Notification("Notification", "Succesfuly Bought Radar", "Thank You")
+    local needMoney = 15000
+    local plmoney = player.Data.Moneys.Value
+    if plmoney > needMoney then
+        MainEvent("BuyRadar")
+        DiscordLib:Notification("Notification", "Succesfuly Bought Radar", "Thank You")
+    else
+        local ndaa = needMoney - money
+        DiscordLib:Notification("Notification", "You need "..ndaa.." Zeni", "Thank You")
+    end
+end)
+
+buybul:Button("Buy Light Weight ($300000)", function()
+    local needMoney = 300000
+    local plmoney = player.Data.Moneys.Value
+    if plmoney > needMoney then
+        MainEvent("BuyLightWeight")
+        DiscordLib:Notification("Notification", "Succesfuly Bought Light Weight", "Thank You")
+    else
+        local ndaa = needMoney - money
+        DiscordLib:Notification("Notification", "You need "..ndaa.." Zeni", "Thank You")
+    end
+end)
+
+buybul:Button("Buy Medium Weight ($500000)", function()
+    local needMoney = 500000
+    local plmoney = player.Data.Moneys.Value
+    if plmoney > needMoney then
+        MainEvent("BuyMediumWeight")
+        DiscordLib:Notification("Notification", "Succesfuly Bought Medium Weight", "Thank You")
+    else
+        local ndaa = needMoney - money
+        DiscordLib:Notification("Notification", "You need "..ndaa.." Zeni", "Thank You")
+    end
+end)
+
+buybul:Button("Buy Heavy Weight ($700000)", function()
+    local needMoney = 700000
+    local plmoney = player.Data.Moneys.Value
+    if plmoney > needMoney then
+        MainEvent("BuyHeavyWeight")
+        DiscordLib:Notification("Notification", "Succesfuly Bought Heavy Weight", "Thank You")
+    else
+        local ndaa = needMoney - money
+        DiscordLib:Notification("Notification", "You need "..ndaa.." Zeni", "Thank You")
+    end
+end)
+
+visual:Slider("Change Power Level", 1, 10000000, 1, function(t)
+    player.Data.Power.Value = t
 end)
 
 local reginald = game:GetService("Workspace").Quests.Reginald
@@ -306,7 +396,7 @@ function ItemEAT()
             end
         else
             repeat
-                wait()
+                wait(0.3)
                 if not Settings.AutoEat then return end
             until humanoid
         end
@@ -346,9 +436,9 @@ function AutoDBL()
                         if dragonballstar then
                             player.Character.HumanoidRootPart.CFrame = CFrame.new(dragonballstar.Position)
                             repeat
-                                wait(20)
+                                wait()
                                 player.Character.HumanoidRootPart.CFrame = CFrame.new(dragonballstar.Position)
-                                fireproximityprompt(dragonballz, 1)
+                                fireproximityprompt(dragonballz.ProximityPrompt, 6)
                                 if not Settings.AutoDragonBall then return end
                             until not dragonballz
                         end
@@ -367,7 +457,7 @@ function milkfarm()
     if Settings.Automilk then
         player.Character.HumanoidRootPart.CFrame = CFrame.new(reginald.HumanoidRootPart.Position)
         repeat
-            wait(0.1)
+            wait()
             local A_1 = "DialogAddedIn"
             local A_2 = "Isha"
             local Event = game:GetService("ReplicatedStorage").Remotes.NPCStuff
@@ -422,18 +512,37 @@ local function getNPC()
     return thing
 end
 
+function deNP()
+    if Settings.Autofarm then
+        local fHuman = getNPC():FindFirstChild("Humanoid")
+        if fHuman then
+            if getNPC().Humanoid.Health == 0 then
+                getNPC():Destroy()
+            end
+        else
+            repeat
+                wait(0.2)
+            until fHuman
+        end
+    end
+end
+
 while true and wait() do
+    infstam()
+    setWorld()
+    deNP()
     ItemEAT()
     destBAN()
     AutoDBL()
     milkfarm()
     if Settings.Autofarm then
+        deNP()
         local plhuman = player.Character:FindFirstChild("HumanoidRootPart")
         local getHumanoid = getNPC():FindFirstChild("HumanoidRootPart")
         if plhuman then
             if getHumanoid then
                 repeat
-                    wait(0.1)
+                    wait(0.05)
                     player.Character.HumanoidRootPart.CFrame = CFrame.new(getNPC().HumanoidRootPart.Position)
                     if not Settings.Autofarm then return end
                 until  getNPC().Humanoid.Health == 0  
