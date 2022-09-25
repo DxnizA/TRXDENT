@@ -35,7 +35,7 @@ ky:Textbox("Enter Key", keyuwu, true, function(t)
 end)
 
 ky:Button("Get Key", function()
-	setclipboard("https://pnd.one/vG9SLM")
+	setclipboard("https://pnd.one/SqeJ")
 	DiscordLib:Notification("Notification", "Link Copied!", "Okay!")
 end)
 
