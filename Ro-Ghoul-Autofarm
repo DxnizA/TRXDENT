@@ -24,9 +24,9 @@ getgenv().selmobs = {
 
 local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
 
-local win = DiscordLib:Window("XDENT")
+local win = DiscordLib:Window("TRXDENT")
 
-local serv = win:Server("XDENT Ro-Ghoul", "")
+local serv = win:Server("TRXDENT Ro-Ghoul", "")
 
 local get = setmetatable({}, {
     __index = function(a, b)
