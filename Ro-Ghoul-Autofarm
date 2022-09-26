@@ -24,9 +24,9 @@ getgenv().selmobs = {
 
 local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
 
-local win = DiscordLib:Window("TRXDENT")
+local win = DiscordLib:Window("XDENT")
 
-local serv = win:Server("TRXDENT Ro-Ghoul", "")
+local serv = win:Server("XDENT Ro-Ghoul", "")
 
 local get = setmetatable({}, {
     __index = function(a, b)
@@ -61,7 +61,7 @@ local function useSKL()
                 local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
                 local A_2 = "E"
                 local A_3 = "Down"
-                local Event = game:GetService("Workspace").FearlessBreaker.Remotes.KeyEvent
+                local Event = player.Character.Remotes.KeyEvent
                 Event:FireServer(A_1, A_2, A_3)
                 wait(0.05)
             end
@@ -69,7 +69,7 @@ local function useSKL()
                 local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
                 local A_2 = "R"
                 local A_3 = "Down"
-                local Event = game:GetService("Workspace").FearlessBreaker.Remotes.KeyEvent
+                local Event = player.Character.Remotes.KeyEvent
                 Event:FireServer(A_1, A_2, A_3)
                 wait(0.05)
             end
@@ -77,7 +77,7 @@ local function useSKL()
                 local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
                 local A_2 = "F"
                 local A_3 = "Down"
-                local Event = game:GetService("Workspace").FearlessBreaker.Remotes.KeyEvent
+                local Event = player.Character.Remotes.KeyEvent
                 Event:FireServer(A_1, A_2, A_3)
                 wait(0.05)
             end
@@ -85,7 +85,7 @@ local function useSKL()
                 local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
                 local A_2 = "C"
                 local A_3 = "Down"
-                local Event = game:GetService("Workspace").FearlessBreaker.Remotes.KeyEvent
+                local Event = player.Character.Remotes.KeyEvent
                 Event:FireServer(A_1, A_2, A_3)
                 wait(0.05)
             end
@@ -339,7 +339,7 @@ local function AuOp()
                 local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
                  local A_2 = sett1ngs.stage
                 local A_3 = "Down"
-                local Event = game:GetService("Workspace").FearlessBreaker.Remotes.KeyEvent
+                local Event = player.Character.Remotes.KeyEvent
                 Event:FireServer(A_1, A_2, A_3)
                 if kag or qui then return end
             end
