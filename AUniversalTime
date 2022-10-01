@@ -1,0 +1,144 @@
+repeat
+    wait()
+until game:IsLoaded()
+
+getgenv().STa = {
+    Autofarm = true;
+    Chest = false;
+    Meteor = false;
+    Debris = false;
+    Ground = false;
+}
+
+local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
+local win = DiscordLib:Window("TRXDENT")
+local serv = win:Server("TRXDENT AUT", "")
+local aut = serv:Channel("Autofarm (Item)")
+local player = game.Players.LocalPlayer
+local lp = game:GetService("Players").LocalPlayer
+local char = lp.Character or lp.CharacterAdded:Wait()
+local hum = char:WaitForChild("Humanoid")
+local root = char:WaitForChild("HumanoidRootPart")
+
+lp.CharacterAdded:Connect(function(Character)
+    char = Character
+    hum = Character:WaitForChild("Humanoid")
+    root = Character:WaitForChild("HumanoidRootPart")
+end)
+
+-- Anti-AFK
+
+for i,v in pairs(getconnections(lp.Idled)) do 
+    v:Disable()
+end
+
+print("Loading Meteors")
+root.CFrame = CFrame.new(-455.85, 924.121, 780.407)
+
+
+aut:Toggle("Autofarm (Chest)",STa.Chest, function(t)
+    if t then
+        STa.Chest = true
+        DiscordLib:Notification("Notification", "Autofarm (Chest) Enabled!", "Okay!")
+    else
+        STa.Chest = false
+        DiscordLib:Notification("Notification", "Autofarm (Chest) Disabled!", "Okay!")
+    end
+end)
+
+aut:Toggle("Autofarm (Meteor)",STa.Meteor, function(t)
+    if t then
+        STa.Meteor = true
+        DiscordLib:Notification("Notification", "Autofarm (Meteor) Enabled!", "Okay!")
+    else
+        STa.Meteor = false
+        DiscordLib:Notification("Notification", "Autofarm (Meteor) Disabled!", "Okay!")
+    end
+end)
+
+aut:Toggle("Autofarm (Ground)",STa.Ground, function(t)
+    if t then
+        STa.Ground = true
+        DiscordLib:Notification("Notification", "Autofarm (Ground) Enabled!", "Okay!")
+    else
+        STa.Ground = false
+        DiscordLib:Notification("Notification", "Autofarm (Ground) Disabled!", "Okay!")
+    end
+end)
+
+aut:Toggle("Autofarm (Sand Debris)",STa.Debris, function(t)
+    if t then
+        STa.Debris = true
+        DiscordLib:Notification("Notification", "Autofarm (Sand Debris) Enabled!", "Okay!")
+    else
+        STa.Debris = false
+        DiscordLib:Notification("Notification", "Autofarm (Sand Debris) Disabled!", "Okay!")
+    end
+end)
+
+function autofarm()
+    if char then
+        if STa.Autofarm then
+            if STa.Chest then
+                local chest = game:GetService("Workspace").ItemSpawns.Chests
+                for _, ches in pairs(chest:GetDescendants()) do
+                    if ches.Name == "RootPart" then
+                        player.Character.HumanoidRootPart.CFrame = CFrame.new(ches.Position)
+                        if char then
+                            for i,v in pairs(game:GetService("Workspace").ItemSpawns.Chests:GetDescendants()) do
+                                if v:FindFirstChild("Interaction") then
+                                    fireproximityprompt(v.Interaction, 1, true)
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+            if STa.Meteor then
+                local Meteor = game:GetService("Workspace").ItemSpawns.Meteors
+                for _, met in pairs(Meteor:GetDescendants()) do
+                    if met.Name == "Meteor" then
+                        player.Character.HumanoidRootPart.CFrame = CFrame.new(met.Position)
+                        for i,v in pairs(game:GetService("Workspace").ItemSpawns.Meteors:GetDescendants()) do
+                            if v:FindFirstChild("Interaction") then
+                                fireproximityprompt(v.Interaction, 1, true)
+                            end
+                        end
+                    end
+                end
+            end
+            if STa.Debris then
+                for _,debris in pairs(game:GetService("Workspace").ItemSpawns["Sand Debris"]:GetDescendants()) do
+                    if debris.Name == "SandDebris" then
+                        root.CFrame = debris.CFrame + Vector3.new(0,0,5)
+                        for i,v in pairs(game:GetService("Workspace").ItemSpawns["Sand Debris"]:GetDescendants()) do
+                            if v:FindFirstChild("Interaction") then
+                                fireproximityprompt(v.Interaction, 1, true)
+                            end
+                        end
+                    end
+                end
+            end
+            if STa.Ground then
+                for _,ground in pairs(game:GetService("Workspace").ItemSpawns.StandardItems:GetDescendants()) do
+                    if ground.Name == "SpawnLocation" then
+                        if #ground:GetChildren() > 0 then
+                            root.CFrame = ground:GetChildren()[1].CFrame
+                            for i,v in pairs(game:GetService("Workspace").ItemSpawns.StandardItems:GetDescendants()) do
+                                if v:FindFirstChild("Interaction") then
+                                    fireproximityprompt(v.Interaction, 1, true)
+                                end
+                            end
+                        end
+                    end
+                end
+
+            end
+            if not STa.Autofarm then return end
+        end
+    end
+end
+
+while true and wait() do 
+    autofarm()
+end
