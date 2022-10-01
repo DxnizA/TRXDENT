@@ -7,6 +7,7 @@ local serv = win:Server("TRXDENT Loader", "")
 local mm2 = serv:Channel("Murder Mystery 2")
 local roghoul = serv:Channel("Ro-Ghoul")
 local DragonBallFinalRemastered = serv:Channel("DBFR")
+local AUniversalTime = serv:Channel("A Universal Time")
 local other = serv:Channel("Other Scripts")
 
 -- Murder Mystery 2
@@ -40,6 +41,13 @@ end)
 DragonBallFinalRemastered:Button("TRXDENT DBFR Autofarm", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
 	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/DragonBallFinalRemastered")))()
+end)
+
+-- A Universal Time
+
+AUniversalTime:Button("TRXDENT A Universal Time Autofarm", function()
+	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/AUniversalTime")))()
 end)
 
 -- Other Scripts
