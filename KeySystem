@@ -1,4 +1,4 @@
-getgenv().nedKM = "dragon ballz"
+getgenv().nedKM = "update 1.12"
 
 local filename = "TRXDENTKey.lua"
 
