@@ -8,12 +8,25 @@ getgenv().STa = {
     Meteor = false;
     Debris = false;
     Ground = false;
+    BoaH = false;
+    Diavolo = false;
+    Dio = false;
+    AutoE = false;
+    AutoR = false;
+    AutoT = false;
+    AutoY = false;
+    AutoF = false;
+    AutoG = false;
+    AutoH = false;
+    AutoJ = false;
 }
 
 local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
 local win = DiscordLib:Window("TRXDENT")
 local serv = win:Server("TRXDENT AUT", "")
 local aut = serv:Channel("Autofarm (Item)")
+local aut2 = serv:Channel("Autofarm (NPC)")
+local aut3 = serv:Channel("Settings")
 local player = game.Players.LocalPlayer
 local lp = game:GetService("Players").LocalPlayer
 local char = lp.Character or lp.CharacterAdded:Wait()
@@ -35,6 +48,9 @@ end
 print("Loading Meteors")
 root.CFrame = CFrame.new(-455.85, 924.121, 780.407)
 
+-- Functions Up
+
+-- Autofarm (Item)
 
 aut:Toggle("Autofarm (Chest)",STa.Chest, function(t)
     if t then
@@ -73,6 +89,125 @@ aut:Toggle("Autofarm (Sand Debris)",STa.Debris, function(t)
     else
         STa.Debris = false
         DiscordLib:Notification("Notification", "Autofarm (Sand Debris) Disabled!", "Okay!")
+    end
+end)
+
+-- Autofarm (NPC)
+
+aut2:Toggle("Autofarm (Boa H)",STa.BoaH, function(t)
+    if t then
+        STa.BoaH = true
+        DiscordLib:Notification("Notification", "Autofarm (Boa H) Enabled!", "Okay!")
+    else
+        STa.BoaH = false
+        DiscordLib:Notification("Notification", "Autofarm (Boa H) Disabled!", "Okay!")
+    end
+end)
+
+aut2:Toggle("Autofarm (Dio)",STa.Dio, function(t)
+    if t then
+        STa.Dio = true
+        DiscordLib:Notification("Notification", "Autofarm (Dio) Enabled!", "Okay!")
+    else
+        STa.Dio = false
+        DiscordLib:Notification("Notification", "Autofarm (Dio) Disabled!", "Okay!")
+    end
+end)
+
+aut2:Toggle("Autofarm (Diavolo)",STa.Diavolo, function(t)
+    if t then
+        STa.Diavolo = true
+        DiscordLib:Notification("Notification", "Autofarm (Diavolo) Enabled!", "Okay!")
+    else
+        STa.Diavolo = false
+        DiscordLib:Notification("Notification", "Autofarm (Diavolo) Disabled!", "Okay!")
+    end
+end)
+
+-- Settings
+
+aut3:Button("God Mode (For Boss's)", function()
+    game:GetService("Players").LocalPlayer.Character.Values.Block:Destroy()
+    DiscordLib:Notification("Notification", "God Mode Enabled!", "Okay!")
+end)
+
+aut3:Toggle("Auto Press (E)",STa.AutoE, function(t)
+    if t then
+        STa.AutoE = true
+        DiscordLib:Notification("Notification", "Auto Press (E) Enabled!", "Okay!")
+    else
+        STa.AutoE = false
+        DiscordLib:Notification("Notification", "Auto Press (E) Disabled!", "Okay!")
+    end
+end)
+
+aut3:Toggle("Auto Press (R)",STa.AutoR, function(t)
+    if t then
+        STa.AutoR = true
+        DiscordLib:Notification("Notification", "Auto Press (R) Enabled!", "Okay!")
+    else
+        STa.AutoR = false
+        DiscordLib:Notification("Notification", "Auto Press (R) Disabled!", "Okay!")
+    end
+end)
+
+aut3:Toggle("Auto Press (T)",STa.AutoT, function(t)
+    if t then
+        STa.AutoT = true
+        DiscordLib:Notification("Notification", "Auto Press (T) Enabled!", "Okay!")
+    else
+        STa.AutoT = false
+        DiscordLib:Notification("Notification", "Auto Press (T) Disabled!", "Okay!")
+    end
+end)
+
+aut3:Toggle("Auto Press (Y)",STa.AutoY, function(t)
+    if t then
+        STa.AutoY = true
+        DiscordLib:Notification("Notification", "Auto Press (Y) Enabled!", "Okay!")
+    else
+        STa.AutoY = false
+        DiscordLib:Notification("Notification", "Auto Press (Y) Disabled!", "Okay!")
+    end
+end)
+
+aut3:Toggle("Auto Press (F)",STa.AutoF, function(t)
+    if t then
+        STa.AutoF = true
+        DiscordLib:Notification("Notification", "Auto Press (F) Enabled!", "Okay!")
+    else
+        STa.AutoF = false
+        DiscordLib:Notification("Notification", "Auto Press (F) Disabled!", "Okay!")
+    end
+end)
+
+aut3:Toggle("Auto Press (G)",STa.AutoG, function(t)
+    if t then
+        STa.AutoG = true
+        DiscordLib:Notification("Notification", "Auto Press (G) Enabled!", "Okay!")
+    else
+        STa.AutoG = false
+        DiscordLib:Notification("Notification", "Auto Press (G) Disabled!", "Okay!")
+    end
+end)
+
+aut3:Toggle("Auto Press (H)",STa.AutoH, function(t)
+    if t then
+        STa.AutoH = true
+        DiscordLib:Notification("Notification", "Auto Press (H) Enabled!", "Okay!")
+    else
+        STa.AutoH = false
+        DiscordLib:Notification("Notification", "Auto Press (H) Disabled!", "Okay!")
+    end
+end)
+
+aut3:Toggle("Auto Press (J)",STa.AutoJ, function(t)
+    if t then
+        STa.AutoJ = true
+        DiscordLib:Notification("Notification", "Auto Press (J) Enabled!", "Okay!")
+    else
+        STa.AutoJ = false
+        DiscordLib:Notification("Notification", "Auto Press (J) Disabled!", "Okay!")
     end
 end)
 
@@ -139,6 +274,89 @@ function autofarm()
     end
 end
 
-while true and wait() do 
+function AutoPress()
+    if char then
+        if STa.AutoE then
+            game:GetService("ReplicatedStorage").Remotes.InputFunc:InvokeServer("E")
+            if not STa.AutoE then return end
+        end
+        if STa.AutoR then
+            game:GetService("ReplicatedStorage").Remotes.InputFunc:InvokeServer("R")
+            if not STa.AutoR then return end
+        end
+        if STa.AutoT then
+            game:GetService("ReplicatedStorage").Remotes.InputFunc:InvokeServer("T")
+            if not STa.AutoT then return end
+        end
+        if STa.AutoY then
+            game:GetService("ReplicatedStorage").Remotes.InputFunc:InvokeServer("Y")
+            if not STa.AutoY then return end
+        end
+        if STa.AutoF then
+            game:GetService("ReplicatedStorage").Remotes.InputFunc:InvokeServer("F")
+            if not STa.AutoF then return end
+        end
+        if STa.AutoG then
+            game:GetService("ReplicatedStorage").Remotes.InputFunc:InvokeServer("G")
+            if not STa.AutoG then return end
+        end
+        if STa.AutoH then
+            game:GetService("ReplicatedStorage").Remotes.InputFunc:InvokeServer("H")
+            if not STa.AutoH then return end
+        end
+        if STa.AutoJ then
+            game:GetService("ReplicatedStorage").Remotes.InputFunc:InvokeServer("J")
+            if not STa.AutoJ then return end
+        end
+    end
+end
+
+function AutoBoss()
+    if char then
+        local dio = game:GetService("Workspace").Living:FindFirstChild("Dio")
+        local diavolo = game:GetService("Workspace").Living:FindFirstChild("Diavolo")
+        local boah = game:GetService("Workspace").Living:FindFirstChild("Boa H")
+        if STa.Dio then
+            if dio then
+                root.CFrame = CFrame.new(1337.86, 581.971, 10466.7)
+                wait(2)
+                repeat
+                    wait()
+                    root.CFrame = dio.HumanoidRootPart.CFrame + Vector3.new(0, 0, 0)
+                    if not STa.Dio then return end
+                    if not char then return end
+                until not dio
+            end
+        end
+        if STa.Diavolo then
+            if diavolo then
+                root.CFrame = CFrame.new(-200.25155639648438, 922.7275390625, 1026.2716064453125)
+                wait(2)
+                repeat
+                    wait()
+                    root.CFrame = diavolo.HumanoidRootPart.CFrame + Vector3.new(0, 0, 0)
+                    if not STa.Diavolo then return end
+                    if not char then return end
+                until not diavolo
+            end
+        end
+        if STa.BoaH then
+            if boah then
+                root.CFrame = CFrame.new(11062.6533, 954.30835, 15120.6396)
+                wait(2)
+                repeat
+                    wait()
+                    root.CFrame = boah.HumanoidRootPart.CFrame + Vector3.new(0, 0, 0)
+                    if not STa.BoaH then return end
+                    if not char then return end
+                until not boah
+            end
+        end
+    end
+end
+
+while true and wait() do
     autofarm()
+    AutoPress()
+    AutoBoss()
 end
