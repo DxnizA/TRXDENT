@@ -16,6 +16,16 @@ getgenv().Settings = {
     HowManyF = 1;
 }
 
+function setWorld()
+    if DBlocation then
+        Settings.world = "World"
+    else
+        Settings.world = "OtherWorld"
+    end
+end
+
+setWorld()
+
 --- GUI --------------------------------------
 local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
 local win = DiscordLib:Window("TRXDENT")
@@ -40,14 +50,6 @@ end
 function auQ()
     if Settings.mob == "Training Dummy" then
 
-    end
-end
-
-function setWorld()
-    if DBlocation then
-        Settings.world = "World"
-    else
-        Settings.world = "OtherWorld"
     end
 end
 
@@ -529,7 +531,6 @@ end
 
 while true and wait() do
     infstam()
-    setWorld()
     deNP()
     ItemEAT()
     destBAN()
