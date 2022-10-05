@@ -1,4 +1,4 @@
-getgenv().nedKM = "update 1.12"
+getgenv().nedKM = "42cent"
 
 local filename = "TRXDENTKey.lua"
 
