@@ -3,6 +3,9 @@ repeat
 until game:IsLoaded()
 
 getgenv().STa = {
+    autosafe = false;
+    safecooldown = 10;
+    intog = false;
     Autofarm = true;
     Chest = false;
     Meteor = false;
@@ -26,20 +29,13 @@ local win = DiscordLib:Window("TRXDENT")
 local serv = win:Server("TRXDENT AUT", "")
 local aut = serv:Channel("Autofarm (Item)")
 local aut2 = serv:Channel("Autofarm (NPC)")
+local aut4 = serv:Channel("Teleport")
 local aut3 = serv:Channel("Settings")
 local player = game.Players.LocalPlayer
 local lp = game:GetService("Players").LocalPlayer
 local char = lp.Character or lp.CharacterAdded:Wait()
 local hum = char:WaitForChild("Humanoid")
 local root = char:WaitForChild("HumanoidRootPart")
-local noclipE       = false
-local antifall      = false
-
-lp.CharacterAdded:Connect(function(Character)
-    char = Character
-    hum = Character:WaitForChild("Humanoid")
-    root = Character:WaitForChild("HumanoidRootPart")
-end)
 
 -- Anti-AFK
 
@@ -51,7 +47,6 @@ print("Loading Meteors")
 root.CFrame = CFrame.new(-455.85, 924.121, 780.407)
 
 -- Functions Up
-
 -- Autofarm (Item)
 
 aut:Toggle("Autofarm (Chest)",STa.Chest, function(t)
@@ -126,9 +121,47 @@ aut2:Toggle("Autofarm (Diavolo)",STa.Diavolo, function(t)
     end
 end)
 
+-- Teleports
+
+aut4:Toggle("Auto-Teleport Safezone",STa.autosafe, function(t)
+    if t then
+        STa.autosafe = true
+        DiscordLib:Notification("Notification", "Auto-Teleport Safezone Enabled!", "Okay!")
+    else
+        STa.autosafe = false
+        DiscordLib:Notification("Notification", "Auto-Teleport Safezone Disabled!", "Okay!")
+    end
+end)
+
+aut4:Slider("Cooldown", 0, 240, STa.safecooldown, function(t)
+    STa.safecooldown = t
+end)
+
+aut4:Seperator()
+
+aut4:Button("Safezone", function()
+    root.CFrame = CFrame.new(686.581298828125, 1164.6793212890625, -495.5419921875)
+    DiscordLib:Notification("Notification", "Succesfuly Teleported!", "Okay!")
+end)
+
+aut4:Button("Mansion", function()
+    root.CFrame = CFrame.new(1337.86, 581.971, 10466.7)
+    DiscordLib:Notification("Notification", "Succesfuly Teleported!", "Okay!")
+end)
+
+aut4:Button("Diavolo Temple", function()
+    root.CFrame = CFrame.new(-200.25155639648438, 922.7275390625, 1026.2716064453125)
+    DiscordLib:Notification("Notification", "Succesfuly Teleported!", "Okay!")
+end)
+
+aut4:Button("Boa Hancock's Island", function()
+    root.CFrame = CFrame.new(11062.6533, 954.30835, 15120.6396)
+    DiscordLib:Notification("Notification", "Succesfuly Teleported!", "Okay!")
+end)
+
 -- Settings
 
-aut3:Button("God Mode (For Boss's)", function()
+aut3:Button("God Mode (For Boss/NPC Farm)", function()
     game:GetService("Players").LocalPlayer.Character.Values.Block:Destroy()
     DiscordLib:Notification("Notification", "God Mode Enabled!", "Okay!")
 end)
@@ -216,6 +249,10 @@ end)
 function autofarm()
     if char then
         if STa.Autofarm then
+            local safechest = game:GetService("Workspace").ItemSpawns.Chests
+            local safemeteor = game:GetService("Workspace").ItemSpawns.Meteors
+            local safedebris = game:GetService("Workspace").ItemSpawns["Sand Debris"]
+            local safeground = game:GetService("Workspace").ItemSpawns.StandardItems
             if STa.Chest then
                 local chest = game:GetService("Workspace").ItemSpawns.Chests
                 for _, ches in pairs(chest:GetDescendants()) do
@@ -269,7 +306,6 @@ function autofarm()
                         end
                     end
                 end
-
             end
             if not STa.Autofarm then return end
         end
@@ -310,6 +346,13 @@ function AutoPress()
             game:GetService("ReplicatedStorage").Remotes.InputFunc:InvokeServer("J")
             if not STa.AutoJ then return end
         end
+    end
+end
+
+function AutoSafe()
+    if STa.autosafe then
+        wait(STa.safecooldown)
+        root.CFrame = CFrame.new(686.581298828125, 1164.6793212890625, -495.5419921875)
     end
 end
 
@@ -367,6 +410,7 @@ function AutoBoss()
 end
 
 while true and wait() do
+    AutoSafe()
     autofarm()
     AutoPress()
     AutoBoss()
