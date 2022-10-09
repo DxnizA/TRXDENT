@@ -1,4 +1,4 @@
-getgenv().nedKM = "42cent"
+getgenv().nedKM = "thankyou"
 
 local filename = "TRXDENTKey.lua"
 
