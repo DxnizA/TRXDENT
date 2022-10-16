@@ -1,0 +1,53 @@
+getgenv().Sett = {
+    Win = 0;
+    Started = false;
+};
+
+local part = game.Workspace:FindFirstChild("Gay")
+
+if not part then
+    local prt = Instance.new("Part")
+    prt.Name = "Gay"
+    prt.Parent = game.Workspace
+    prt.Anchored = true
+    prt.CFrame = CFrame.new(-5.972589015960693, 900.2233657836914, -31.89034080505371)
+    prt.Transparency = 0.5
+    prt.BrickColor = BrickColor.new(22,22,22)
+else
+    print("Have Part")
+end
+
+local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
+local win = DiscordLib:Window("TRXDENT")
+local serv = win:Server("TRXDENT NDS", "")
+local Autofarm = serv:Channel("Autofarm")
+local LOG = serv:Channel("Win-Log")
+local winslabel = game:GetService("Workspace").BillboardTop10.Board.SurfaceGui.Clipframe:FindFirstChild("Label"..game.Players.LocalPlayer.Name)
+local wincount = tonumber(winslabel.WinsLabel.Text)
+
+Autofarm:Toggle("Auto-Farm", Sett.Started, function(bool)
+    if bool == true then
+        Sett.Started = true
+        DiscordLib:Notification("TRXDENT", "Auto-Farm Enabled!", "Okay!")
+    else
+        Sett.Started = false
+        DiscordLib:Notification("TRXDENT", "Auto-Farm Disabled!", "Okay!")
+    end
+end)
+
+Autofarm:Seperator()
+
+Autofarm:Button("Write Win's | Check Total Win", function()
+    DiscordLib:Notification("TRXDENT", "You Have "..Sett.Win.." Wins", "Okay!")
+    LOG:Label("You Have "..Sett.Win.." Wins")
+end)
+
+while true and wait() do
+    Sett.Win = wincount
+    local hroot = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    if Sett.Started then
+        if hroot then
+            hroot.CFrame = CFrame.new(part.Position.X, part.Position.Y+2,	part.Position.Z)
+        end
+    end
+end
