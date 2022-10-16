@@ -9,6 +9,7 @@ local roghoul = serv:Channel("Ro-Ghoul")
 local DragonBallFinalRemastered = serv:Channel("DBFR")
 local AUniversalTime = serv:Channel("A Universal Time")
 local NaturalDisaster = serv:Channel("Natural Disaster S")
+local Evade = serv:Channel("Evade")
 local other = serv:Channel("Other Scripts")
 
 -- Murder Mystery 2
@@ -56,6 +57,13 @@ end)
 NaturalDisaster:Button("TRXDENT Natural Disaster S Autofarm", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
 	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/NaturalDisasterSurvival")))()
+end)
+
+-- Evade
+
+Evade:Button("TRXDENT Evade Gui", function()
+	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/Evade")))()
 end)
 
 -- Other Scripts
