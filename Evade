@@ -1,0 +1,48 @@
+getgenv().Settings = {
+    EvadeSoundID = "6081484531";
+    EvadeImageID = "10526778757";
+}
+
+local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
+local win = DiscordLib:Window("TRXDENT")
+local serv = win:Server("TRXDENT Evade", "")
+local main = serv:Channel("Main")
+local path = game:GetService("Workspace").Game.Players
+local player = game.Players.LocalPlayer
+local char = player.Character
+local hroot = char:FindFirstChild("HumanoidRootPart")
+
+function smaahh()
+    for playeri, playerv in pairs(game.Players:GetChildren()) do
+        for npci, npcv in pairs(path:GetChildren()) do
+            if npcv.Name ~= playerv.Name then
+                local HRP = npcv:FindFirstChild("HRP")
+                if HRP then
+                    local sound = HRP.Idle
+                    local image = HRP.HeadPos.BillboardGui.ImageLabel
+                    if sound.SoundId ~= "rbxassetid://"..Settings.EvadeSoundID then
+                        sound.SoundId = "rbxassetid://"..Settings.EvadeSoundID
+                    end
+                    if image.Image ~= "rbxassetid://"..Settings.EvadeImageID then
+                        image.Image = "rbxassetid://"..Settings.EvadeImageID
+                    end
+                end
+            end
+        end
+    end
+end
+
+main:Button("Apply Settings (Doesn't Works on some npc's)", function()
+    smaahh()
+    DiscordLib:Notification("TRXDENT", "Applied Settings!", "Okay!")
+end)
+
+main:Seperator()
+
+main:Textbox("Sound ID", "Type here!", true, function(t)
+    Settings.EvadeSoundID = t
+end)
+
+main:Textbox("Image ID", "Type here!", true, function(t)
+    Settings.EvadeImageID = t
+end)
