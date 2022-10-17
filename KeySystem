@@ -35,7 +35,7 @@ ky:Textbox("Enter Key", keyuwu, true, function(t)
 end)
 
 ky:Button("Get Key", function()
-	setclipboard("https://link-target.net/418721/trxdent-script-key-system")
+	setclipboard("https://link-center.net/418721/trxdent-script-key-system1")
 	DiscordLib:Notification("Notification", "Link Copied!", "Okay!")
 end)
 
