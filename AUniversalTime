@@ -410,8 +410,8 @@ function AutoBoss()
 end
 
 while true and wait() do
-    AutoSafe()
     autofarm()
+    AutoSafe()
     AutoPress()
     AutoBoss()
 end
