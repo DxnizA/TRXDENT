@@ -13,7 +13,7 @@ local serv = win:Server("TRXDENT MM2", "")
 
 local autofarm = serv:Channel("Autofarm")
 
-local maps = {"Mansion2","Office3","Bank2","PoliceStation","BioLab","Hotel","MilBase","House2","Hospital3",""}
+local maps = {"Mansion2","Office3","Bank2","PoliceStation","BioLab","Hotel","MilBase","House2","Hospital3","Farmhouse"}
 local player = game.Players.LocalPlayer
 
 -- Save System
