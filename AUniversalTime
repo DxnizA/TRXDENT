@@ -2,6 +2,10 @@ repeat
     wait()
 until game:IsLoaded()
 
+if game.CoreGui:FindFirstChild("FinityUI") then
+    game.CoreGui["FinityUI"]:Destroy()
+end
+
 getgenv().STa = {
     autosafe = false;
     safecooldown = 10;
@@ -22,15 +26,48 @@ getgenv().STa = {
     AutoG = false;
     AutoH = false;
     AutoJ = false;
+    AutoB = false;
 }
 
-local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
-local win = DiscordLib:Window("TRXDENT")
-local serv = win:Server("TRXDENT AUT", "")
-local aut = serv:Channel("Autofarm (Item)")
-local aut2 = serv:Channel("Autofarm (NPC)")
-local aut4 = serv:Channel("Teleport")
-local aut3 = serv:Channel("Settings")
+local filename = "TRXDENT_AUTGui.lua"
+
+function loadSettings()
+	print("Loading Settings")
+	local HttpService = game:GetService("HttpService");
+	if (readfile and isfile and isfile(filename)) then
+		getgenv().Settings = HttpService:JSONDecode(readfile(filename));
+	else
+		print("File Not Found")	
+	end
+end
+
+function saveSettings()
+	local Logsz;
+	local HttpService = game:GetService("HttpService");
+	if (writefile) then
+		Logsz = HttpService:JSONEncode(STa);
+		writefile(filename, Logsz)
+	else
+		print("Windows Rejected Save Request")
+	end
+end
+
+local Finity = loadstring(game:HttpGet("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/FinityUI"))()
+local FinityWindow = Finity.new(true) -- 'true' means dark mode is enabled
+local FinityCredits = FinityWindow:Category("Credits")
+local FinityC1 = FinityWindow:Category("AUT")
+local FCreditsL1 = FinityCredits:Sector("Credits")
+local FC1L1 = FinityC1:Sector("Auto-Farm")
+local FC1L2 = FinityC1:Sector("Teleport")
+local FC1L3 = FinityC1:Sector("Settings")
+local FC1L4 = FinityC1:Sector("Misc")
+
+-- Credits
+FCreditsL1:Cheat("Label","Made By Dxniz#5321", function() end)
+FCreditsL1:Cheat("Button", "Copy Discord Server Link", function()
+	setclipboard("https://discord.gg/GgrQBzA3Z9")
+end)
+
 local player = game.Players.LocalPlayer
 local lp = game:GetService("Players").LocalPlayer
 local char = lp.Character or lp.CharacterAdded:Wait()
@@ -48,204 +85,118 @@ root.CFrame = CFrame.new(-455.85, 924.121, 780.407)
 
 -- Functions Up
 -- Autofarm (Item)
+FC1L1:Cheat("Label","Autofarm (Items)",function() end)
 
-aut:Toggle("Autofarm (Chest)",STa.Chest, function(t)
-    if t then
-        STa.Chest = true
-        DiscordLib:Notification("Notification", "Autofarm (Chest) Enabled!", "Okay!")
-    else
-        STa.Chest = false
-        DiscordLib:Notification("Notification", "Autofarm (Chest) Disabled!", "Okay!")
-    end
+FC1L1:Cheat("Checkbox","Autofarm (Chest)", function(t)
+    STa.Chest = t
 end)
 
-aut:Toggle("Autofarm (Meteor)",STa.Meteor, function(t)
-    if t then
-        STa.Meteor = true
-        DiscordLib:Notification("Notification", "Autofarm (Meteor) Enabled!", "Okay!")
-    else
-        STa.Meteor = false
-        DiscordLib:Notification("Notification", "Autofarm (Meteor) Disabled!", "Okay!")
-    end
+FC1L1:Cheat("Checkbox","Autofarm (Meteor)", function(t)
+    STa.Meteor = t
 end)
 
-aut:Toggle("Autofarm (Ground)",STa.Ground, function(t)
-    if t then
-        STa.Ground = true
-        DiscordLib:Notification("Notification", "Autofarm (Ground) Enabled!", "Okay!")
-    else
-        STa.Ground = false
-        DiscordLib:Notification("Notification", "Autofarm (Ground) Disabled!", "Okay!")
-    end
+FC1L1:Cheat("Checkbox","Autofarm (Ground)", function(t)
+    STa.Ground = t
 end)
 
-aut:Toggle("Autofarm (Sand Debris)",STa.Debris, function(t)
-    if t then
-        STa.Debris = true
-        DiscordLib:Notification("Notification", "Autofarm (Sand Debris) Enabled!", "Okay!")
-    else
-        STa.Debris = false
-        DiscordLib:Notification("Notification", "Autofarm (Sand Debris) Disabled!", "Okay!")
-    end
+FC1L1:Cheat("Checkbox","Autofarm (Sand Debris)", function(t)
+    STa.Debris = t
 end)
 
--- Autofarm (NPC)
+FC1L1:Cheat("Label","Autofarm (NPC/Boss's)",function() end)
 
-aut2:Toggle("Autofarm (Boa H)",STa.BoaH, function(t)
-    if t then
-        STa.BoaH = true
-        DiscordLib:Notification("Notification", "Autofarm (Boa H) Enabled!", "Okay!")
-    else
-        STa.BoaH = false
-        DiscordLib:Notification("Notification", "Autofarm (Boa H) Disabled!", "Okay!")
-    end
+FC1L1:Cheat("Checkbox","Autofarm (Boa H)", function(t)
+    STa.BoaH = t
 end)
 
-aut2:Toggle("Autofarm (Dio)",STa.Dio, function(t)
-    if t then
-        STa.Dio = true
-        DiscordLib:Notification("Notification", "Autofarm (Dio) Enabled!", "Okay!")
-    else
-        STa.Dio = false
-        DiscordLib:Notification("Notification", "Autofarm (Dio) Disabled!", "Okay!")
-    end
+FC1L1:Cheat("Checkbox","Autofarm (Dio)", function(t)
+    STa.Dio = t
 end)
 
-aut2:Toggle("Autofarm (Diavolo)",STa.Diavolo, function(t)
-    if t then
-        STa.Diavolo = true
-        DiscordLib:Notification("Notification", "Autofarm (Diavolo) Enabled!", "Okay!")
-    else
-        STa.Diavolo = false
-        DiscordLib:Notification("Notification", "Autofarm (Diavolo) Disabled!", "Okay!")
-    end
+FC1L1:Cheat("Checkbox","Autofarm (Diavolo)", function(t)
+    STa.Diavolo = t
 end)
 
 -- Teleports
 
-aut4:Toggle("Auto-Teleport Safezone",STa.autosafe, function(t)
-    if t then
-        STa.autosafe = true
-        DiscordLib:Notification("Notification", "Auto-Teleport Safezone Enabled!", "Okay!")
-    else
-        STa.autosafe = false
-        DiscordLib:Notification("Notification", "Auto-Teleport Safezone Disabled!", "Okay!")
-    end
+FC1L2:Cheat("Checkbox","Auto-Teleport Safezone", function(t)
+    STa.autosafe = t
 end)
 
-aut4:Slider("Cooldown", 0, 240, STa.safecooldown, function(t)
-    STa.safecooldown = t
-end)
+FC1L2:Cheat("Slider", "Cooldown", function(Value)
+    STa.safecooldown = Value
+	print("Cooldown value changed:", Value)
+end, {min = 1, max = 60, suffix = " Second"})
 
-aut4:Seperator()
-
-aut4:Button("Safezone", function()
+FC1L2:Cheat("Button","Safezone", function()
     root.CFrame = CFrame.new(686.581298828125, 1164.6793212890625, -495.5419921875)
-    DiscordLib:Notification("Notification", "Succesfuly Teleported!", "Okay!")
 end)
 
-aut4:Button("Mansion", function()
+FC1L2:Cheat("Button","Mansion", function()
     root.CFrame = CFrame.new(1337.86, 581.971, 10466.7)
-    DiscordLib:Notification("Notification", "Succesfuly Teleported!", "Okay!")
 end)
 
-aut4:Button("Diavolo Temple", function()
+FC1L2:Cheat("Button","Diavolo Temple", function()
     root.CFrame = CFrame.new(-200.25155639648438, 922.7275390625, 1026.2716064453125)
-    DiscordLib:Notification("Notification", "Succesfuly Teleported!", "Okay!")
 end)
 
-aut4:Button("Boa Hancock's Island", function()
+FC1L2:Cheat("Button","Boa Hancock's Island", function()
     root.CFrame = CFrame.new(11062.6533, 954.30835, 15120.6396)
-    DiscordLib:Notification("Notification", "Succesfuly Teleported!", "Okay!")
 end)
 
 -- Settings
+FC1L3:Cheat("Button","Save Settings", function()
+    saveSettings()
+end)
 
-aut3:Button("God Mode (For Boss/NPC Farm)", function()
+FC1L3:Cheat("Button","Load Settings", function()
+    loadSettings()
+end)
+
+-- Misc
+
+FC1L4:Cheat("Button","God Mode (For Boss/NPC Farm)", function()
     game:GetService("Players").LocalPlayer.Character.Values.Block:Destroy()
-    DiscordLib:Notification("Notification", "God Mode Enabled!", "Okay!")
 end)
 
-aut3:Toggle("Auto Press (E)",STa.AutoE, function(t)
-    if t then
-        STa.AutoE = true
-        DiscordLib:Notification("Notification", "Auto Press (E) Enabled!", "Okay!")
-    else
-        STa.AutoE = false
-        DiscordLib:Notification("Notification", "Auto Press (E) Disabled!", "Okay!")
-    end
+FC1L4:Cheat("Checkbox","Auto Press (E)", function(t)
+    STa.AutoE = t
 end)
 
-aut3:Toggle("Auto Press (R)",STa.AutoR, function(t)
-    if t then
-        STa.AutoR = true
-        DiscordLib:Notification("Notification", "Auto Press (R) Enabled!", "Okay!")
-    else
-        STa.AutoR = false
-        DiscordLib:Notification("Notification", "Auto Press (R) Disabled!", "Okay!")
-    end
+FC1L4:Cheat("Checkbox","Auto Press (R)", function(t)
+    STa.AutoR = t
 end)
 
-aut3:Toggle("Auto Press (T)",STa.AutoT, function(t)
-    if t then
-        STa.AutoT = true
-        DiscordLib:Notification("Notification", "Auto Press (T) Enabled!", "Okay!")
-    else
-        STa.AutoT = false
-        DiscordLib:Notification("Notification", "Auto Press (T) Disabled!", "Okay!")
-    end
+FC1L4:Cheat("Checkbox","Auto Press (T)", function(t)
+    STa.AutoT = t
 end)
 
-aut3:Toggle("Auto Press (Y)",STa.AutoY, function(t)
-    if t then
-        STa.AutoY = true
-        DiscordLib:Notification("Notification", "Auto Press (Y) Enabled!", "Okay!")
-    else
-        STa.AutoY = false
-        DiscordLib:Notification("Notification", "Auto Press (Y) Disabled!", "Okay!")
-    end
+FC1L4:Cheat("Checkbox","Auto Press (Y)",function(t)
+    STa.AutoY = t
 end)
 
-aut3:Toggle("Auto Press (F)",STa.AutoF, function(t)
-    if t then
-        STa.AutoF = true
-        DiscordLib:Notification("Notification", "Auto Press (F) Enabled!", "Okay!")
-    else
-        STa.AutoF = false
-        DiscordLib:Notification("Notification", "Auto Press (F) Disabled!", "Okay!")
-    end
+FC1L4:Cheat("Checkbox","Auto Press (F)", function(t)
+    STa.AutoF = t
 end)
 
-aut3:Toggle("Auto Press (G)",STa.AutoG, function(t)
-    if t then
-        STa.AutoG = true
-        DiscordLib:Notification("Notification", "Auto Press (G) Enabled!", "Okay!")
-    else
-        STa.AutoG = false
-        DiscordLib:Notification("Notification", "Auto Press (G) Disabled!", "Okay!")
-    end
+FC1L4:Cheat("Checkbox","Auto Press (G)", function(t)
+    STa.AutoG = t
 end)
 
-aut3:Toggle("Auto Press (H)",STa.AutoH, function(t)
-    if t then
-        STa.AutoH = true
-        DiscordLib:Notification("Notification", "Auto Press (H) Enabled!", "Okay!")
-    else
-        STa.AutoH = false
-        DiscordLib:Notification("Notification", "Auto Press (H) Disabled!", "Okay!")
-    end
+FC1L4:Cheat("Checkbox","Auto Press (H)", function(t)
+    STa.AutoH = t
 end)
 
-aut3:Toggle("Auto Press (J)",STa.AutoJ, function(t)
-    if t then
-        STa.AutoJ = true
-        DiscordLib:Notification("Notification", "Auto Press (J) Enabled!", "Okay!")
-    else
-        STa.AutoJ = false
-        DiscordLib:Notification("Notification", "Auto Press (J) Disabled!", "Okay!")
-    end
+FC1L4:Cheat("Checkbox","Auto Press (J)", function(t)
+    STa.AutoJ = t
 end)
 
+FC1L4:Cheat("Checkbox","Auto Press (B)", function(t)
+    STa.AutoB = t
+end)
+
+
+-- Function Down
 function autofarm()
     if char then
         if STa.Autofarm then
@@ -411,7 +362,7 @@ end
 
 while true and wait() do
     autofarm()
-    AutoSafe()
     AutoPress()
+    AutoSafe()
     AutoBoss()
 end
