@@ -1,15 +1,42 @@
+if game.CoreGui:FindFirstChild("FinityUI") then
+    game.CoreGui["FinityUI"]:Destroy()
+end
+
 getgenv().Settings = {
+    EvadeAutoFarm = false;
     EvadeSoundID = "6081484531";
     EvadeImageID = "10526778757";
 }
 
-local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
-local win = DiscordLib:Window("TRXDENT")
-local serv = win:Server("TRXDENT Evade", "")
-local npcchanger = serv:Channel("NPC Changer")
+local filename = "TRXDENT_EvadeGui.lua"
+
+function loadSettings()
+	print("Loading Settings")
+	local HttpService = game:GetService("HttpService");
+	if (readfile and isfile and isfile(filename)) then
+		getgenv().Settings = HttpService:JSONDecode(readfile(filename));
+	else
+		print("File Not Found")	
+	end
+end
+
+function saveSettings()
+	local Logsz;
+	local HttpService = game:GetService("HttpService");
+	if (writefile) then
+		Logsz = HttpService:JSONEncode(Settings);
+		writefile(filename, Logsz)
+	else
+		print("Windows Rejected Save Request")
+	end
+end
+
 local path = game:GetService("Workspace").Game.Players
 local player = game.Players.LocalPlayer
 local char = player.Character
+local part = game.Workspace:FindFirstChild("Gay")
+
+-- Functions
 
 function smaahh()
     for playeri, playerv in pairs(game.Players:GetChildren()) do
@@ -30,18 +57,83 @@ function smaahh()
         end
     end
 end
+-- GUI
 
-npcchanger:Button("Apply Settings (Doesn't Works on some npc's)", function()
-    smaahh()
-    DiscordLib:Notification("TRXDENT", "Applied Settings!", "Okay!")
+if game.CoreGui:FindFirstChild("FinityUI") then
+    game.CoreGui["FinityUI"]:Destroy()
+end
+
+local Finity = loadstring(game:HttpGet("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/FinityUI"))()
+local FinityWindow = Finity.new(true) -- 'true' means dark mode is enabled
+local FinityCredits = FinityWindow:Category("Credits")
+local FinityC1 = FinityWindow:Category("Evade")
+local FCreditsL1 = FinityCredits:Sector("Credits")
+local FC1L1 = FinityC1:Sector("NPC Changer")
+local FC1L2 = FinityC1:Sector("Auto-Farm")
+local FC1L3 = FinityC1:Sector("Settings")
+
+-- Credits
+FCreditsL1:Cheat("Label","Made By Dxniz#5321", function() end)
+FCreditsL1:Cheat("Button", "Copy Discord Server Link", function()
+	setclipboard("https://discord.gg/GgrQBzA3Z9")
 end)
 
-npcchanger:Seperator()
-
-npcchanger:Textbox("Sound ID", "Type here!", true, function(t)
-    Settings.EvadeSoundID = t
+-- FC1L1
+FC1L1:Cheat("Button", "Apply Changes", function()
+	smaahh()
 end)
 
-npcchanger:Textbox("Image ID", "Type here!", true, function(t)
-    Settings.EvadeImageID = t
+FC1L1:Cheat("Textbox", "Put Image ID Here", function(Value)
+    Settings.EvadeImageID = Value
+	print("EvadeImageID value changed:", Value)
+end, {
+	placeholder = Settings.EvadeImageID
+})
+
+FC1L1:Cheat("Textbox", "Put Sound ID Here", function(Value)
+    Settings.EvadeSoundID = Value
+	print("EvadeSoundID value changed:", Value)
+end, {
+	placeholder = Settings.EvadeSoundID
+})
+
+--FC1L2
+FC1L2:Cheat("Checkbox", "Auto-Farm Win/Money", function(State)
+	Settings.EvadeAutoFarm = State
 end)
+
+--FC1L3
+FC1L3:Cheat("Button", "Save Settings", function()
+	saveSettings()
+end)
+
+FC1L3:Cheat("Button", "Load Settings", function()
+	loadSettings()
+end)
+
+local rnwerqwr = math.random(10000,50000)
+
+if not part then
+    local prt = Instance.new("Part")
+    prt.Name = "Gay"
+    prt.Parent = game.Workspace
+    prt.Anchored = true
+    prt.CFrame = CFrame.new(-5.972589015960693, rnwerqwr, -31.89034080505371)
+    prt.Transparency = 1
+    prt.BrickColor = BrickColor.new(22,22,22)
+else
+    print("Have Part")
+end
+
+function asdtyrey()
+    if Settings.EvadeAutoFarm then
+        local hroot = char:FindFirstChild("HumanoidRootPart")
+        if hroot then
+            hroot.CFrame = CFrame.new(game.Workspace.Gay.Position.X, game.Workspace.Gay.Position.Y+6, game.Workspace.Gay.Position.Z)
+        end
+    end
+end
+
+while true and wait() do
+    asdtyrey()
+end
