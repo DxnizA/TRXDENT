@@ -1,32 +1,123 @@
-getgenv().sett1ngs = {
-    mobnme = "";
-    stage = "One";
-    autofarm = true;
-    autoe = false;
-    autor = false;
-    autof = false;
-    autoc = false;
+if game.CoreGui:FindFirstChild("FinityUI") then
+    game.CoreGui["FinityUI"]:Destroy()
+end
+
+getgenv().Settings = {
+    RGTweenSpeed = 100;
+    RGmobnme = "";
+    RGstage = "One";
+    RGautofarm = true;
+    RGautoe = false;
+    RGautor = false;
+    RGautof = false;
+    RGautoc = false;
+    RGLowRank = false;
+    RGMidRank = false;
+    RGHighRank = false;
+    RGKoutarouAmon = false;
+    RGNishikiNishio = false;
+    RGEtoYoshimura = false;
 }
 
-getgenv().Webhook = {
-    cooldown = 120;
-    weblink = "Put Your Webhook Link Here!";
-}
+local filename = "TRXDENT_RoGhoulGui.lua"
 
-getgenv().selmobs = {
-    LowRank = false;
-    MidRank = false;
-    HighRank = false;
-    KoutarouAmon = false;
-    NishikiNishio = false;
-    EtoYoshimura = false;
-}
+function loadSettings()
+	print("Loading Settings")
+	local HttpService = game:GetService("HttpService");
+	if (readfile and isfile and isfile(filename)) then
+		getgenv().Settings = HttpService:JSONDecode(readfile(filename));
+	else
+		print("File Not Found")	
+	end
+end
 
-local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
+function saveSettings()
+	local Logsz;
+	local HttpService = game:GetService("HttpService");
+	if (writefile) then
+		Logsz = HttpService:JSONEncode(Settings);
+		writefile(filename, Logsz)
+	else
+		print("Windows Rejected Save Request")
+	end
+end
 
-local win = DiscordLib:Window("TRXDENT")
+local Finity = loadstring(game:HttpGet("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/FinityUI"))()
+local FinityWindow = Finity.new(true) -- 'true' means dark mode is enabled
+local FinityCredits = FinityWindow:Category("Credits")
+local FinityC1 = FinityWindow:Category("Ro-Ghoul")
+local FCreditsL1 = FinityCredits:Sector("Credits")
+local FC1L1 = FinityC1:Sector("Auto-Farm")
+local FC1L2 = FinityC1:Sector("Misc")
+local FC1L3 = FinityC1:Sector("Settings")
 
-local serv = win:Server("TRXDENT Ro-Ghoul", "")
+-- Credits
+FCreditsL1:Cheat("Label","Made By Dxniz#5321", function() end)
+FCreditsL1:Cheat("Button", "Copy Discord Server Link", function()
+	setclipboard("https://discord.gg/GgrQBzA3Z9")
+end)
+
+--FC1L1
+
+FC1L1:Cheat("Checkbox","Auto-Farm (Low Rank Aogiri Member)", function(Value)
+    Settings.RGLowRank = Value
+end)
+
+FC1L1:Cheat("Checkbox","Auto-Farm (Medium Rank Aogiri Member)", function(Value)
+    Settings.RGMidRank = Value
+end)
+
+FC1L1:Cheat("Checkbox","Auto-Farm (High Rank Aogiri Member)", function(Value)
+    Settings.RGHighRank = Value
+end)
+
+FC1L1:Cheat("Checkbox","Auto-Farm (Nishiki Nishio 250+)", function(Value)
+    Settings.RGNishikiNishio = Value
+end)
+
+FC1L1:Cheat("Checkbox","Auto-Farm (Koutarou Amon 750+)", function(Value)
+    Settings.RGKoutarouAmon = Value
+end)
+
+FC1L1:Cheat("Checkbox","Auto-Farm (Eto Yoshimura 1250+)", function(Value)
+    Settings.RGEtoYoshimura = Value
+end)
+
+--FC1L2
+FC1L2:Cheat("Checkbox","Auto Use Skill (E)", function(Value)
+    Settings.RGautoe = Value
+end)
+
+FC1L2:Cheat("Checkbox","Auto Use Skill (R)", function(Value)
+    Settings.RGautor = Value
+end)
+
+FC1L2:Cheat("Checkbox","Auto Use Skill (F)", function(Value)
+    Settings.RGautof = Value
+end)
+
+FC1L2:Cheat("Checkbox","Auto Use Skill (C)", function(Value)
+    Settings.RGautoc = Value
+end)
+
+FC1L2:Cheat("Dropdown", "Auto Open Kagune Stage", function(Option)
+    Settings.RGstage = Option
+	print("Stage option changed:", Option)
+end, {options = {"One","Two","Three","Four","Five","Six","Seven"}})
+
+FC1L2:Cheat("Slider", "Tween Speed", function(Value)
+    Settings.RGTweenSpeed = Value
+	print("TweenSpeed value changed:", Value)
+end, {min = 100, max = 500, suffix = " Tween Speed"})
+
+--FC1L3
+FC1L3:Cheat("Button","Save Settings", function()
+	saveSettings()
+end)
+
+FC1L3:Cheat("Button","Load Settings", function()
+	loadSettings()
+end)
 
 local get = setmetatable({}, {
     __index = function(a, b)
@@ -36,13 +127,7 @@ local get = setmetatable({}, {
 
 local findobj, findobjofclass, waitforobj, fire, invoke = get.FindFirstChild, get.FindFirstChildOfClass, get.WaitForChild, Instance.new("RemoteEvent").FireServer, Instance.new("RemoteFunction").InvokeServer
 local player = get.Players.LocalPlayer
-local HttpService = game:GetService("HttpService")
-local weebhook = Webhook.weblink
-local autofarm = serv:Channel("Autofarm")
-local webhook = serv:Channel("Webhook (In Maintenance)")
-local settings = serv:Channel("Settings")
 local player = game.Players.LocalPlayer
-local cor = {"Low Rank Aogiri Member Corse","Mid Rank Aogiri Member Corpse","High Rank Aogiri Member Corpse","Nishiki Nishio Corpse","Koutarou Amon Corpse"}
 
 -- Function
 
@@ -57,7 +142,7 @@ local function useSKL()
             repeat
                 wait(0.2)
             until keyev
-            if sett1ngs.autoe == true then
+            if Settings.RGautoe == true then
                 local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
                 local A_2 = "E"
                 local A_3 = "Down"
@@ -65,7 +150,7 @@ local function useSKL()
                 Event:FireServer(A_1, A_2, A_3)
                 wait(0.05)
             end
-            if sett1ngs.autor == true then
+            if Settings.RGautor == true then
                 local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
                 local A_2 = "R"
                 local A_3 = "Down"
@@ -73,7 +158,7 @@ local function useSKL()
                 Event:FireServer(A_1, A_2, A_3)
                 wait(0.05)
             end
-            if sett1ngs.autof == true then
+            if Settings.RGautof == true then
                 local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
                 local A_2 = "F"
                 local A_3 = "Down"
@@ -81,7 +166,7 @@ local function useSKL()
                 Event:FireServer(A_1, A_2, A_3)
                 wait(0.05)
             end
-            if sett1ngs.autoc == true then
+            if Settings.RGautoc == true then
                 local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
                 local A_2 = "C"
                 local A_3 = "Down"
@@ -94,235 +179,67 @@ local function useSKL()
 end
 useSKL()
 
-local function wbSend()
-    local url = Webhook.weblink
-    local data = {
-		["type"] = "TEST",
-		["content"] = "TEST",
-		["tts"] = false,
-		["embed"] = {
-			["title"] = "Hello",
-			["description"] = "Hi"
-		}
-	}
-	local newdata = HttpServ:JSONEncode(data)
-	
-	HttpServ:PostAsync(url, newdata)
-end
-
--- Events
-
-
--- Autofarm
-
-autofarm:Label("Aogiri Members")
-
-autofarm:Seperator()
-
-autofarm:Toggle("Low Rank Aogiri Member (0+)",selmobs.LowRank, function(bool)
-    if bool == false then
-        print("Disabled")
-        selmobs.LowRank = false
-    end
-    if bool == true then
-        print("Enabled")
-        selmobs.LowRank = true
-    end
-end)
-
-autofarm:Toggle("Mid Rank Aogiri Member (0+)",selmobs.MidRank, function(bool)
-    if bool == false then
-        print("Disabled")
-        selmobs.MidRank = false
-    end
-    if bool == true then
-        print("Enabled")
-        selmobs.MidRank = true
-    end
-end)
-
-autofarm:Toggle("High Rank Aogiri Member (0+)",selmobs.HighRank, function(bool)
-    if bool == false then
-        print("Disabled")
-        selmobs.HighRank = false
-    end
-    if bool == true then
-        print("Enabled")
-        selmobs.HighRank = true
-    end
-end)
-
-autofarm:Seperator()
-
-autofarm:Label("Bosses")
-
-autofarm:Seperator()
-
-autofarm:Toggle("Nishiki Nishio Level (250+)",selmobs.NishikiNishio, function(bool)
-    if bool == false then
-        print("Disabled")
-        selmobs.NishikiNishio = false
-    end
-    if bool == true then
-        print("Enabled")
-        selmobs.NishikiNishio = true
-    end
-end)
-
-autofarm:Toggle("Koutarou Amon Level (750+)",selmobs.KoutarouAmon, function(bool)
-    if bool == false then
-        print("Disabled")
-        selmobs.KoutarouAmon = false
-    end
-    if bool == true then
-        print("Enabled")
-        selmobs.KoutarouAmon = true
-    end
-end)
-
-autofarm:Toggle("Eto Yoshimura Level (1250+)",selmobs.EtoYoshimura, function(bool)
-    if bool == false then
-        print("Disabled")
-        selmobs.EtoYoshimura = false
-    end
-    if bool == true then
-        print("Enabled")
-        selmobs.EtoYoshimura = true
-    end
-end)
-
--- Webhook
-
-local sldr = webhook:Slider("Cooldown", 300, 1500, 300, function(cldwn)
-    Webhook.cooldown = cldwn
-end)
-
-webhook:Textbox("Webhook", Webhook.weblink, true, function(lnk)
-    Webhook.weblink = lnk
-end)
-
-webhook:Seperator()
-
-webhook:Button("Test Webhook", function()
-    wbSend()
-    DiscordLib:Notification("Notification", "Webhook Message Sended!", "Okay!")
-end)
-
--- Settings
-
-local drop = settings:Dropdown("Select Stage",{"One","Two","Three","Four","Five","Six"}, function(bool)
-    print("Selected Stage: "..bool)
-    sett1ngs.stage = bool
-end)
-
-settings:Seperator()
-
-settings:Toggle("Auto Use E Skill", sett1ngs.autoe, function(bool)
-    if bool == false then
-        print("Disabled")
-        sett1ngs.autoe = false
-    end
-    if bool == true then
-        print("Enabled")
-        sett1ngs.autoe = true
-    end
-end)
-
-settings:Toggle("Auto Use R Skill", sett1ngs.autor, function(bool)
-    if bool == false then
-        print("Disabled")
-        sett1ngs.autor = false
-    end
-    if bool == true then
-        print("Enabled")
-        sett1ngs.autor = true
-    end
-end)
-
-settings:Toggle("Auto Use F Skill", sett1ngs.autof, function(bool)
-    if bool == false then
-        print("Disabled")
-        sett1ngs.autof = false
-    end
-    if bool == true then
-        print("Enabled")
-        sett1ngs.autof = true
-    end
-end)
-
-settings:Toggle("Auto Use C Skill", sett1ngs.autoc, function(bool)
-    if bool == false then
-        print("Disabled")
-        sett1ngs.autoc = false
-    end
-    if bool == true then
-        print("Enabled")
-        sett1ngs.autoc = true
-    end
-end)
-
 local lp = game.Players.LocalPlayer
 local function getNPC()
     local dist, thing = math.huge
     for i,v in pairs(game:GetService("Workspace").NPCSpawns:GetDescendants()) do
-
         if v.Name == "Nishiki Nishio" then
-            if selmobs.NishikiNishio == true then
+            if Settings.RGNishikiNishio == true then
                 local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
                 if mag < dist then 
                     dist = mag 
                     thing = v 
-                    sett1ngs.mobnme = v.Name
+                    Settings.RGmobnme = v.Name
                 end
             end
         end
         if v.Name == "Koutarou Amon" then
-            if selmobs.KoutarouAmon == true then
+            if Settings.RGKoutarouAmon == true then
                 local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
                 if mag < dist then 
                     dist = mag 
                     thing = v 
-                    sett1ngs.mobnme = v.Name
+                    Settings.RGmobnme = v.Name
                 end
             end
         end
         if v.Name == "Eto Yoshimura" then
-            if selmobs.EtoYoshimura == true then
+            if Settings.RGEtoYoshimura == true then
                 local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
                 if mag < dist then 
                     dist = mag 
                     thing = v 
-                    sett1ngs.mobnme = v.Name
+                    Settings.RGmobnme = v.Name
                 end
             end
         end
         if v.Name == "Low Rank Aogiri Member" then
-            if selmobs.LowRank == true then
+            if Settings.RGLowRank == true then
                 local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
                 if mag < dist then 
                     dist = mag 
                     thing = v 
-                    sett1ngs.mobnme = v.Name
+                    Settings.RGmobnme = v.Name
                 end
             end
         end
         if v.Name == "Mid Rank Aogiri Member" then
-            if selmobs.MidRank == true then
+            if Settings.RGMidRank == true then
                 local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
                 if mag < dist then 
                     dist = mag 
                     thing = v 
-                    sett1ngs.mobnme = v.Name
+                    Settings.RGmobnme = v.Name
                 end
             end
         end
         if v.Name == "High Rank Aogiri Member" then
-            if selmobs.HighRank == true then
+            if Settings.RGHighRank == true then
                 local mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
                 if mag < dist then 
                     dist = mag 
                     thing = v 
-                    sett1ngs.mobnme = v.Name
+                    Settings.RGmobnme = v.Name
                 end
             end
         end
@@ -332,12 +249,12 @@ end
 
 local function AuOp()
     spawn(function()
-        while player.Character.Humanoid.Health > 0 and sett1ngs.autofarm and wait(2) do
+        while player.Character.Humanoid.Health > 0 and Settings.RGautofarm and wait(2) do
             local kag = player.Character:FindFirstChild("Kagune")
             local qui = player.Character:FindFirstChild("Quinque")
             if not kag and not qui then
                 local A_1 = "操你💦💔🍑👌💦操你💦💔🍑👌💦💔🍑👌💦💔🍑👌💔🍑👌💦💔🍑👌"
-                 local A_2 = sett1ngs.stage
+                 local A_2 = Settings.RGstage
                 local A_3 = "Down"
                 local Event = player.Character.Remotes.KeyEvent
                 Event:FireServer(A_1, A_2, A_3)
@@ -379,8 +296,10 @@ local function moveto(obj, speed)
     end)
 end
 
-while sett1ngs.autofarm == true do wait()
-    pcall(function()
-        moveto(getNPC().HumanoidRootPart.CFrame + Vector3.new(0,0,0), 100)
-    end)
+while true do wait()
+    if Settings.RGautofarm then
+        pcall(function()
+            moveto(getNPC().HumanoidRootPart.CFrame + Vector3.new(0,0,0), Settings.RGTweenSpeed)
+        end)
+    end
 end
