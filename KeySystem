@@ -26,7 +26,7 @@ end
 loadSettings()
 
 local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
-local win = DiscordLib:Window("TRXDENT")
+local win = DiscordLib:Window("TRXDENT V2")
 local serv = win:Server("TRXDENT Key System", "")
 local ky = serv:Channel("Key System")
 
