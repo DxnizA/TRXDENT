@@ -1,17 +1,33 @@
+if game.CoreGui:FindFirstChild("FinityUI") then
+    game.CoreGui["FinityUI"]:Destroy()
+end
+
+
 getgenv().Settings = {
-	Autofarm = false;
-	AutofarmCooldown = 2;
-	AutoPickupGun = false;
-	Automessage = false;
+	MM2Autofarm = false;
+	MM2AutofarmCooldown = 2;
+	MM2AutoPickupGun = false;
+	MM2Automessage = false;
 }
 
-local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
+if game.CoreGui:FindFirstChild("FinityUI") then
+    game.CoreGui["FinityUI"]:Destroy()
+end
 
-local win = DiscordLib:Window("TRXDENT")
+local Finity = loadstring(game:HttpGet("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/FinityUI"))()
+local FinityWindow = Finity.new(true) -- 'true' means dark mode is enabled
+local FinityCredits = FinityWindow:Category("Credits")
+local FinityC1 = FinityWindow:Category("MM2")
+local FCreditsL1 = FinityCredits:Sector("Credits")
+local FC1L1 = FinityC1:Sector("Auto-Farm")
+local FC1L2 = FinityC1:Sector("Settings")
 
-local serv = win:Server("TRXDENT MM2", "")
+-- Credits
+FCreditsL1:Cheat("Label","Made By Dxniz#5321", function() end)
+FCreditsL1:Cheat("Button", "Copy Discord Server Link", function()
+	setclipboard("https://discord.gg/GgrQBzA3Z9")
+end)
 
-local autofarm = serv:Channel("Autofarm")
 
 local maps = {"Mansion2","Office3","Bank2","PoliceStation","BioLab","Hotel","MilBase","House2","Hospital3","Farmhouse"}
 local player = game.Players.LocalPlayer
@@ -41,62 +57,36 @@ function saveSettings()
 	end
 end
 
-loadSettings()
+-- FC1L1
 
--- Autofarm
-
-autofarm:Toggle("Autofarm",Settings.Autofarm, function(bool)
-    if bool == false then
-        print("Disabled")
-        Settings.Autofarm = false
-    end
-    if bool == true then
-        print("Enabled")
-        Settings.Autofarm = true
-    end
+FC1L1:Cheat("Checkbox","Auto-Farm", function(Value)
+	Settings.MM2Autofarm = Value
 end)
 
-autofarm:Toggle("Auto Pickup Gun",Settings.AutoPickupGun, function(bool)
-    if bool == false then
-        print("Disabled")
-        Settings.AutoPickupGun = false
-    end
-    if bool == true then
-        print("Enabled")
-        Settings.AutoPickupGun = true
-    end
+FC1L1:Cheat("Slider", "Auto-Farm Cooldown", function(Value)
+	Settings.MM2AutofarmCooldown = Value
+end, {min = 2, max = 20, suffix = " Seconds"})
+
+--FC1L2
+
+FC1L2:Cheat("Button","Save Settings", function()
+	saveSettings()
 end)
 
-autofarm:Seperator()
-
-autofarm:Slider("Autofarm Speed", 2, 20, Settings.AutofarmCooldown, function(t)
-	Settings.AutofarmCooldown = t
+FC1L2:Cheat("Button","Load Settings", function()
+	loadSettings()
 end)
-
--- Functions
-
-function saveValues()
-	spawn(function()
-		while wait(20) do
-			saveSettings()
-			wait(1)
-			loadSettings()
-		end
-	end)
-end
-
-saveValues()
 
 local function aufrm()
 	local humn = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-	if not Settings.Autofarm then
+	if not Settings.MM2Autofarm then
 		repeat
 			wait(0.1)
-		until Settings.Autofarm
+		until Settings.MM2Autofarm
 		return
 	end
 	if humn then
-		while Settings.Autofarm == true and wait() and humn.Parent.Humanoid ~= 0 do
+		while Settings.MM2Autofarm == true and wait() and humn.Parent.Humanoid ~= 0 do
 			for i, v in pairs(maps) do
 				local g = game:GetService("Workspace"):FindFirstChild(v)
 				if g then
@@ -104,8 +94,8 @@ local function aufrm()
 					for a, b in pairs(coin:GetChildren()) do
 						if b.Name == "Coin_Server" then
 							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(b.Position)
-							wait(Settings.AutofarmCooldown)
-							if not Settings.Autofarm then return end
+							wait(Settings.MM2AutofarmCooldown)
+							if not Settings.MM2Autofarm then return end
 							if not humn then return end
 						end
 					end
@@ -120,26 +110,6 @@ local function aufrm()
 	end
 end
 
-local function AutopickGun()
-    local checkdrop = game:GetService("Workspace"):FindFirstChild("GunDrop")
-    if checkdrop then
-		local charpos = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-        local gundrop = game:GetService("Workspace").GunDrop.Position
-		wait(0.2)
-        repeat
-			wait(0)
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(gundrop)
-		until not checkdrop
-		wait(0.2)
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(charpos)
-    end
-end
-
-while Settings.AutoPickupGun == true do
-    AutopickGun()
-	if not Settings.AutoPickupGun then return end
-end
-
-while true and wait(0.5) do
+while true and wait() do
 	aufrm()
 end
