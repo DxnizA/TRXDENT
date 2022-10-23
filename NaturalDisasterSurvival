@@ -1,6 +1,10 @@
-getgenv().Sett = {
-    Win = 0;
-    Started = false;
+if game.CoreGui:FindFirstChild("FinityUI") then
+    game.CoreGui["FinityUI"]:Destroy()
+end
+
+getgenv().Settings = {
+    NaturalDisSWin = 0;
+    NaturalDisSStarted = false;
 };
 
 local part = game.Workspace:FindFirstChild("Gay")
@@ -17,35 +21,29 @@ else
     print("Have Part")
 end
 
-local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
-local win = DiscordLib:Window("TRXDENT")
-local serv = win:Server("TRXDENT NDS", "")
-local Autofarm = serv:Channel("Autofarm")
-local LOG = serv:Channel("Win-Log")
-local winslabel = game:GetService("Workspace").BillboardTop10.Board.SurfaceGui.Clipframe:FindFirstChild("Label"..game.Players.LocalPlayer.Name)
-local wincount = tonumber(winslabel.WinsLabel.Text)
+local Finity = loadstring(game:HttpGet("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/FinityUI"))()
+local FinityWindow = Finity.new(true) -- 'true' means dark mode is enabled
+local FinityCredits = FinityWindow:Category("Credits")
+local FinityC1 = FinityWindow:Category("NDS")
+local FCreditsL1 = FinityCredits:Sector("Credits")
+local FC1L1 = FinityC1:Sector("Auto-Farm")
 
-Autofarm:Toggle("Auto-Farm", Sett.Started, function(bool)
-    if bool == true then
-        Sett.Started = true
-        DiscordLib:Notification("TRXDENT", "Auto-Farm Enabled!", "Okay!")
-    else
-        Sett.Started = false
-        DiscordLib:Notification("TRXDENT", "Auto-Farm Disabled!", "Okay!")
-    end
+-- Credits
+FCreditsL1:Cheat("Label","Made By Dxniz#5321", function() end)
+FCreditsL1:Cheat("Button", "Copy Discord Server Link", function()
+	setclipboard("https://discord.gg/GgrQBzA3Z9")
 end)
 
-Autofarm:Seperator()
-
-Autofarm:Button("Write Win's | Check Total Win", function()
-    DiscordLib:Notification("TRXDENT", "You Have "..Sett.Win.." Wins", "Okay!")
-    LOG:Label("You Have "..Sett.Win.." Wins")
+-- FC1L1
+FC1L1:Cheat("Checkbox","Auto-Farm Win", function(Value)
+    Settings.NaturalDisSStarted = Value
+	print("NaturalDisSStarted value changed:", Value)
 end)
 
 while true and wait() do
-    Sett.Win = wincount
+    Settings.NaturalDisSWin = wincount
     local hroot = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-    if Sett.Started then
+    if Settings.NaturalDisSStarted then
         if hroot then
             hroot.CFrame = CFrame.new(part.Position.X, part.Position.Y+2,	part.Position.Z)
         end
