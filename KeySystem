@@ -23,8 +23,6 @@ function saveSettings()
 	end
 end
 
-loadSettings()
-
 local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
 local win = DiscordLib:Window("TRXDENT V2")
 local serv = win:Server("TRXDENT Key System", "")
@@ -39,11 +37,16 @@ ky:Button("Get Key", function()
 	DiscordLib:Notification("Notification", "Link Copied!", "Okay!")
 end)
 
+ky:Button("Load Saved Key", function()
+	loadSettings()
+	DiscordLib:Notification("Notification", "Link Copied!", "Okay!")
+end)
+
 function keycorr()
 	if keyuwu == nedKM then
 		print("Key Correct!")
 		loadstring(game:HttpGet"https://raw.githubusercontent.com/DxnizA/TRXDENT/main/Loader")()
-    saveSettings()
+    		saveSettings()
 		nedKM = "357u3424whyhbb hnju"
 	end
 end
