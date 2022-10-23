@@ -39,7 +39,6 @@ end)
 
 ky:Button("Load Saved Key", function()
 	loadSettings()
-	DiscordLib:Notification("Notification", "Link Copied!", "Okay!")
 end)
 
 function keycorr()
