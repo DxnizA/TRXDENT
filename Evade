@@ -33,6 +33,7 @@ function saveSettings()
 end
 
 local path = game:GetService("Workspace").Game.Players
+local lp = game.Players.LocalPlayer
 local player = game.Players.LocalPlayer
 local char = player.Character
 local part = game.Workspace:FindFirstChild("Gay")
