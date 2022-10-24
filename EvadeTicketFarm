@@ -1,0 +1,46 @@
+local client = game.Players.LocalPlayer;
+
+
+function respawn()
+    game:GetService("ReplicatedStorage").Events.Respawn:FireServer()
+end;
+
+local part = game.Workspace:FindFirstChild("Gay")
+
+spawn(function()
+    while task.wait() do
+        if Settings.EvadeTicketFarm then
+            if client:GetAttribute('InMenu') == true then
+                respawn()
+            else
+                for i,v in pairs(game:GetService("Workspace").Game.Effects.Tickets:GetChildren()) do
+                    if v:FindFirstChild("HumanoidRootPart") then
+                        repeat task.wait()
+                            pcall(function()
+                                client.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                            end)
+                        until not v:FindFirstChild("HumanoidRootPart") or not Settings.EvadeTicketFarm
+                    end
+                end
+            end
+        end
+    end
+end)
+
+task.spawn(function()
+    while task.wait() do
+        if Settings.EvadeTicketFarm then
+            pcall(function()
+                client.Character.HumanoidRootPart.CFrame = CFrame.new(part.Position.X, part.Position.Y+2, part.Position.Z)
+            end)
+        end
+    end
+end)
+
+spawn(function()
+    if client:GetAttribute("Downed") == true and Settings.EvadeTicketFarm then
+        repeat task.wait()
+            respawn()
+        until not client:GetAttribute("Downed") == true
+    end
+end)
