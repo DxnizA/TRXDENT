@@ -1,4 +1,4 @@
-getgenv().nedKM = "nokia3310"
+getgenv().nedKM = "Halloween"
 
 local filename = "TRXDENTKey.lua"
 
