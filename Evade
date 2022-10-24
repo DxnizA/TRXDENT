@@ -3,6 +3,7 @@ if game.CoreGui:FindFirstChild("FinityUI") then
 end
 
 getgenv().Settings = {
+    EvadeTicketFarm = false;
     EvadeAutoFarm = false;
     EvadeSoundID = "6081484531";
     EvadeImageID = "10526778757";
@@ -57,6 +58,25 @@ function smaahh()
         end
     end
 end
+
+function TCKTFarm()
+    if Settings.EvadeTicketFarm then
+        for _, v in pairs(game:GetService("Workspace").Game.Effects.Tickets:GetDescendants()) do
+            local hpart = v:FindFirstChild("HumanoidRootPart")
+            if hpart then
+                local hroot = char:FindFirstChild("HumanoidRootPart")
+                if hroot then
+                    hroot.CFrame = CFrame.new(hpart.Position)
+                end
+            end
+        end
+    end
+end
+
+function respawn()
+    game:GetService("ReplicatedStorage").Events.Respawn:FireServer()
+end;
+
 -- GUI
 
 if game.CoreGui:FindFirstChild("FinityUI") then
@@ -102,6 +122,14 @@ FC1L2:Cheat("Checkbox", "Auto-Farm Win/Money", function(State)
 	Settings.EvadeAutoFarm = State
 end)
 
+FC1L2:Cheat("Checkbox", "Auto-Farm Ticket", function(State)
+	Settings.EvadeTicketFarm = State
+end)
+
+FC1L2:Cheat("Button", "Respawn", function()
+	respawn()
+end)
+
 --FC1L3
 FC1L3:Cheat("Button", "Save Settings", function()
 	saveSettings()
@@ -111,29 +139,31 @@ FC1L3:Cheat("Button", "Load Settings", function()
 	loadSettings()
 end)
 
-local rnwerqwr = math.random(10000,50000)
+local rnwerqwr = math.random(300,500)
 
 if not part then
     local prt = Instance.new("Part")
     prt.Name = "Gay"
     prt.Parent = game.Workspace
     prt.Anchored = true
-    prt.CFrame = CFrame.new(-5.972589015960693, rnwerqwr, -31.89034080505371)
+    prt.CFrame = CFrame.new(rnwerqwr, -rnwerqwr, rnwerqwr)
     prt.Transparency = 1
     prt.BrickColor = BrickColor.new(22,22,22)
 else
     print("Have Part")
 end
 
-function asdtyrey()
+loadstring(game:HttpGet"https://raw.githubusercontent.com/DxnizA/TRXDENT/main/EvadeTicketFarm")()
+
+function adawar()
     if Settings.EvadeAutoFarm then
         local hroot = char:FindFirstChild("HumanoidRootPart")
-        if hroot then
-            hroot.CFrame = CFrame.new(game.Workspace.Gay.Position.X, game.Workspace.Gay.Position.Y+6, game.Workspace.Gay.Position.Z)
+        if hroot and part then
+            hroot.CFrame = CFrame.new(part.Position.X, part.Position.Y+2, part.Position.Z)
         end
     end
 end
 
-while true and wait() do
-    asdtyrey()
+while true do wait()
+    adawar()
 end
