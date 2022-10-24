@@ -37,6 +37,10 @@ local player = game.Players.LocalPlayer
 local char = player.Character
 local part = game.Workspace:FindFirstChild("Gay")
 
+for i,v in pairs(getconnections(lp.Idled)) do 
+    v:Disable()
+end
+
 -- Functions
 
 function smaahh()
