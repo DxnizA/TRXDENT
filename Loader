@@ -1,6 +1,6 @@
 local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
 
-local win = DiscordLib:Window("TRXDENT V2")
+local win = DiscordLib:Window("TRXDENT")
 
 local serv = win:Server("TRXDENT Loader", "")
 
@@ -10,6 +10,7 @@ local DragonBallFinalRemastered = serv:Channel("DBFR")
 local AUniversalTime = serv:Channel("A Universal Time")
 local NaturalDisaster = serv:Channel("Natural Disaster S")
 local Evade = serv:Channel("Evade")
+local RetailTycoon2 = serv:Channel("Retail Tycoon 2")
 local other = serv:Channel("Other Scripts")
 
 -- Murder Mystery 2
@@ -64,6 +65,13 @@ end)
 Evade:Button("TRXDENT Evade Gui", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
 	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/Evade")))()
+end)
+
+-- Retail Tycoon 2
+
+RetailTycoon2:Button("TRXDENT Retail Tycoon 2 Gui", function()
+	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/RetailTycoon2")))()
 end)
 
 -- Other Scripts
