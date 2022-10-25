@@ -1,0 +1,137 @@
+if game.CoreGui:FindFirstChild("FinityUI") then
+    game.CoreGui["FinityUI"]:Destroy()
+end
+
+getgenv().Settings = {
+    RT2AutoClean = false;
+    RT2Truck = 1;
+    RT2Quantity = 1;
+    RT2ItemName = "Halloween";
+}
+
+local filename = "TRXDENT_RetailTycoon2.lua"
+
+function loadSettings()
+	print("Loading Settings")
+	local HttpService = game:GetService("HttpService");
+	if (readfile and isfile and isfile(filename)) then
+		getgenv().Settings = HttpService:JSONDecode(readfile(filename));
+	else
+		print("File Not Found")	
+	end
+end
+
+function saveSettings()
+	local Logsz;
+	local HttpService = game:GetService("HttpService");
+	if (writefile) then
+		Logsz = HttpService:JSONEncode(Settings);
+		writefile(filename, Logsz)
+	else
+		print("Windows Rejected Save Request")
+	end
+end
+
+local player = game.Players.LocalPlayer
+local char = player.Character
+local userid = tostring(player.UserId)
+
+function spawntruck(X, Y, Z)
+    local A_1 = Settings.RT2Truck
+    local A_2 = CFrame.new(X, Y, Z)
+    local Event = game:GetService("ReplicatedStorage").Remotes.SpawnVehicle
+    Event:InvokeServer(A_1, A_2)
+end
+
+function loadtruck()
+    for i, v in pairs(game:GetService("Workspace").Map.Landmarks["Loading Dock"]:GetDescendants()) do
+        if v.Name == "Icon" and v.Image == "rbxthumb://type=Avatar&id="..userid.."&w=420&h=420" then
+            local loadingdock = v.Parent.Parent.Parent.Parent.Parent.CargoArea
+            char.HumanoidRootPart.CFrame = CFrame.new(loadingdock.Position)
+            spawntruck(loadingdock.Position.X, loadingdock.Position.Y + 2, loadingdock.Position.Z)
+        end
+    end
+    spawntruck()
+    local Event = game:GetService("ReplicatedStorage").Remotes.LoadVehicle
+    Event:InvokeServer()
+end
+
+function unloadtruck()
+    for i, v in pairs(game:GetService("Workspace").Map.Plots:GetDescendants()) do
+        if v.Name == "Wall_17_11.5" then
+            local unloadingdock = v:FindFirstChild("Base")
+            char.HumanoidRootPart.CFrame = CFrame.new(unloadingdock.Position)
+            spawntruck(unloadingdock.Position.X, unloadingdock.Position.Y, unloadingdock.Position.Z)
+        end
+    end
+    spawntruck()
+    local Event = game:GetService("ReplicatedStorage").Remotes.UnloadVehicle
+    Event:InvokeServer()
+end
+
+function buyite()
+    local A_1 = Settings.RT2ItemName
+    local A_2 = Settings.RT2Quantity
+    local A_3 = false
+    local Event = game:GetService("ReplicatedStorage").Remotes.BuyStorage
+    Event:InvokeServer(A_1, A_2, A_3)
+end
+
+local Finity = loadstring(game:HttpGet("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/FinityUI"))()
+local FinityWindow = Finity.new(true) -- 'true' means dark mode is enabled
+local FinityCredits = FinityWindow:Category("Credits")
+local FinityC1 = FinityWindow:Category("Retail Tycoon 2")
+local FCreditsL1 = FinityCredits:Sector("Credits")
+local FC1L1 = FinityC1:Sector("Main")
+local FC1L2 = FinityC1:Sector("Misc")
+local FC1L3 = FinityC1:Sector("Settings")
+
+-- Credits
+FCreditsL1:Cheat("Label","Made By Dxniz#5321", function() end)
+FCreditsL1:Cheat("Button", "Copy Discord Server Link", function()
+	setclipboard("https://discord.gg/GgrQBzA3Z9")
+end)
+
+-- FC1L1
+FC1L1:Cheat("Checkbox","Auto Clean (Currently Not Available)", function(bool)
+    Settings.RT2AutoClean = bool
+end)
+
+-- FC1L2
+FC1L2:Cheat("Dropdown","Select Truck", function(bool)
+    Settings.RT2Truck = tonumber(bool)
+end, {options = {"1","2","3","4","5"}})
+
+FC1L2:Cheat("Button","Load Items", function(bool)
+    loadtruck()
+end)
+
+FC1L2:Cheat("Button","Unload Items", function(bool)
+    unloadtruck()
+end)
+
+FC1L2:Cheat("Button","Buy Selected Items", function(bool)
+    buyite()
+end)
+
+FC1L2:Cheat("Dropdown","Buy Selected Items", function(bool)
+    Settings.RT2ItemName = bool
+end, {options = {"Halloween","Toys","Clothing","Shoes","Hats","Candy","Snacks","Canned Food","Boxed Food","Cold Food","Baked Goods","Fruit","Vegetables","Condiments","Beverages","Small Electronics","Large Electronics","PC Electronics","PC Peripherals","Office Electronics","Game Consoles","Videogames","Small Appliances","Large Appliances","Kitchenware","Luggage","Vacuum Cleaners","Personal Care","School Supplies","Brass Instruments","String Instruments","Pianos","Small Outdoor Equipment","Large Outdoor Equipment","Small Power Tools","Large Power Tools","Garden Tools","Paint Supplies","Lumber","Small Furniture","Large Furniture","Excersise Equipment","Game Tables","Personal Transport","Car Parts","Economy Cars","Jewelry"}})
+
+FC1L2:Cheat("Slider", "Amount", function(Value)
+    Settings.RT2Quantity = Value
+	print("Items value changed:", Value)
+end, {min = 1, max = 1000, suffix = " Items"})
+
+--FC1L3
+FC1L3:Cheat("Button", "Save Settings", function()
+	saveSettings()
+end)
+
+FC1L3:Cheat("Button", "Load Settings", function()
+	loadSettings()
+end)
+
+for i,v in pairs(getconnections(player.Idled)) do 
+    v:Disable()
+end
