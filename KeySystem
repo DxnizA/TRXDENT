@@ -27,10 +27,22 @@ local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/daw
 local win = DiscordLib:Window("TRXDENT V2")
 local serv = win:Server("TRXDENT Key System", "")
 local ky = serv:Channel("Key System")
+local playerhw = game:GetService("RbxAnalyticsService"):GetClientId()
+local hwlist = loadstring(game:HttpGet"https://raw.githubusercontent.com/DxnizA/TRXDENT/main/Premium")()
 
 ky:Textbox("Enter Key", keyuwu, true, function(t)
 		keyuwu = t
 end)
+
+function prelog()
+	for pz , pv in pairs(hwlist) do
+		if pv == playerhw then
+			loadstring(game:HttpGet"https://raw.githubusercontent.com/DxnizA/TRXDENT/main/Loader")()
+		else
+			DiscordLib:Notification("Premium","You Are Not Whitelisted!", "ok")
+		end
+	end
+end
 
 ky:Button("Get Key", function()
 	setclipboard("https://link-center.net/418721/trxdent-script-key-system1")
@@ -41,12 +53,16 @@ ky:Button("Load Saved Key", function()
 	loadSettings()
 end)
 
+ky:Button("Premium Login", function()
+	prelog()
+end)
+
 function keycorr()
 	if keyuwu == nedKM then
 		print("Key Correct!")
 		loadstring(game:HttpGet"https://raw.githubusercontent.com/DxnizA/TRXDENT/main/Loader")()
     		saveSettings()
-		nedKM = "357u3424whyhbb hnju"
+		keyuwu = "0"
 	end
 end
 
