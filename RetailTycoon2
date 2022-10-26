@@ -76,6 +76,20 @@ function buyite()
     local Event = game:GetService("ReplicatedStorage").Remotes.BuyStorage
     Event:InvokeServer(A_1, A_2, A_3)
 end
+-- spawnFunction
+
+spawn(function()
+    while true and wait() do
+        if Settings.RT2AutoClean then
+            for ti, tv in pairs(game:GetService("Workspace").Map.Plots:GetDescendants()) do
+                if tv.Name == "PromptPart" then
+                    char.HumanoidRootPart.CFrame = CFrame.new(tv.Position)
+                    fireproximityprompt(tv.ProximityPrompt)
+                end
+            end
+        end
+    end
+end)
 
 local Finity = loadstring(game:HttpGet("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/FinityUI"))()
 local FinityWindow = Finity.new(true) -- 'true' means dark mode is enabled
@@ -93,7 +107,7 @@ FCreditsL1:Cheat("Button", "Copy Discord Server Link", function()
 end)
 
 -- FC1L1
-FC1L1:Cheat("Checkbox","Auto Clean (Currently Not Available)", function(bool)
+FC1L1:Cheat("Checkbox","Auto Clean", function(bool)
     Settings.RT2AutoClean = bool
 end)
 
