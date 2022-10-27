@@ -10,6 +10,10 @@ getgenv().Settings = {
 	MM2Automessage = false;
 }
 
+if not isfolder("TRXDENT") then
+    makefolder("TRXDENT")
+end
+
 if game.CoreGui:FindFirstChild("FinityUI") then
     game.CoreGui["FinityUI"]:Destroy()
 end
@@ -34,7 +38,7 @@ local player = game.Players.LocalPlayer
 
 -- Save System
 
-local filename = "TRXDENT_MM2Autofarm.lua"
+local filename = "TRXDENT/MM2Autofarm.lua"
 
 function loadSettings()
 	print("Loading Settings")
@@ -56,6 +60,7 @@ function saveSettings()
 		print("Windows Rejected Save Request")
 	end
 end
+
 
 -- FC1L1
 
