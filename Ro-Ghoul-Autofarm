@@ -19,7 +19,11 @@ getgenv().Settings = {
     RGEtoYoshimura = false;
 }
 
-local filename = "TRXDENT_RoGhoulGui.lua"
+if not isfolder("TRXDENT") then
+    makefolder("TRXDENT")
+end
+
+local filename = "TRXDENT/RoGhoul.lua"
 
 function loadSettings()
 	print("Loading Settings")
