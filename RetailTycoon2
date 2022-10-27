@@ -9,7 +9,11 @@ getgenv().Settings = {
     RT2ItemName = "Halloween";
 }
 
-local filename = "TRXDENT_RetailTycoon2.lua"
+if not isfolder("TRXDENT") then
+    makefolder("TRXDENT")
+end
+
+local filename = "TRXDENT/RetailTycoon2.lua"
 
 function loadSettings()
 	print("Loading Settings")
