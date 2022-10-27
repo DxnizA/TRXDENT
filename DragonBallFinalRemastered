@@ -20,7 +20,11 @@ getgenv().Settings = {
     DBFRHowManyF = 1;
 }
 
-local filename = "TRXDENT_DBFRGui.lua"
+if not isfolder("TRXDENT") then
+    makefolder("TRXDENT")
+end
+
+local filename = "TRXDENT/DragonBallFinalRemastered.lua"
 
 function loadSettings()
 	print("Loading Settings")
