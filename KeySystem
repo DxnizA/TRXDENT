@@ -1,6 +1,10 @@
 getgenv().nedKM = "Halloween"
 
-local filename = "TRXDENTKey.lua"
+if not isfolder("TRXDENT") then
+    makefolder("TRXDENT")
+end
+
+local filename = "TRXDENT/Key.lua"
 
 function loadSettings()
 	print("Loading Settings")
