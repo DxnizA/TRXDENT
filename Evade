@@ -9,7 +9,11 @@ getgenv().Settings = {
     EvadeImageID = "10526778757";
 }
 
-local filename = "TRXDENT_EvadeGui.lua"
+if not isfolder("TRXDENT") then
+    makefolder("TRXDENT")
+end
+
+local filename = "TRXDENT/Evade.lua"
 
 function loadSettings()
 	print("Loading Settings")
