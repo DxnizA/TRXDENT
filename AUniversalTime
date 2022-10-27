@@ -29,7 +29,11 @@ getgenv().STa = {
     AutoB = false;
 }
 
-local filename = "TRXDENT_AUTGui.lua"
+if not isfolder("TRXDENT") then
+    makefolder("TRXDENT")
+end
+
+local filename = "TRXDENT/AUniversalTime.lua"
 
 function loadSettings()
 	print("Loading Settings")
