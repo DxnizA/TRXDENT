@@ -1,4 +1,4 @@
-getgenv().nedKM = "andrew tate with bikini"
+getgenv().nedKM = "Andrew Tate's Bugatti"
 
 if not isfolder("TRXDENT") then
     makefolder("TRXDENT")
