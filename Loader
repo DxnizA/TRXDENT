@@ -1,3 +1,7 @@
+if not isfolder("TRXDENT") then
+    makefolder("TRXDENT")
+end
+
 local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
 
 local win = DiscordLib:Window("TRXDENT")
@@ -11,67 +15,75 @@ local AUniversalTime = serv:Channel("A Universal Time")
 local NaturalDisaster = serv:Channel("Natural Disaster S")
 local Evade = serv:Channel("Evade")
 local RetailTycoon2 = serv:Channel("Retail Tycoon 2")
+local AnimeEvolutionSimulator = serv:Channel("Anime Evolution Simulator")
 local other = serv:Channel("Other Scripts")
 
 -- Murder Mystery 2
-mm2:Button("TRXDENT MM2 Status", function()
+mm2:Button("MM2 Status", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
-	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/MM2Status")))()
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/XDENTLoader/main/MM2Status")))()
 end)
 
 mm2:Seperator()
 
-mm2:Button("TRXDENT MM2 Autofarm", function()
+mm2:Button("MM2 Autofarm", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
 	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/MM2")))()
 end)
 
 -- Ro Ghoul
-roghoul:Button("TRXDENT Ro-Ghoul Look Player's Stats", function()
+roghoul:Button("Ro-Ghoul Look Player's Stats", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
-	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/Ro-Ghoul-Look")))()
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/XDENTLoader/main/Ro-Ghoul-Look")))()
 end)
 
 roghoul:Seperator()
 
-roghoul:Button("TRXDENT Ro-Ghoul Autofarm", function()
+roghoul:Button("Ro-Ghoul Autofarm", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
-	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/Ro-Ghoul-Autofarm")))()
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/XDENTLoader/main/Ro-Ghoul-Autofarm")))()
 end)
 
 -- Dragon Ball Final Remastered
 
-DragonBallFinalRemastered:Button("TRXDENT DBFR Autofarm", function()
+DragonBallFinalRemastered:Button("DBFR Autofarm", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
 	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/DragonBallFinalRemastered")))()
 end)
 
 -- A Universal Time
 
-AUniversalTime:Button("TRXDENT A Universal Time Autofarm", function()
+AUniversalTime:Button("A Universal Time Autofarm", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
 	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/AUniversalTime")))()
 end)
 
 -- Natural Disaster Survival
 
-NaturalDisaster:Button("TRXDENT Natural Disaster S Autofarm", function()
+NaturalDisaster:Button("Natural Disaster S Autofarm", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
 	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/NaturalDisasterSurvival")))()
 end)
 
 -- Evade
 
-Evade:Button("TRXDENT Evade Gui", function()
+Evade:Button("Evade Gui", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
 	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/Evade")))()
 end)
 
 -- Retail Tycoon 2
 
-RetailTycoon2:Button("TRXDENT Retail Tycoon 2 Gui", function()
+RetailTycoon2:Button("Retail Tycoon 2 Gui", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
 	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/RetailTycoon2")))()
+end)
+
+-- Anime Evolution Simulator
+
+AnimeEvolutionSimulator:Button("Anime Evolution Simulator Gui", function()
+	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/AnimeEvolutionSimulator")))()
 end)
 
 -- Other Scripts
@@ -81,7 +93,7 @@ other:Button("TRXDENT RemoteSpy (Remake of R2S)", function()
 	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/RemoteSpy")))()
 end)
 
-other:Button("TRXDENT Aimlock (RMB To Activate)", function()
+other:Button("Aimlock (RMB To Activate)", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
-	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/TRXDENT%20Aimlock")))()
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/XDENTLoader/main/TRXDENT%20Aimlock")))()
 end)
