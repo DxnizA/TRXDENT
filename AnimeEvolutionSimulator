@@ -1,0 +1,134 @@
+if game.CoreGui:FindFirstChild("FinityUI") then
+    game.CoreGui["FinityUI"]:Destroy()
+end
+
+getgenv().Settings = {
+    AESimAutoTrain = false;
+    AESimArea = "";
+    AESimAutoAttack = false;
+    AESimAutoEnemy = "";
+}
+
+if not isfolder("TRXDENT") then
+    makefolder("TRXDENT")
+end
+
+local filename = "TRXDENT/AnimeEvolutionSim.lua"
+
+function loadSettings()
+	print("Loading Settings")
+	local HttpService = game:GetService("HttpService");
+	if (readfile and isfile and isfile(filename)) then
+		getgenv().Settings = HttpService:JSONDecode(readfile(filename));
+	else
+		print("File Not Found")	
+	end
+end
+
+function saveSettings()
+	local Logsz;
+	local HttpService = game:GetService("HttpService");
+	if (writefile) then
+		Logsz = HttpService:JSONEncode(Settings);
+		writefile(filename, Logsz)
+	else
+		print("Windows Rejected Save Request")
+	end
+end
+
+local player = game.Players.LocalPlayer
+local char = player.Character
+local hroot = char.HumanoidRootPart
+local mobs = game.Workspace["__WORKSPACE"].Mobs
+
+local Finity = loadstring(game:HttpGet("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/FinityUI"))()
+local FinityWindow = Finity.new(true) -- 'true' means dark mode is enabled
+local FinityCredits = FinityWindow:Category("Credits")
+local FinityC1 = FinityWindow:Category("AE Simulator")
+local FCreditsL1 = FinityCredits:Sector("Credits")
+local FC1L1 = FinityC1:Sector("Main")
+local FC1L3 = FinityC1:Sector("Settings")
+
+-- Credits
+FCreditsL1:Cheat("Label","Made By Dxniz#5321", function() end)
+FCreditsL1:Cheat("Button", "Copy Discord Server Link", function()
+	setclipboard("https://discord.gg/GgrQBzA3Z9")
+end)
+
+-- FC1L1 - Main
+FC1L1:Cheat("Checkbox","Auto Train", function(value)
+    Settings.AESimAutoTrain = value
+end)
+
+FC1L1:Cheat("Dropdown","Select Arena (Break Door)", function(value)
+    Settings.AESimArea = value
+end, {options = {"","Ooy Piece","Narutye","Dragyon Bool","Attack On","Slayer Demons","One Punchy","Faty","Hunters","My Hero","Tokyo Ghost","Jujutsu Kase","Slime Tensy","Ragnarok","Tokyio Revengers","Back Clover","Sword Art","Blechi","JouJo Adventures","Mob Pchaicho"}})
+
+--FC1L1:Cheat("Checkbox","Auto Attack", function(value)
+    --Settings.AESimAutoAttack = value
+--end)
+
+--FC1L1:Cheat("Dropdown","Select Mob", function(value)
+    --Settings.AESimAutoEnemy = value
+--end, {options = {"Luffe","Zory","DoFlamyngue","White Beard","Zaruto","Sakuri","Sazuke","Jiraye","Kakashe","Madera","Koku","Fegito","Degeta","Trynks","Dohan","Koyku Black"}})--
+
+
+--FC1L3
+FC1L3:Cheat("Button", "Save Settings", function()
+	saveSettings()
+end)
+
+FC1L3:Cheat("Button", "Load Settings", function()
+	loadSettings()
+end)
+
+for i,v in pairs(getconnections(player.Idled)) do 
+    v:Disable()
+end
+
+function powtra(Arena)
+    if Settings.AESimArea ~= "" then
+        local A_1 = 
+        {
+            [1] = "PowerTrain", 
+            [2] = game:GetService("Workspace")["__WORKSPACE"].Areas[Arena]
+        }
+        local Event = game:GetService("ReplicatedStorage").Remotes.Client
+        Event:FireServer(A_1)
+    else
+        local A_1 = 
+         {
+            [1] = "PowerTrain"
+        }
+        local Event = game:GetService("ReplicatedStorage").Remotes.Client
+        Event:FireServer(A_1)
+    end
+end
+
+function autoenemty()
+    for azqi, azqv in pairs(mobs:GetDescendants()) do
+        if azqv.Name == Settings.AESimAutoEnemy then
+            local npc = azqv
+            hroot.CFrame = CFrame.new(npc.Position)
+            local A_1 = 
+            {
+                [1] = "AttackMob", 
+                [2] = npc, 
+                [3] = "Right Arm"
+            }
+            local Event = game:GetService("ReplicatedStorage").Remotes.Client
+            Event:FireServer(A_1)
+        end
+    end
+end
+
+spawn(function()
+    while true do wait()
+        if Settings.AESimAutoTrain then
+            powtra(Settings.AESimArea)
+        end
+        if Settings.AESimAutoAttack then
+            autoenemty()
+        end
+    end
+end)
