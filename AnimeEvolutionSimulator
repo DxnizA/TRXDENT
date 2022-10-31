@@ -88,13 +88,18 @@ end
 
 function powtra(Arena)
     if Settings.AESimArea ~= "" then
-        local A_1 = 
-        {
-            [1] = "PowerTrain", 
-            [2] = game:GetService("Workspace")["__WORKSPACE"].Areas[Arena]
-        }
-        local Event = game:GetService("ReplicatedStorage").Remotes.Client
-        Event:FireServer(A_1)
+        local finarea = game:GetService("Workspace")["__WORKSPACE"].Areas:FindFirstChild(Arena)
+        if finarea then
+            local A_1 = 
+            {
+                [1] = "PowerTrain", 
+                [2] = finarea
+            }
+            local Event = game:GetService("ReplicatedStorage").Remotes.Client
+            Event:FireServer(A_1)
+        else
+            return
+        end
     else
         local A_1 = 
          {
