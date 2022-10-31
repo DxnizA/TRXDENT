@@ -64,8 +64,6 @@ FC1L1:Cheat("Dropdown","Select Arena (Break Door)", function(value)
     Settings.AESimArea = value
 end, {options = {"","Ooy Piece","Narutye","Dragyon Bool","Attack On","Slayer Demons","One Punchy","Faty","Hunters","My Hero","Tokyo Ghost","Jujutsu Kase","Slime Tensy","Ragnarok","Tokyio Revengers","Back Clover","Sword Art","Blechi","JouJo Adventures","Mob Pchaicho"}})
 
-FC1L1:Cheat("Label","if you want to use Auto Train on any location leave empty Arena!", function() end)
-
 FC1L1:Cheat("Button","Teleport To Door", function()
     local finarea = game:GetService("Workspace")["__WORKSPACE"].Areas:FindFirstChild(Settings.AESimArea)
     if finarea then
