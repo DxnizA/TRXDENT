@@ -69,7 +69,9 @@ FC1L1:Cheat("Label","if you want to use Auto Train on any location leave empty A
 FC1L1:Cheat("Button","Teleport To Door", function()
     local finarea = game:GetService("Workspace")["__WORKSPACE"].Areas:FindFirstChild(Settings.AESimArea)
     if finarea then
-        hroot.CFrame = CFrame.new(finarea.Point.Position)
+        if char:FindFirstChild("HumanoidRootPart") then
+            hroot.CFrame = CFrame.new(finarea.Point.Position)
+        end
     end
 end)
 
