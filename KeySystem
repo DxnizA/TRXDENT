@@ -1,4 +1,4 @@
-getgenv().nedKM = "Andrew Tate's Bugatti"
+getgenv().nedKM = "Allah"
 
 if not isfolder("TRXDENT") then
     makefolder("TRXDENT")
