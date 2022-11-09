@@ -1,4 +1,4 @@
-getgenv().nedKM = "Allah"
+getgenv().nedKM = ":gigachad:"
 
 if not isfolder("TRXDENT") then
     makefolder("TRXDENT")
