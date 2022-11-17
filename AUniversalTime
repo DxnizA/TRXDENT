@@ -367,6 +367,9 @@ end
 while true and wait() do
     autofarm()
     AutoPress()
-    AutoSafe()
     AutoBoss()
+end
+
+while true do wait()
+    AutoSafe()
 end
