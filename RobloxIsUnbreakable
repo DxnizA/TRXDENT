@@ -1,0 +1,186 @@
+repeat
+	wait()
+until game:IsLoaded()
+
+if game.CoreGui:FindFirstChild("FinityUI") then
+    game.CoreGui["FinityUI"]:Destroy()
+end
+
+if not isfolder("TRXDENT") then
+    makefolder("TRXDENT")
+end
+
+local filename = "TRXDENT/RobloxIsUnbreakable.lua"
+
+function loadSettings()
+	print("Loading Settings")
+	local HttpService = game:GetService("HttpService");
+	if (readfile and isfile and isfile(filename)) then
+		getgenv().Settings = HttpService:JSONDecode(readfile(filename));
+	else
+		print("File Not Found")	
+	end
+end
+
+function saveSettings()
+	local Logsz;
+	local HttpService = game:GetService("HttpService");
+	if (writefile) then
+		Logsz = HttpService:JSONEncode(STa);
+		writefile(filename, Logsz)
+	else
+		print("Windows Rejected Save Request")
+	end
+end
+
+getgenv().RIUAutofarm = {
+	world = "";
+	itemfrm = false;
+	autostand = false;
+	autostandselected = "";
+	autosell = false;
+	autosellitem = "";
+}
+
+local Finity = loadstring(game:HttpGet("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/FinityUI"))()
+local FinityWindow = Finity.new(true) -- 'true' means dark mode is enabled
+local FinityCredits = FinityWindow:Category("Credits")
+local FinityC1 = FinityWindow:Category("RIU")
+local FCreditsL1 = FinityCredits:Sector("Credits")
+local FC1L1 = FinityC1:Sector("Auto-Farm")
+local FC1L2 = FinityC1:Sector("Teleport")
+local FC1L3 = FinityC1:Sector("Settings")
+local FC1L4 = FinityC1:Sector("Misc")
+
+-- Credits
+FCreditsL1:Cheat("Label","Made By Dxniz#5321", function() end)
+FCreditsL1:Cheat("Button", "Copy Discord Server Link", function()
+	setclipboard("https://discord.gg/GgrQBzA3Z9")
+end)
+
+local player = game.Players.LocalPlayer
+local lp = game:GetService("Players").LocalPlayer
+local char = lp.Character or lp.CharacterAdded:Wait()
+local hum = char:WaitForChild("Humanoid")
+local root = char:WaitForChild("HumanoidRootPart")
+local itemlocation = game:GetService("Workspace").Map.Items.SpawnedItems
+local ws = game:GetService("Workspace").NPCs.Friendly:FindFirstChild("Whitesnake (NPC)")
+local wsproximity = ws.Head.Head.ProximityPrompt
+local goldenwindnpc = game:GetService("Workspace").NPCs.Friendly:FindFirstChild("Giorno Giovanna (Train Station)")
+
+if goldenwindnpc then	
+	RIUAutofarm.world = "Golden Wind"
+end
+
+-- Anti-AFK
+
+for i,v in pairs(getconnections(lp.Idled)) do 
+    v:Disable()
+end
+
+-- Misc
+
+FC1L4:Cheat("Dropdown", "Buy Item", function(a)
+	local A_1 = game:GetService("Workspace").FearlessBreaker
+	local A_2 = a
+	local A_3 = 1
+	local Event = game:GetService("ReplicatedStorage").Events.ItemBuyEvent
+	Event:FireServer(A_1, A_2, A_3)
+end, {options = {"Arrow","StoneMask","SteelBall","Locacaca","RequiemArrow"}})
+
+FC1L4:Cheat("Dropdown", "Sell", function(a)
+	RIUAutofarm.autosellitem = a
+	local A_1 = game:GetService("Workspace").FearlessBreaker
+	local A_2 = "TRXDENT"
+	local A_3 = a
+	local A_4 = "Cash"
+	local A_5 = 500
+	local A_6 = 1
+	local Event = game:GetService("ReplicatedStorage").Events.ItemSellEvent
+	Event:FireServer(A_1, A_2, A_3, A_4, A_5, A_6)
+end, {options = {"Arrow","StoneMask","SteelBall","Locacaca","RequiemArrow"}})
+
+FC1L4:Cheat("Checkbox", "Auto-Sell", function(t)
+	RIUAutofarm.autosell = t
+end)
+
+-- Item Farm
+FC1L1:Cheat("Checkbox", "Item Farm", function(t)
+	RIUAutofarm.itemfrm = t
+end)
+
+FC1L1:Cheat("Checkbox", "Stand Farm (Fixing)", function(t)
+	RIUAutofarm.autostand = t
+end)
+
+FC1L1:Cheat("Dropdown", "Select Stand (Fixing)", function(t)
+	RIUAutofarm.autostandselected = t
+end, {options = {"Gold Experience","Star Platinum","The World","Hermit Purple","Crazy Diamond","Killer Queen","Sticky Fingers","Metallica","King Crimson","Whitesnake"}})
+
+-- Settings
+FC1L3:Cheat("Button","Save Settings", function()
+    saveSettings()
+end)
+
+FC1L3:Cheat("Button","Load Settings", function()
+    loadSettings()
+end)
+
+spawn(function()
+	while true do wait()
+		if RIUAutofarm.itemfrm then
+			for _, a in pairs(itemlocation:GetChildren()) do
+				if a:FindFirstChild("Handle") then
+					root.CFrame = CFrame.new(a.Handle.Position)
+					fireproximityprompt(a.Handle.ProximityPrompt)
+				elseif a.Name == "Coin" or a.Name == "Cash" then
+					root.CFrame = CFrame.new(a.Position)
+					fireproximityprompt(a.ProximityPrompt)
+				end
+				if not RIUAutofarm.itemfrm then return end
+			end
+		end
+	end
+end)
+
+spawn(function()
+	while true do wait()
+		if RIUAutofarm.autosell then
+			local A_1 = game:GetService("Workspace").FearlessBreaker
+			local A_2 = "TRXDENT"
+			local A_3 = RIUAutofarm.autosellitem
+			local A_4 = "Cash"
+			local A_5 = 500
+			local A_6 = 1
+			local Event = game:GetService("ReplicatedStorage").Events.ItemSellEvent
+			Event:FireServer(A_1, A_2, A_3, A_4, A_5, A_6)
+		end
+	end
+end)
+
+spawn(function()
+	while true do wait()
+		if RIUAutofarm.autostand then
+			local standcheck = game:GetService("Players").LocalPlayer.PlayerGui.HUD.Screen.StandEyeCatch
+			for i,v in pairs(standcheck:GetChildren()) do
+				if v.Name == RIUAutofarm.autostandselected.." (StandEyeCatch)" then
+					print("You Have Selected!")
+				elseif v.Name ~= RIUAutofarm.autostandselected.." (StandEyeCatch)" and ws then
+					root.CFrame = CFrame.new(ws.HumanoidRootPart.CFrame.Position)
+					wait(0.3)
+					fireproximityprompt(wsproximity)
+					wait(0.3)
+					local A_1 = game:GetService("Workspace").FearlessBreaker
+					local A_2 = "Arrow"
+					local A_3 = "Arrow"
+					local Event = game:GetService("ReplicatedStorage").Events.ItemUseEvent
+					Event:FireServer(A_1, A_2, A_3)
+					--
+					wait(4)
+					game.Players.LocalPlayer.Character.Humanoid:TakeDamage(99999)
+					wait(15)
+				end
+			end
+		end
+	end
+end)
