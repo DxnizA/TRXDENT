@@ -16,6 +16,7 @@ local NaturalDisaster = serv:Channel("Natural Disaster S")
 local Evade = serv:Channel("Evade")
 local RetailTycoon2 = serv:Channel("Retail Tycoon 2")
 local AnimeEvolutionSimulator = serv:Channel("Anime Evolution Simulator")
+local RobloxIsUnbreakable = serv:Channel("Roblox Is Unbreakable")
 local other = serv:Channel("Other Scripts")
 
 -- Murder Mystery 2
@@ -84,6 +85,13 @@ end)
 AnimeEvolutionSimulator:Button("Anime Evolution Simulator Gui", function()
 	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
 	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/AnimeEvolutionSimulator")))()
+end)
+
+-- Roblox Is Unbreakable
+
+RobloxIsUnbreakable:Button("Roblox Is Unbreakable Gui", function()
+	DiscordLib:Notification("Notification", "made by Dxniz#5321", "Thank You!")
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/DxnizA/TRXDENT/main/RobloxIsUnbreakable")))()
 end)
 
 -- Other Scripts
