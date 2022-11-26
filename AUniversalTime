@@ -8,7 +8,6 @@ end
 
 getgenv().STa = {
     autosafe = false;
-    safecooldown = 10;
     intog = false;
     Autofarm = true;
     Chest = false;
@@ -18,6 +17,7 @@ getgenv().STa = {
     BoaH = false;
     Diavolo = false;
     Dio = false;
+    Johnny = false;
     AutoE = false;
     AutoR = false;
     AutoT = false;
@@ -120,17 +120,15 @@ end)
 FC1L1:Cheat("Checkbox","Autofarm (Diavolo)", function(t)
     STa.Diavolo = t
 end)
+FC1L1:Cheat("Checkbox","Autofarm (Johnny)", function(t)
+    STa.Johnny = t
+end)
 
 -- Teleports
 
 FC1L2:Cheat("Checkbox","Auto-Teleport Safezone", function(t)
     STa.autosafe = t
 end)
-
-FC1L2:Cheat("Slider", "Cooldown", function(Value)
-    STa.safecooldown = Value
-	print("Cooldown value changed:", Value)
-end, {min = 1, max = 60, suffix = " Second"})
 
 FC1L2:Cheat("Button","Safezone", function()
     root.CFrame = CFrame.new(686.581298828125, 1164.6793212890625, -495.5419921875)
@@ -262,6 +260,7 @@ function autofarm()
                     end
                 end
             end
+            if STa.autosafe then root.CFrame = CFrame.new(686.581298828125, 1164.6793212890625, -495.5419921875) end
             if not STa.Autofarm then return end
         end
     end
@@ -304,18 +303,12 @@ function AutoPress()
     end
 end
 
-function AutoSafe()
-    if STa.autosafe then
-        wait(STa.safecooldown)
-        root.CFrame = CFrame.new(686.581298828125, 1164.6793212890625, -495.5419921875)
-    end
-end
-
 function AutoBoss()
     if char then
         local dio = game:GetService("Workspace").Living:FindFirstChild("Dio")
         local diavolo = game:GetService("Workspace").Living:FindFirstChild("Diavolo")
         local boah = game:GetService("Workspace").Living:FindFirstChild("Boa H")
+        local johnny = game:GetService("Workspace").Living:FindFirstChild("Johnny Joestar")
         if STa.Dio then
             if dio then
                 if dio:FindFirstChild("HumanoidRootPart") then
@@ -323,8 +316,8 @@ function AutoBoss()
                     wait(2)
                     repeat
                         wait()
-                        AutoPress()
                         root.CFrame = dio.HumanoidRootPart.CFrame + Vector3.new(0, 0, 0)
+                        AutoPress()
                         if not STa.Dio then return end
                         if not char then return end
                     until not dio
@@ -338,8 +331,8 @@ function AutoBoss()
                     wait(2)
                     repeat
                         wait()
-                        AutoPress()
                         root.CFrame = diavolo.HumanoidRootPart.CFrame + Vector3.new(0, 0, 0)
+                        AutoPress()
                         if not STa.Diavolo then return end
                         if not char then return end
                     until not diavolo
@@ -353,8 +346,23 @@ function AutoBoss()
                     wait(2)
                     repeat
                         wait()
-                        AutoPress()
                         root.CFrame = boah.HumanoidRootPart.CFrame + Vector3.new(0, 0, 0)
+                        AutoPress()
+                        if not STa.BoaH then return end
+                        if not char then return end
+                    until not boah
+                end
+            end
+        end
+        if STa.Johnny then
+            if johnny then
+                if johnny:FindFirstChild("HumanoidRootPart") then
+                    root.CFrame = CFrame.new(11062.6533, 954.30835, 15120.6396)
+                    wait(2)
+                    repeat
+                        wait()
+                        root.CFrame = boah.HumanoidRootPart.CFrame + Vector3.new(0, 0, 0)
+                        AutoPress()
                         if not STa.BoaH then return end
                         if not char then return end
                     until not boah
@@ -366,10 +374,5 @@ end
 
 while true and wait() do
     autofarm()
-    AutoPress()
     AutoBoss()
-end
-
-while true do wait()
-    AutoSafe()
 end
