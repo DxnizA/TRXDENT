@@ -215,6 +215,7 @@ function autofarm()
                             for i,v in pairs(game:GetService("Workspace").ItemSpawns.Chests:GetDescendants()) do
                                 if v:FindFirstChild("Interaction") then
                                     fireproximityprompt(v.Interaction, 1, true)
+                                    if STa.autosafe then root.CFrame = CFrame.new(686.581298828125, 1164.6793212890625, -495.5419921875) end
                                 end
                             end
                         end
@@ -229,6 +230,7 @@ function autofarm()
                         for i,v in pairs(game:GetService("Workspace").ItemSpawns.Meteors:GetDescendants()) do
                             if v:FindFirstChild("Interaction") then
                                 fireproximityprompt(v.Interaction, 1, true)
+                                if STa.autosafe then root.CFrame = CFrame.new(686.581298828125, 1164.6793212890625, -495.5419921875) end
                             end
                         end
                     end
@@ -241,6 +243,7 @@ function autofarm()
                         for i,v in pairs(game:GetService("Workspace").ItemSpawns["Sand Debris"]:GetDescendants()) do
                             if v:FindFirstChild("Interaction") then
                                 fireproximityprompt(v.Interaction, 1, true)
+                                if STa.autosafe then root.CFrame = CFrame.new(686.581298828125, 1164.6793212890625, -495.5419921875) end
                             end
                         end
                     end
@@ -254,13 +257,13 @@ function autofarm()
                             for i,v in pairs(game:GetService("Workspace").ItemSpawns.StandardItems:GetDescendants()) do
                                 if v:FindFirstChild("Interaction") then
                                     fireproximityprompt(v.Interaction, 1, true)
+                                    if STa.autosafe then root.CFrame = CFrame.new(686.581298828125, 1164.6793212890625, -495.5419921875) end
                                 end
                             end
                         end
                     end
                 end
             end
-            if STa.autosafe then root.CFrame = CFrame.new(686.581298828125, 1164.6793212890625, -495.5419921875) end
             if not STa.Autofarm then return end
         end
     end
