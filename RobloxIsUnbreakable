@@ -16,7 +16,7 @@ function loadSettings()
 	print("Loading Settings")
 	local HttpService = game:GetService("HttpService");
 	if (readfile and isfile and isfile(filename)) then
-		getgenv().Settings = HttpService:JSONDecode(readfile(filename));
+		getgenv().RIUAutofarm = HttpService:JSONDecode(readfile(filename));
 	else
 		print("File Not Found")	
 	end
