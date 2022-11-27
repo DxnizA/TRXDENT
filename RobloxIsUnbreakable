@@ -70,6 +70,13 @@ if game:GetService("Workspace"):FindFirstChild("CorpseParts") then
 		end
 	end, {options = {"Left Arm of the Saint's Corpse","Left Leg of the Saint's Corpse","Ribcage of the Saint's Corpse","Right Arm of the Saint's Corpse","Right Leg of the Saint's Corpse","Skull of the Saint's Corpse","Heart of the Saint's Corpse","Eye of the Saint's Corpse"}})
 
+	FC1L5:Cheat("Button", "Teleport To Your Horse", function(z)
+		local horse = game.Workspace:FindFirstChild(player.Name.."'s Horse")
+		if horse then
+			root.CFrame = CFrame.new(horse.HumanoidRootPart.Position)
+		end
+	end)
+
 	function collectcorpse()
 		for i,v in pairs(cpartlocation:GetDescendants()) do
 			if v:IsA("Part") or v:IsA("MeshPart") and v.Name == "Handle" then
