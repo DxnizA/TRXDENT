@@ -72,7 +72,7 @@ if game:GetService("Workspace"):FindFirstChild("CorpseParts") then
 
 	function collectcorpse()
 		for i,v in pairs(cpartlocation:GetDescendants()) do
-			if v:IsA("Part") or v:IsA("MeshPart") then
+			if v:IsA("Part") or v:IsA("MeshPart") and v.Name == "Handle" then
 				root.CFrame = CFrame.new(v.Position)
 				fireproximityprompt(v.ProximityPrompt)
 			end
