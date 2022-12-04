@@ -126,6 +126,20 @@ end)
 
 -- Teleports
 
+local tpnpc = FC1L2:Cheat("Dropdown","Teleport To NPC", function(t)
+    local npc = game:GetService("Workspace").NPCS:FindFirstChild(t)
+    if npc then
+        local npchroot = npc:FindFirstChild("HumanoidRootPart")
+        if npchroot then
+            root.CFrame = CFrame.new(npchroot.Position)
+        end
+    end
+end, {options = {""}})
+
+for i,v in pairs(game:GetService("Workspace").NPCS:GetChildren()) do
+    tpnpc:AddOption(v.Name)
+end
+
 FC1L2:Cheat("Checkbox","Auto-Teleport Safezone", function(t)
     STa.autosafe = t
 end)
@@ -157,7 +171,7 @@ end)
 
 -- Misc
 
-FC1L4:Cheat("Button","God Mode (For Boss/NPC Farm)", function()
+FC1L4:Cheat("Button","God Mode", function()
     game:GetService("Players").LocalPlayer.Character.Values.Block:Destroy()
 end)
 
@@ -311,7 +325,7 @@ function AutoBoss()
         local dio = game:GetService("Workspace").Living:FindFirstChild("Dio")
         local diavolo = game:GetService("Workspace").Living:FindFirstChild("Diavolo")
         local boah = game:GetService("Workspace").Living:FindFirstChild("Boa H")
-        local johnny = game:GetService("Workspace").Living:FindFirstChild("Johnny Joestar")
+        local johnny = game:GetService("Workspace").Living:FindFirstChild("Johnny")
         if STa.Dio then
             if dio then
                 if dio:FindFirstChild("HumanoidRootPart") then
